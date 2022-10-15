@@ -1,0 +1,87 @@
+<div class="container">
+  <form [formGroup]="formularioAltaProveedor" >
+    <h2>Registro  de nuevo Proveedor</h2>
+    
+    <div class="mb-3">
+      <label for="txtNombre" class="form-label">Nombre</label>
+      <input type="text" class="form-control" id="txtNombre"  formControlName="nombre" />
+      <span *ngIf="formularioAltaProveedor.get('nombre')?.touched &&
+       formularioAltaProveedor.get('nombre')?.hasError('required')">
+        * campo requerido 
+      </span>
+
+   
+    </div>
+
+    <div class="mb-3">
+      <label for="txtCuil" class="form-label">Cuil</label>
+      <input type="text" class="form-control" id="txtCuil" name="cuil" formControlName="cuil" />
+      
+      <span *ngIf="formularioAltaProveedor.get('cuil')?.touched &&
+       formularioAltaProveedor.get('cuil')?.hasError('required')">
+        * campo requerido 
+      </span>
+
+    </div>
+
+    <div class="mb-3">
+      <label for="txtTelefono" class="form-label">Telefono</label>
+      <input type="text" class="form-control" id="txtTelefono" name="telefono" formControlName="telefono"  />
+
+      <span *ngIf="formularioAltaProveedor.get('telefono')?.touched &&
+       formularioAltaProveedor.get('telefono')?.hasError('required')">
+        * campo requerido 
+      </span>
+
+    </div>
+
+
+    <div class="mb-3">
+    <label for="txtTelefono" class="form-label">Seleccione Pais</label>
+    <select class="form-select" name="pais" formControlName="pais" >
+         <option value="1">Argentina</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="txtDireccion" class="form-label">Direccion</label>
+        <input type="text" class="form-control" id="txtDireccion" name="direccion" formControlName="direccion"/>
+
+        <span *ngIf="formularioAltaProveedor.get('direccion')?.touched &&
+        formularioAltaProveedor.get('direccion')?.hasError('required')">
+         * campo requerido 
+       </span>
+
+      </div>
+
+      <div class="mb-3">
+        <label for="txtCodigoPostal" class="form-label">Codigo Postal</label>
+        <input type="text" class="form-control" id="txtCodigoPostal" name="codigoPostal" formControlName="codigoPostal" />
+
+        <span *ngIf="formularioAltaProveedor.get('codigoPostal')?.touched &&
+        formularioAltaProveedor.get('codigoPostal')?.hasError('required')">
+         * campo requerido 
+       </span>
+
+      </div>
+
+      <div class="mb-3">
+        <label for="txtCorreo" class="form-label">Correo electronico</label>
+        <input type="text" class="form-control" id="txtCorreo" name="correo" formControlName="correo" />
+
+        <span *ngIf="formularioAltaProveedor.get('correo')?.touched &&
+        formularioAltaProveedor.get('correo')?.hasError('required')">
+         * campo requerido 
+       </span>
+
+      </div>
+
+
+    
+    <button type="button" class="btn btn-primary"  (click)="guardar()" [disabled]="formularioAltaProveedor.invalid" >Guardar</button>
+    <button type="button" class="btn btn-warning">Volver</button>
+
+    </form>
+</div>
