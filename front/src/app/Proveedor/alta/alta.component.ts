@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms"
-import {Proveedor} from "../../models/proveedor"
+import {Proveedor} from "../../models/proveedor";
+import {ProveedorServiceService} from "../../Services/proveedor-service.service"
 
 @Component({
   selector: 'app-alta',
@@ -22,7 +23,7 @@ export class AltaComponentProveedor implements OnInit {
   })
 
   
-  constructor() { 
+  constructor(private proveedorService: ProveedorServiceService) { 
     
   }
 

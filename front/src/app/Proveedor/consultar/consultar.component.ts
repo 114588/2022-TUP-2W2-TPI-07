@@ -1,19 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import {Proveedor} from "../../models/proveedor"
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Proveedor } from '../../models/proveedor';
+import { ProveedorServiceService } from '../../Services/proveedor-service.service';
 
 @Component({
   selector: 'app-consultar',
   templateUrl: './consultar.component.html',
-  styleUrls: ['./consultar.component.css']
+  styleUrls: ['./consultar.component.css'],
 })
-export class ConsultarComponentProveedor implements OnInit {
+export class ConsultarComponentProveedor implements OnInit, OnDestroy {
+  proveedor: Proveedor = {} as Proveedor;
+  listaProveedor: Proveedor[] = [];
+  subscripcion = new Subscription();
 
-  proveedor: Proveedor =  {} as Proveedor
-  listaProveedor : Proveedor[] = []
-
-  constructor() { }
+  constructor(private proveedorService: ProveedorServiceService) {}
 
   ngOnInit(): void {
+    this.obtenerProveedores();
   }
 
+  ngOnDestroy(): void {
+    this.subscripcion.unsubscribe();
+  }
+
+
+  
+  obtenerProveedores() {
+    this.subscripcion.add(
+      this.proveedorService.obtenerTodos().subscribe({
+        next: (proveedores: Proveedor[]) => {
+          this.listaProveedor = proveedores;
+        },
+        error: () => {
+          alert('error al obtener producto');
+        },
+      })
+    );
+  }
 }

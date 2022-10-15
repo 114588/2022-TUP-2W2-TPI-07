@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {RouterModule} from "@angular/router"
 import {ReactiveFormsModule} from "@angular/forms"
+import {HttpClientModule} from "@angular/common/http"
 
 //usuario
 import { AltaComponent } from "../app/Usuario/alta/alta.component";
@@ -16,6 +17,9 @@ import {AltaComponentProveedor} from "../app/Proveedor/alta/alta.component";
 import {BajaComponentProveedor} from "../app/Proveedor/baja/baja.component";
 import {ConsultarComponentProveedor} from "../app/Proveedor/consultar/consultar.component"
 import {ModificarComponentProveedor} from "../app/Proveedor/modificar/modificar.component"
+
+//services
+import {ProveedorServiceService} from "../app/Services/proveedor-service.service"
 
 @NgModule({
   declarations: [
@@ -36,9 +40,10 @@ import {ModificarComponentProveedor} from "../app/Proveedor/modificar/modificar.
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ProveedorServiceService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
