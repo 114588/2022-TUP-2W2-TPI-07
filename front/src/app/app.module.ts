@@ -21,6 +21,9 @@ import {ModificarComponentProveedor} from "../app/Proveedor/modificar/modificar.
 //services
 import {ProveedorServiceService} from "../app/Services/proveedor-service.service"
 
+//google maps
+import {GoogleMapsModule} from "@angular/google-maps"
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +44,8 @@ import {ProveedorServiceService} from "../app/Services/proveedor-service.service
     AppRoutingModule,
     RouterModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    GoogleMapsModule
   ],
   providers: [ProveedorServiceService,],
   bootstrap: [AppComponent]

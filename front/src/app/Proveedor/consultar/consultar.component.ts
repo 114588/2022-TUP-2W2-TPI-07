@@ -24,7 +24,7 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
   }
 
 
-  
+
   obtenerProveedores() {
     this.subscripcion.add(
       this.proveedorService.obtenerTodos().subscribe({
@@ -32,9 +32,25 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
           this.listaProveedor = proveedores;
         },
         error: () => {
-          alert('error al obtener producto');
+          alert('error al obtener listado');
         },
       })
     );
   }
+
+
+  titleGoogleMaps = 'Google Maps';
+
+  positionGoogleMaps = {
+    lat: -31.306250,
+    lng: -64.241990
+  }
+
+  labelGoogleMaps ={
+    color: "red",
+    text: "mi casa"
+  }
+
+
+
 }

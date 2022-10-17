@@ -2,13 +2,7 @@
   <h2>Busqueda de proveedor</h2>
 
   <form class="form-control">
-    <input
-      class="form-control"
-      type="search"
-      placeholder="Search"
-      aria-label="Search"
-    />
-    
+    <input  class="form-control"  type="search"  placeholder="Search"   aria-label="Search"  />    
   </form>
 </div>
 
@@ -23,6 +17,8 @@
         <th scope="col">Direccion</th>
         <th scope="col">Cod.Postal</th>
         <th scope="col">Correo Electronico</th>
+        <th scope="col">Latitud</th>
+        <th scope="col">Longitud</th>
         <th scope="col">Accion</th>
       </tr>
     </thead>
@@ -35,15 +31,38 @@
         <td>{{ item.direccion }}</td>
         <td>{{ item.codigoPostal }}</td>
         <td>{{ item.correo }}</td>
-        <td><button>aceptar</button> - <button>cancelar</button></td>
+        <td>{{ item.latitud }}</td>
+        <td>{{ item.longitud}}</td>
+        <td>
+          <button type="button" class="btn btn-outline-danger">Cancelar</button>- 
 
-        
+          <button type="button" class="btn btn-outline-success">Aceptar</button>
+
+        </td>
       </tr>
-
-      <tr></tr>
     </tbody>
   </table>
   <button type="button" class="btn btn-secondary">modificar</button>
   <button type="button" class="btn btn-danger">eliminar</button>
   <button type="button" class="btn btn-warning">volver</button>
 </div>
+
+<div class="container">
+  <google-map [center]="positionGoogleMaps">
+    <map-marker [position]="positionGoogleMaps" [label]="labelGoogleMaps" [title]="titleGoogleMaps">
+
+    </map-marker>
+
+  </google-map>
+</div>
+
+
+
+<!-- Pasos para Google Maps -->
+<!-- https://www.youtube.com/watch?v=fnC5lOaOc5I -->
+<!-- npm install @angular/google-maps -->
+<!-- import {GoogleMapsModule} from "@angular/google-maps" -->
+<!-- <google-map></google-map> -->
+
+<!-- https://mapsplatform.google.com/intl/es/pricing/ -->
+

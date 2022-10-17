@@ -40,8 +40,8 @@
     <label for="txtTelefono" class="form-label">Seleccione Pais</label>
     <select class="form-select" name="pais" formControlName="pais" >
          <option value="1">Argentina</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        <option value="2">Uruguay</option>
+        <option value="3">Brasil</option>
       </select>
     </div>
 
@@ -77,6 +77,32 @@
        </span>
 
       </div>
+
+      <div class="mb-3">
+        <label for="txtCorreo" class="form-label">Latitud</label>
+        <input type="text" class="form-control" id="txtCorreo" name="correo" formControlName="correo" />
+
+        <span *ngIf="formularioAltaProveedor.get('correo')?.touched &&
+        formularioAltaProveedor.get('correo')?.hasError('required')">
+         * campo requerido 
+       </span>
+
+      </div>
+
+
+      <div class="mb-3">
+        <label for="txtCorreo" class="form-label">Longitud</label>
+        <input type="text" class="form-control" id="txtCorreo" name="correo" formControlName="correo" />
+
+        <span *ngIf="formularioAltaProveedor.get('correo')?.touched &&
+        formularioAltaProveedor.get('correo')?.hasError('required')">
+         * campo requerido 
+       </span>
+
+      </div>
+
+
+
 
 
     
