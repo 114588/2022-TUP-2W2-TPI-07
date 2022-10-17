@@ -4,8 +4,8 @@ export interface Proveedor {
     telefono?: number ;
     pais?: string ;
     direccion?: string ;
-    codigoPostal?: number ;
-    correo?: string ;
+    codigo_postal?: number ;
+    email: string ;
     latitud?: number;
     longitud?: number;
 }

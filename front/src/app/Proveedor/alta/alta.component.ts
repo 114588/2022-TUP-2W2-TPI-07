@@ -13,13 +13,16 @@ export class AltaComponentProveedor implements OnInit {
   nuevoProveedor: Proveedor ;
 
   formularioAltaProveedor = new  UntypedFormGroup({
-    nombre : new UntypedFormControl("",[Validators.required]),
-    cuil : new UntypedFormControl ("", [Validators.required]),
-    telefono : new UntypedFormControl("",[Validators.required]),
+    nombre : new UntypedFormControl("",[Validators.pattern(/^[a-zA-Z ]+$/)]),
+    cuil : new UntypedFormControl ("", [Validators.required, Validators.pattern(/^\d{11}$/)] ),
+    telefono : new UntypedFormControl("",[Validators.required, Validators.pattern(/^\d{7}$/)]),
     pais : new UntypedFormControl("",[Validators.required]),
-    direccion: new UntypedFormControl("",[Validators.required]),
-    codigoPostal: new UntypedFormControl("",[Validators.required]),
-    correo: new UntypedFormControl("",[Validators.required])
+    direccion: new UntypedFormControl("",[Validators.required, Validators.pattern(/^[a-zA-Z0-9 ]+$/)]),
+    codigoPostal: new UntypedFormControl("",[Validators.required, Validators.pattern(/^\d{4}$/)]),
+    correo: new UntypedFormControl("",[Validators.required, Validators.email]),
+    latitud: new UntypedFormControl("",[Validators.required, Validators.pattern(/^\d{2}(\.[0-9]{4,4})$/)]),
+    longitud: new UntypedFormControl("",[Validators.required, Validators.pattern(/^\d{2}(\.[0-9]{4,4})$/)])
+
   })
 
   
@@ -36,6 +39,7 @@ export class AltaComponentProveedor implements OnInit {
     if(this.formularioAltaProveedor.valid){
       this.nuevoProveedor = this.formularioAltaProveedor.value
       //https://blog.angular.io/angular-v14-is-now-available-391a6db736af  UntypedFormControl y UntypedFormGroup
+      
 
       console.log(this.nuevoProveedor);
     } else{

@@ -5,9 +5,10 @@
     <div class="mb-3">
       <label for="txtNombre" class="form-label">Nombre</label>
       <input type="text" class="form-control" id="txtNombre"  formControlName="nombre" />
-      <span *ngIf="formularioAltaProveedor.get('nombre')?.touched &&
-       formularioAltaProveedor.get('nombre')?.hasError('required')">
-        * campo requerido 
+     
+      <span *ngIf="formularioAltaProveedor.get('nombre')?.touched 
+         && formularioAltaProveedor.get('nombre')?.hasError('pattern')">
+        * campo requerido,  solo puede ingresar letras y/o espacios
       </span>
 
    
@@ -17,9 +18,9 @@
       <label for="txtCuil" class="form-label">Cuil</label>
       <input type="text" class="form-control" id="txtCuil" name="cuil" formControlName="cuil" />
       
-      <span *ngIf="formularioAltaProveedor.get('cuil')?.touched &&
-       formularioAltaProveedor.get('cuil')?.hasError('required')">
-        * campo requerido 
+      <span *ngIf="formularioAltaProveedor.get('cuil')?.touched 
+        && formularioAltaProveedor.get('cuil')?.hasError('pattern')">
+        * campo requerido y solo numerico de 11 digitos
       </span>
 
     </div>
@@ -28,9 +29,9 @@
       <label for="txtTelefono" class="form-label">Telefono</label>
       <input type="text" class="form-control" id="txtTelefono" name="telefono" formControlName="telefono"  />
 
-      <span *ngIf="formularioAltaProveedor.get('telefono')?.touched &&
-       formularioAltaProveedor.get('telefono')?.hasError('required')">
-        * campo requerido 
+      <span *ngIf="formularioAltaProveedor.get('telefono')?.touched 
+        && formularioAltaProveedor.get('telefono')?.hasError('pattern')">
+        * campo requerido  y solo numerico de 7 digitos
       </span>
 
     </div>
@@ -50,8 +51,8 @@
         <input type="text" class="form-control" id="txtDireccion" name="direccion" formControlName="direccion"/>
 
         <span *ngIf="formularioAltaProveedor.get('direccion')?.touched &&
-        formularioAltaProveedor.get('direccion')?.hasError('required')">
-         * campo requerido 
+        formularioAltaProveedor.get('direccion')?.hasError('pattern')">
+         * campo requerido digitos y letras solamente
        </span>
 
       </div>
@@ -60,9 +61,9 @@
         <label for="txtCodigoPostal" class="form-label">Codigo Postal</label>
         <input type="text" class="form-control" id="txtCodigoPostal" name="codigoPostal" formControlName="codigoPostal" />
 
-        <span *ngIf="formularioAltaProveedor.get('codigoPostal')?.touched &&
-        formularioAltaProveedor.get('codigoPostal')?.hasError('required')">
-         * campo requerido 
+        <span *ngIf="formularioAltaProveedor.get('codigoPostal')?.touched 
+        && formularioAltaProveedor.get('codigoPostal')?.hasError('pattern')">
+         * campo requerido solo 4 digitos
        </span>
 
       </div>
@@ -72,31 +73,31 @@
         <input type="text" class="form-control" id="txtCorreo" name="correo" formControlName="correo" />
 
         <span *ngIf="formularioAltaProveedor.get('correo')?.touched &&
-        formularioAltaProveedor.get('correo')?.hasError('required')">
-         * campo requerido 
+        formularioAltaProveedor.get('correo')?.hasError('email')">
+         * campo requerido formato email
        </span>
 
       </div>
 
       <div class="mb-3">
-        <label for="txtCorreo" class="form-label">Latitud</label>
-        <input type="text" class="form-control" id="txtCorreo" name="correo" formControlName="correo" />
+        <label for="txtLatitud" class="form-label">Latitud</label>
+        <input type="text" class="form-control" id="txtCvorreo" name="latitud" formControlName="latitud" />
 
-        <span *ngIf="formularioAltaProveedor.get('correo')?.touched &&
-        formularioAltaProveedor.get('correo')?.hasError('required')">
-         * campo requerido 
+        <span *ngIf="formularioAltaProveedor.get('latitud')?.touched &&
+        formularioAltaProveedor.get('latitud')?.hasError('pattern')">
+         * campo requerido 2 enteros . y 4 decimales
        </span>
 
       </div>
 
 
       <div class="mb-3">
-        <label for="txtCorreo" class="form-label">Longitud</label>
-        <input type="text" class="form-control" id="txtCorreo" name="correo" formControlName="correo" />
+        <label for="txtLongitud" class="form-label">Longitud</label>
+        <input type="text" class="form-control" id="txtLongitud" name="longitud" formControlName="longitud" />
 
-        <span *ngIf="formularioAltaProveedor.get('correo')?.touched &&
-        formularioAltaProveedor.get('correo')?.hasError('required')">
-         * campo requerido 
+        <span *ngIf="formularioAltaProveedor.get('longitud')?.touched &&
+        formularioAltaProveedor.get('longitud')?.hasError('pattern')">
+         * campo requerido 2 enteros . y 4 decimales
        </span>
 
       </div>
