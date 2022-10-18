@@ -59,10 +59,10 @@
 
       <div class="mb-3">
         <label for="txtCodigoPostal" class="form-label">Codigo Postal</label>
-        <input type="text" class="form-control" id="txtCodigoPostal" name="codigoPostal" formControlName="codigoPostal" />
+        <input type="text" class="form-control" id="txtCodigoPostal" name="codigo_postal" formControlName="codigo_postal" />
 
-        <span *ngIf="formularioAltaProveedor.get('codigoPostal')?.touched 
-        && formularioAltaProveedor.get('codigoPostal')?.hasError('pattern')">
+        <span *ngIf="formularioAltaProveedor.get('codigo_postal')?.touched 
+        && formularioAltaProveedor.get('codigo_postal')?.hasError('pattern')">
          * campo requerido solo 4 digitos
        </span>
 
@@ -70,10 +70,10 @@
 
       <div class="mb-3">
         <label for="txtCorreo" class="form-label">Correo electronico</label>
-        <input type="text" class="form-control" id="txtCorreo" name="correo" formControlName="correo" />
+        <input type="text" class="form-control" id="txtCorreo" name="email" formControlName="email" />
 
-        <span *ngIf="formularioAltaProveedor.get('correo')?.touched &&
-        formularioAltaProveedor.get('correo')?.hasError('email')">
+        <span *ngIf="formularioAltaProveedor.get('email')?.touched &&
+        formularioAltaProveedor.get('email')?.hasError('email')">
          * campo requerido formato email
        </span>
 
@@ -81,7 +81,7 @@
 
       <div class="mb-3">
         <label for="txtLatitud" class="form-label">Latitud</label>
-        <input type="text" class="form-control" id="txtCvorreo" name="latitud" formControlName="latitud" />
+        <input type="text" class="form-control" id="txtLatitud" name="latitud" formControlName="latitud" />
 
         <span *ngIf="formularioAltaProveedor.get('latitud')?.touched &&
         formularioAltaProveedor.get('latitud')?.hasError('pattern')">

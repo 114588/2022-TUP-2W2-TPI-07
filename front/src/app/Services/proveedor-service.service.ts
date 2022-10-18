@@ -13,11 +13,11 @@ export class ProveedorServiceService {
 
  
   obtenerTodos(): Observable<Proveedor[]>{
-    return this.http.get<Proveedor[]>("http://localhost:8081/proveedores")
+    return this.http.get<Proveedor[]>("http://localhost:8081/proveedores/")
   }
 
   agregarProveedor(nuevoProveedor: Proveedor): Observable<Proveedor>{
-    return this.http.put<Proveedor>("...",nuevoProveedor)
+    return this.http.post<Proveedor>("http://localhost:8081/proveedores/",nuevoProveedor)
   }
 
   eliminarProveedor(id:string): Observable<any>{
