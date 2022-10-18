@@ -14,6 +14,7 @@ export class AltaComponentProveedor implements OnInit {
   nuevoProveedor: Proveedor ;
 
   formularioAltaProveedor = new  UntypedFormGroup({
+    //http://estilow3b.com/ejemplos-comunes-de-expresiones-regulares-javascript/
     nombre : new UntypedFormControl("",[Validators.pattern(/^[a-zA-Z ]+$/)]),
     cuil : new UntypedFormControl ("", [Validators.required, Validators.pattern(/^\d{8}$/)] ),
     telefono : new UntypedFormControl("",[Validators.required, Validators.pattern(/^\d{7}$/)]),
@@ -21,9 +22,8 @@ export class AltaComponentProveedor implements OnInit {
     direccion: new UntypedFormControl("",[Validators.required, Validators.pattern(/^[a-zA-Z0-9 ]+$/)]),
     codigo_postal: new UntypedFormControl("",[Validators.required, Validators.pattern(/^\d{4}$/)]),
     email: new UntypedFormControl("",[Validators.required, Validators.email]),
-    latitud: new UntypedFormControl("",[Validators.required, Validators.pattern(/^\d{2}(\.[0-9]{4,4})$/)]),
-    longitud: new UntypedFormControl("",[Validators.required, Validators.pattern(/^\d{2}(\.[0-9]{4,4})$/)])
-
+    latitud: new UntypedFormControl("",[Validators.required, Validators.pattern(/^-?\d{2}(\.[0-9]{4,4})$/)]),
+    longitud: new UntypedFormControl("",[Validators.required, Validators.pattern(/^-?\d{2}(\.[0-9]{4,4})$/)])
   })
 
   
