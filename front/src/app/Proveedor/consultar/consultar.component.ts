@@ -15,6 +15,18 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
 
   constructor(private proveedorService: ProveedorServiceService) {}
 
+  titleGoogleMaps = 'Google Maps';
+
+  positionGoogleMaps = {
+    lat: -31.30625,
+    lng: -64.24199,
+  };
+
+  labelGoogleMaps = {
+    color: 'red',
+    text: 'mi casa',
+  };
+
   ngOnInit(): void {
     this.obtenerProveedores();
   }
@@ -23,13 +35,11 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
     this.subscripcion.unsubscribe();
   }
 
-
-
   obtenerProveedores() {
     this.subscripcion.add(
       this.proveedorService.obtenerTodos().subscribe({
         next: (proveedores: Proveedor[]) => {
-          this.listaProveedor = proveedores;
+          this.listaProveedor = proveedores;          
         },
         error: () => {
           alert('error al obtener listado');
@@ -38,19 +48,17 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
     );
   }
 
-
-  titleGoogleMaps = 'Google Maps';
-
-  positionGoogleMaps = {
-    lat: -31.306250,
-    lng: -64.241990
+  borrar(proveedor: Proveedor) {
+    this.subscripcion.add(
+      this.proveedorService.eliminarProveedor(proveedor.cuil!).subscribe({
+        next: () => {
+          alert('proveedor borrado');
+          this.obtenerProveedores();
+        },
+        error: () => {
+          alert('error al borrar proveedor');
+        },
+      })
+    );
   }
-
-  labelGoogleMaps ={
-    color: "red",
-    text: "mi casa"
-  }
-
-
-
 }

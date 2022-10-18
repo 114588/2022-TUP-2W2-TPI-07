@@ -20,8 +20,8 @@ export class ProveedorServiceService {
     return this.http.post<Proveedor>("http://localhost:8081/proveedores/",nuevoProveedor)
   }
 
-  eliminarProveedor(id:string): Observable<any>{
-    return this.http.delete(".../"+id)
+  eliminarProveedor(cuil:number): Observable<any>{
+    return this.http.delete("http://localhost:8081/proveedores/"+cuil)
   }
 
   modificarArticulo(proveedorModificado: Proveedor): Observable<any>{
