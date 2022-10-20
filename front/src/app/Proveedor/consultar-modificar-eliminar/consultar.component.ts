@@ -5,7 +5,8 @@ import { ProveedorServiceService } from '../../Services/proveedor-service.servic
 import { Router } from '@angular/router';
 import { FormControl, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {ProveedorModificado} from "../../models/proveedor-modificado";
-import { BuscarProveedorPipe } from 'src/app/pipes/buscar-proveedor.pipe';
+import {Marcadores} from "../../models/marcadores";
+
 
 @Component({
   selector: 'app-consultar',
@@ -20,20 +21,31 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
   mostrarFormulario: boolean = false;
   valorBuscarProveedor = new FormControl('');
   valorBusqueda: string = "";
-
+  proveedorSeleccionado : Proveedor = {} as Proveedor;
+  marcadores: [];
+  
   //https://www.coordenadas-gps.com/
   //https://www.youtube.com/watch?v=fnC5lOaOc5I&list=LL&index=9
   titleGoogleMaps = 'Google Maps';
 
   positionGoogleMaps = {
-    lat: -31.30625,
-    lng: -64.24199,
+    lat: 31.23,
+    lng: 23.2344
   };
+
 
   labelGoogleMaps = {
     color: 'red',
     text: 'mi casa',
   };
+
+  agregarMarcador(marcador: Marcadores){
+    return new google.maps.Marker({
+      position: marcador.position,
+      //title: marcador.title
+    })
+  }
+
 
   constructor(
     private proveedorService: ProveedorServiceService,
@@ -43,6 +55,7 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.obtenerProveedores();
     this.buscarProveedor();
+
   }
 
   ngOnDestroy(): void {
@@ -53,7 +66,7 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
     this.subscripcion.add(
       this.proveedorService.obtenerTodos().subscribe({
         next: (proveedores: Proveedor[]) => {
-          this.listaProveedor = proveedores ;
+          this.listaProveedor = proveedores  ;
         },
         error: () => {
           alert('error al obtener listado');
@@ -78,7 +91,7 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
 
   editar(proveedor: Proveedor) {
     this.mostrarFormulario = true;
-    this.proveedor = proveedor;
+    this.proveedor = Object.assign({}, proveedor);
   }
 
   formularioModificarProveedor = new UntypedFormGroup({
@@ -126,6 +139,7 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
       this.proveedorService.modificarProveedor(this.proveedorModificado, this.proveedor).subscribe({
         next: () => {
           alert('proveedor modificado');
+
         },
         error: () => {
           alert('error al modificar proveedor');
@@ -134,12 +148,21 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
     );
   }
 
+  cancelar() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(["buscarProveedor"]);
+    }); 
+  }
+
   volver() {
     this.router.navigateByUrl('home');
   }
 
 
   buscarProveedor(){
+      // https://www.youtube.com/watch?v=vZ91vDD7FGY
+    // https://www.npmjs.com/package/ng2-search-filter
+
     this.subscripcion.add(
     this.valorBuscarProveedor.valueChanges
     .pipe(debounceTime(300))
@@ -153,7 +176,6 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
     }))
   }
 
-  // https://www.youtube.com/watch?v=vZ91vDD7FGY
-  // https://www.npmjs.com/package/ng2-search-filter
+
  
 }

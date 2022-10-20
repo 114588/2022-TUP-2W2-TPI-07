@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AltaComponentProveedor } from './Proveedor/alta/alta.component';
-import { ConsultarComponentProveedor } from './Proveedor/consultar/consultar.component';
+import { ConsultarComponentProveedor } from './Proveedor/consultar-modificar-eliminar/consultar.component';
 
 const routes: Routes = [
   {path: "home", component:HomeComponent},
