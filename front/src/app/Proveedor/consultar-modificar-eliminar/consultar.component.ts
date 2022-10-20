@@ -5,7 +5,7 @@ import { ProveedorServiceService } from '../../Services/proveedor-service.servic
 import { Router } from '@angular/router';
 import { FormControl, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {ProveedorModificado} from "../../models/proveedor-modificado";
-import {Marcadores} from "../../models/marcadores";
+
 
 
 @Component({
@@ -168,8 +168,10 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
           
           this.listaProveedor=[]; //limpio la lista asi no acumula
           
-          this.latitud = proveedor.latitud!;
-          this.longitud= proveedor.longitud!;
+          //this.latitud = proveedor.latitud!;
+          //this.latitud = proveedor.latitud!;
+          this.latitud= -31.3053;
+          this.longitud= -64.2437;
 
           console.log("capturado desde el consultar " + this.latitud);
           console.log("capturado desde el consultar " + this.longitud);
