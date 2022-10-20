@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
 import { AltaComponentProveedor } from './Proveedor/alta/alta.component';
 import { ConsultarComponentProveedor } from './Proveedor/consultar/consultar.component';
 
 const routes: Routes = [
+  {path: "home", component:HomeComponent},
   {path: "registrarProveedor", component:AltaComponentProveedor},
-  {path: "buscarProveedor", component:ConsultarComponentProveedor}
+  {path: "buscarProveedor", component:ConsultarComponentProveedor},
+  {path:"", redirectTo:"home", pathMatch:"full"}
 ];
 
 @NgModule({

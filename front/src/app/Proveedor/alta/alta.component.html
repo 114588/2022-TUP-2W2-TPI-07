@@ -15,7 +15,7 @@
     </div>
 
     <div class="mb-3">
-      <label for="txtCuil" class="form-label">Cuil</label>
+      <label for="txtCuil" class="form-label">Cuit</label>
       <input type="text" class="form-control" id="txtCuil" name="cuil" formControlName="cuil" />
       
       <span *ngIf="formularioAltaProveedor.get('cuil')?.touched 
@@ -26,19 +26,19 @@
     </div>
 
     <div class="mb-3">
-      <label for="txtTelefono" class="form-label">Telefono</label>
+      <label for="txtTelefono" class="form-label">Teléfono</label>
       <input type="text" class="form-control" id="txtTelefono" name="telefono" formControlName="telefono"  />
 
       <span *ngIf="formularioAltaProveedor.get('telefono')?.touched 
         && formularioAltaProveedor.get('telefono')?.hasError('pattern')">
-        * campo requerido  y solo numerico de 7 digitos
+        * campo requerido  y solo numérico de 7 digitos
       </span>
 
     </div>
 
 
     <div class="mb-3">
-    <label for="txtTelefono" class="form-label">Seleccione Pais</label>
+    <label for="txtTelefono" class="form-label">Seleccione País</label>
     <select class="form-select" name="pais" formControlName="pais" >
          <option value="1">Argentina</option>
         <option value="2">Uruguay</option>
@@ -47,7 +47,7 @@
     </div>
 
     <div class="mb-3">
-        <label for="txtDireccion" class="form-label">Direccion</label>
+        <label for="txtDireccion" class="form-label">Dirección</label>
         <input type="text" class="form-control" id="txtDireccion" name="direccion" formControlName="direccion"/>
 
         <span *ngIf="formularioAltaProveedor.get('direccion')?.touched &&
@@ -58,18 +58,18 @@
       </div>
 
       <div class="mb-3">
-        <label for="txtCodigoPostal" class="form-label">Codigo Postal</label>
+        <label for="txtCodigoPostal" class="form-label">Código Postal</label>
         <input type="text" class="form-control" id="txtCodigoPostal" name="codigo_postal" formControlName="codigo_postal" />
 
         <span *ngIf="formularioAltaProveedor.get('codigo_postal')?.touched 
         && formularioAltaProveedor.get('codigo_postal')?.hasError('pattern')">
-         * campo requerido solo 4 digitos
+         * campo requerido solo 4 dígitos
        </span>
 
       </div>
 
       <div class="mb-3">
-        <label for="txtCorreo" class="form-label">Correo electronico</label>
+        <label for="txtCorreo" class="form-label">Correo electrónico</label>
         <input type="text" class="form-control" id="txtCorreo" name="email" formControlName="email" />
 
         <span *ngIf="formularioAltaProveedor.get('email')?.touched &&
@@ -108,7 +108,7 @@
 
     
     <button type="button" class="btn btn-primary"  (click)="guardar()" [disabled]="formularioAltaProveedor.invalid" >Guardar</button>
-    <button type="button" class="btn btn-warning">Volver</button>
+    <button type="button" class="btn btn-warning" (click)="volver()">Volver</button>
 
     </form>
 </div>

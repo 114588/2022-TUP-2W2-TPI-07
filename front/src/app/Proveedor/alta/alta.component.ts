@@ -3,6 +3,7 @@ import {FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators
 import { Subscription } from 'rxjs';
 import {Proveedor} from "../../models/proveedor";
 import {ProveedorServiceService} from "../../Services/proveedor-service.service"
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-alta',
@@ -29,7 +30,7 @@ export class AltaComponentProveedor implements OnInit {
   
 
   
-  constructor(private proveedorService: ProveedorServiceService) { 
+  constructor(private proveedorService: ProveedorServiceService, private router: Router) { 
     
   }
 
@@ -56,9 +57,11 @@ export class AltaComponentProveedor implements OnInit {
       console.log(this.nuevoProveedor);
     } else{
       alert("formulario invalido, debe completar los campos")
-    }
+    }    
+  }
 
-    
+  volver(){
+    this.router.navigateByUrl("home");
   }
 
 

@@ -13,19 +13,19 @@ export class ProveedorServiceService {
 
  
   obtenerTodos(): Observable<Proveedor[]>{
-    return this.http.get<Proveedor[]>("http://localhost:8081/proveedores/")
+    return this.http.get<Proveedor[]>("http://localhost:8081/proveedores/listado/")
   }
 
   agregarProveedor(nuevoProveedor: Proveedor): Observable<Proveedor>{
-    return this.http.post<Proveedor>("http://localhost:8081/proveedores/",nuevoProveedor)
+    return this.http.post<Proveedor>("http://localhost:8081/proveedores/alta/",nuevoProveedor)
   }
 
   eliminarProveedor(cuil:number): Observable<any>{
-    return this.http.delete("http://localhost:8081/proveedores/"+cuil)
+    return this.http.delete("http://localhost:8081/proveedores/eliminar/"+cuil)
   }
 
-  modificarArticulo(proveedorModificado: Proveedor): Observable<any>{
-    return this.http.put(".../"+proveedorModificado.cuil, proveedorModificado)
+  modificarProveedor(proveedorModificado: Proveedor, proveedorViejo: Proveedor): Observable<any>{
+    return this.http.put("http://localhost:8081/proveedores/actualizar/"+ proveedorViejo.cuil, proveedorModificado)
   }
 
 }

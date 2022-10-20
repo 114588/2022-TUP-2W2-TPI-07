@@ -1,8 +1,8 @@
 <div class="container">
-  <h2>Busqueda de proveedor</h2>
+  <h2>Búsqueda de Proveedor</h2>
 
   <form class="form-control">
-    <input  class="form-control"  type="search"  placeholder="Search"   aria-label="Search"  />    
+    <input  class="form-control"  type="search"  placeholder="Buscar proveedor" aria-label="Search" [formControl]="valorBuscarProveedor" [(ngModel)]="valorBusqueda" />    
   </form>
 </div>
 
@@ -11,19 +11,19 @@
     <thead>
       <tr>
         <th scope="col">Nombre</th>
-        <th scope="col">Cuil</th>
-        <th scope="col">Telefono</th>
-        <th scope="col">Pais</th>
-        <th scope="col">Direccion</th>
-        <th scope="col">Codigo Postal</th>
+        <th scope="col">Cuit</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">País</th>
+        <th scope="col">Dirección</th>
+        <th scope="col">Código Postal</th>
         <th scope="col">Email</th>
         <th scope="col">Latitud</th>
         <th scope="col">Longitud</th>
-        <th scope="col">Accion</th>
+        <th scope="col">Acción</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of listaProveedor">
+      <tr *ngFor="let item of listaProveedor | filter: valorBusqueda">
         <td>{{ item.nombre }}</td>
         <td>{{ item.cuil }}</td>
         <td>{{ item.telefono }}</td>
@@ -34,31 +34,38 @@
         <td>{{ item.latitud }}</td>
         <td>{{ item.longitud}}</td>
         <td>
-          <button type="button" class="btn btn-outline-danger">Cancelar</button>- 
+          <!-- <button type="button" class="btn btn-outline-danger">Cancelar</button>-  -->
 
-          <button type="button" class="btn btn-outline-success">Aceptar</button>
+          <button type="button" class="btn btn-outline-success" (click)="editar(item)">Editar</button>
 
-          <button type="button" class="btn btn-outline-danger" (click)="borrar(item)" >Borrar</button>- 
+
+          <button type="button" class="btn btn-outline-danger" (click)="borrar(item)" >Eliminar</button> 
 
         </td>
       </tr>
     </tbody>
   </table>
-  <button type="button" class="btn btn-secondary">modificar</button>
-  <button type="button" class="btn btn-danger">eliminar</button>
+  <!-- <button type="button" class="btn btn-secondary">modificar</button> -->
+  <!-- <button type="button" class="btn btn-danger">eliminar</button> -->
   <!-- https://getbootstrap.com/docs/5.2/components/modal/ -->
 
-  <button type="button" class="btn btn-warning">volver</button>
+  <button type="button" class="btn btn-warning" (click)="volver()" >volver</button>
 </div>
+
+
+
 
 <div class="container">
-  <google-map [center]="positionGoogleMaps">
-    <map-marker [position]="positionGoogleMaps" [label]="labelGoogleMaps" [title]="titleGoogleMaps">
+  <div class="row">
+    <div class="col-md-6">
+      <google-map [center]="positionGoogleMaps">
+          <map-marker [position]="positionGoogleMaps" [label]="labelGoogleMaps" [title]="titleGoogleMaps">
 
-    </map-marker>
+          </map-marker>
 
-  </google-map>
-</div>
+        </google-map>
+      </div>
+
 
 
 
@@ -70,3 +77,119 @@
 
 <!-- https://mapsplatform.google.com/intl/es/pricing/ -->
 
+
+
+
+    <div class="col-md-6"> 
+      <div class="container" *ngIf="mostrarFormulario">
+      <form [formGroup]="formularioModificarProveedor" >
+        <h2>Modificar Proveedor</h2>
+        
+        <div class="mb-3">
+          <label for="txtNombre" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="txtNombre" formControlName="nombre" name="nombre" [(ngModel)]="proveedor.nombre"/>
+        
+          <span *ngIf="formularioModificarProveedor.get('nombre')?.touched 
+            && formularioModificarProveedor.get('nombre')?.hasError('pattern')">
+            * campo requerido,  solo puede ingresar letras y/o espacios
+          </span>
+
+      
+        </div>
+
+        <div class="mb-3">
+          <label for="txtCuil" class="form-label">Cuit</label>
+          <input type="text" class="form-control" id="txtCuil"  formControlName="cuil" name="cuil" [(ngModel)]="proveedor.cuil"/>
+          
+          <span *ngIf="formularioModificarProveedor.get('cuil')?.touched 
+            && formularioModificarProveedor.get('cuil')?.hasError('pattern')">
+            * campo requerido y solo numerico de 11 digitos
+          </span>
+
+        </div>
+
+        <div class="mb-3">
+          <label for="txtTelefono" class="form-label">Teléfono</label>
+          <input type="text" class="form-control" id="txtTelefono" formControlName="telefono" name="telefono"  [(ngModel)]="proveedor.telefono" />
+
+          <span *ngIf="formularioModificarProveedor.get('telefono')?.touched 
+            && formularioModificarProveedor.get('telefono')?.hasError('pattern')">
+            * campo requerido  y solo numérico de 7 digitos
+          </span>
+
+        </div>
+
+
+        <div class="mb-3">
+        <label for="txtTelefono" class="form-label">Seleccione País</label>
+        <select class="form-select" name="pais" formControlName="pais" >
+            <option value="1">Argentina</option>
+            <option value="2">Uruguay</option>
+            <option value="3">Brasil</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="txtDireccion" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="txtDireccion"  formControlName="direccion" name="direccion" [(ngModel)]="proveedor.direccion"/>
+
+            <span *ngIf="formularioModificarProveedor.get('direccion')?.touched &&
+            formularioModificarProveedor.get('direccion')?.hasError('pattern')">
+            * campo requerido digitos y letras solamente
+            </span>
+          </div>
+
+          <div class="mb-3">
+            <label for="txtCodigoPostal" class="form-label">Código Postal</label>
+            <input type="text" class="form-control" id="txtCodigoPostal"  formControlName="codigo_postal" name="codigo_postal" [(ngModel)]="proveedor.codigo_postal" />
+
+            <span *ngIf="formularioModificarProveedor.get('codigo_postal')?.touched 
+            && formularioModificarProveedor.get('codigo_postal')?.hasError('pattern')">
+            * campo requerido solo 4 dígitos
+            </span>
+          </div>
+
+          <div class="mb-3">
+            <label for="txtCorreo" class="form-label">Correo electrónico</label>
+            <input type="text" class="form-control" id="txtCorreo"  formControlName="email" name="email" [(ngModel)]="proveedor.email" />
+
+            <span *ngIf="formularioModificarProveedor.get('email')?.touched &&
+            formularioModificarProveedor.get('email')?.hasError('email')">
+            * campo requerido formato email
+            </span>
+          </div>
+
+          <div class="mb-3">
+            <label for="txtLatitud" class="form-label">Latitud</label>
+            <input type="text" class="form-control" id="txtLatitud"  formControlName="latitud" name="latitud" [(ngModel)]="proveedor.latitud"/>
+
+            <span *ngIf="formularioModificarProveedor.get('latitud')?.touched &&
+            formularioModificarProveedor.get('latitud')?.hasError('pattern')">
+            * campo requerido 2 enteros . y 4 decimales
+            </span>
+          </div>
+
+
+          <div class="mb-3">
+            <label for="txtLongitud" class="form-label">Longitud</label>
+            <input type="text" class="form-control" id="txtLongitud"  formControlName="longitud" name="longitud" [(ngModel)]="proveedor.longitud" />
+
+            <span *ngIf="formularioModificarProveedor.get('longitud')?.touched &&
+            formularioModificarProveedor.get('longitud')?.hasError('pattern')">
+            * campo requerido 2 enteros . y 4 decimales
+            </span>
+          </div>
+        
+        <button type="button" class="btn btn-primary"  (click)="guardar()" [disabled]="formularioModificarProveedor.invalid" >Guardar</button>
+        <button type="button" class="btn btn-warning" (click)="volver()">Volver</button>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+proveedor modificado: {{proveedorModificado | json}}
+<br>
+proveedor: {{proveedor | json}}

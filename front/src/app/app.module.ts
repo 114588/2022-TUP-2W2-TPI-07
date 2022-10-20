@@ -22,7 +22,12 @@ import {ModificarComponentProveedor} from "../app/Proveedor/modificar/modificar.
 import {ProveedorServiceService} from "../app/Services/proveedor-service.service"
 
 //google maps
-import {GoogleMapsModule} from "@angular/google-maps"
+import {GoogleMapsModule} from "@angular/google-maps";
+import { HomeComponent } from './home/home.component';
+import { BuscarProveedorPipe } from './pipes/buscar-proveedor.pipe'
+
+// search
+import {Ng2SearchPipeModule} from "ng2-search-filter"
 
 @NgModule({
   declarations: [
@@ -34,7 +39,9 @@ import {GoogleMapsModule} from "@angular/google-maps"
     AltaComponentProveedor,
     BajaComponentProveedor,
     ConsultarComponentProveedor,
-    ModificarComponentProveedor
+    ModificarComponentProveedor,
+    HomeComponent,
+    BuscarProveedorPipe
 
 
 
@@ -45,7 +52,8 @@ import {GoogleMapsModule} from "@angular/google-maps"
     RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    Ng2SearchPipeModule
   ],
   providers: [ProveedorServiceService,],
   bootstrap: [AppComponent]
