@@ -49,7 +49,8 @@ import { MapaComponent } from '../app/Proveedor/mapa/mapa.component'
     ReactiveFormsModule,
     HttpClientModule,
     GoogleMapsModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    
   ],
   providers: [ProveedorServiceService,],
   bootstrap: [AppComponent]

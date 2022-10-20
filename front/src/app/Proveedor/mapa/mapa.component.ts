@@ -13,8 +13,6 @@ export class MapaComponent implements OnInit, OnChanges {
 //https://www.coordenadas-gps.com/
   //https://www.youtube.com/watch?v=fnC5lOaOc5I&list=LL&index=9
 
-  title= "gmaps";
-
   position = {
     lat: this.latitud,
     lng: this.longitud 
