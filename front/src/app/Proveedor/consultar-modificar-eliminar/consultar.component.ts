@@ -22,30 +22,14 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
   valorBuscarProveedor = new FormControl('');
   valorBusqueda: string = "";
   proveedorSeleccionado : Proveedor = {} as Proveedor;
-  marcadores: [];
+  banderaMostrarMapa: boolean = false;
   
-  //https://www.coordenadas-gps.com/
-  //https://www.youtube.com/watch?v=fnC5lOaOc5I&list=LL&index=9
-  titleGoogleMaps = 'Google Maps';
+  latitud!: number 
+  longitud!: number
 
-  positionGoogleMaps = {
-    lat: 31.23,
-    lng: 23.2344
-  };
+  
 
-
-  labelGoogleMaps = {
-    color: 'red',
-    text: 'mi casa',
-  };
-
-  agregarMarcador(marcador: Marcadores){
-    return new google.maps.Marker({
-      position: marcador.position,
-      //title: marcador.title
-    })
-  }
-
+  
 
   constructor(
     private proveedorService: ProveedorServiceService,
@@ -53,8 +37,8 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.obtenerProveedores();
-    this.buscarProveedor();
+    //this.obtenerListaProveedores();
+   // this.buscarProveedorAutomaticamente();
 
   }
 
@@ -62,7 +46,7 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
     this.subscripcion.unsubscribe();
   }
 
-  obtenerProveedores() {
+  obtenerListaProveedores() {
     this.subscripcion.add(
       this.proveedorService.obtenerTodos().subscribe({
         next: (proveedores: Proveedor[]) => {
@@ -80,7 +64,7 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
       this.proveedorService.eliminarProveedor(proveedor.cuil!).subscribe({
         next: () => {
           alert('proveedor borrado');
-          this.obtenerProveedores();
+          this.obtenerListaProveedores();
         },
         error: () => {
           alert('error al borrar proveedor');
@@ -159,20 +143,46 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
   }
 
 
-  buscarProveedor(){
+  //buscarProveedorAutomaticamente(){
+    //esto es con libreria ng2Search
       // https://www.youtube.com/watch?v=vZ91vDD7FGY
     // https://www.npmjs.com/package/ng2-search-filter
 
+  //   this.subscripcion.add(
+  //   this.valorBuscarProveedor.valueChanges
+  //   .pipe(debounceTime(300))
+  //    .subscribe({
+  //     next: () => {
+  //       console.log(this.valorBusqueda);
+  //     },
+  //     error: () => {
+  //       alert("error al buscar proveedor automaticamente")
+  //     }
+  //   }))
+  // }
+
+  buscarProveedorPorNombre(){
     this.subscripcion.add(
-    this.valorBuscarProveedor.valueChanges
-    .pipe(debounceTime(300))
-     .subscribe({
-      next: () => {
-        console.log(this.valorBusqueda);
-      },
-      error: () => {
-        alert("error al buscar proveedor")
-      }
+      this.proveedorService.buscarProveedorPorNombre(this.valorBusqueda).subscribe({
+        next: (proveedor: Proveedor) => {
+          
+          this.listaProveedor=[]; //limpio la lista asi no acumula
+          
+          this.latitud = proveedor.latitud!;
+          this.longitud= proveedor.longitud!;
+
+          console.log("capturado desde el consultar " + this.latitud);
+          console.log("capturado desde el consultar " + this.longitud);
+
+          this.listaProveedor.push(proveedor);
+
+          this.banderaMostrarMapa= true;
+
+          
+        },
+        error: () => {
+          alert ("error al obtener proveedor por nombre")
+        }
     }))
   }
 

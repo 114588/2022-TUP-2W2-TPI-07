@@ -2,7 +2,10 @@
   <h2>Búsqueda de Proveedor</h2>
 
   <form class="form-control">
-    <input  class="form-control"  type="search"  placeholder="Buscar proveedor" aria-label="Search" [formControl]="valorBuscarProveedor" [(ngModel)]="valorBusqueda" />    
+    <!-- <input  class="form-control"  type="search"  placeholder="Buscar proveedor" aria-label="Search" [formControl]="valorBuscarProveedor" [(ngModel)]="valorBusqueda" />   -->
+    <input  class="form-control"  type="search"  placeholder="Buscar proveedor" aria-label="Search" [formControl]="valorBuscarProveedor" [(ngModel)]="valorBusqueda" />  
+    
+    <button type="button" (click)="buscarProveedorPorNombre()" >buscar</button>
   </form>
 </div>
 
@@ -58,15 +61,23 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      <google-map [center]="positionGoogleMaps">
-                <map-marker [position]="positionGoogleMaps" [label]="labelGoogleMaps" [title]="titleGoogleMaps">
-                     
-                </map-marker>
+            <!-- <app-mapa></app-mapa> -->
+            <!-- <app-mapa [latitud]="latitud" [longitud]="longitud"></app-mapa> -->
 
-        </google-map>
-      </div>
+            <!-- <google-map [center]="positionGoogleMaps">
+              <map-marker [position]="positionGoogleMaps" [label]="labelGoogleMaps">
+                   
+              </map-marker>
+          
+          </google-map> -->
+
+          <app-mapa *ngIf="banderaMostrarMapa" [latitud]="latitud" [longitud]="longitud" ></app-mapa>
 
 
+
+    </div>
+
+     
 
 
 <!-- Pasos para Google Maps -->

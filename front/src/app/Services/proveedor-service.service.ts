@@ -28,4 +28,8 @@ export class ProveedorServiceService {
     return this.http.put("http://localhost:8081/proveedores/actualizar/"+ proveedorViejo.cuil, proveedorModificado)
   }
 
+  buscarProveedorPorNombre(nombre: string): Observable<any>{
+    return this.http.get("http://localhost:8081/proveedores/buscarNombre/"+ nombre)
+  }
+
 }
