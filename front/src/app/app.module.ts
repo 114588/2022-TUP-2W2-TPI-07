@@ -22,15 +22,18 @@ import {ConsultarComponentProveedor} from "./Proveedor/consultar-modificar-elimi
 //Ofertas
 import { ConsultarComponent } from './Oferta/consultar/consultar.component'
 
+
 //services
 import {ProveedorServiceService} from "../app/Services/proveedor-service.service"
+import { OfertasService} from "../app/Services/ofertas.service"
 
 //google maps
 import {GoogleMapsModule} from "@angular/google-maps";
+import { MapaComponent } from '../app/Proveedor/mapa/mapa.component';
 
 // search
 import {Ng2SearchPipeModule} from "ng2-search-filter";
-import { MapaComponent } from '../app/Proveedor/mapa/mapa.component';
+
 
 
 @NgModule({
@@ -57,7 +60,7 @@ import { MapaComponent } from '../app/Proveedor/mapa/mapa.component';
     Ng2SearchPipeModule,
     
   ],
-  providers: [ProveedorServiceService,],
+  providers: [ProveedorServiceService, OfertasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
