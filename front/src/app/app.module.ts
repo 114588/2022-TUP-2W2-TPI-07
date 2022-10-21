@@ -34,10 +34,14 @@ import { MapaComponent } from '../app/Proveedor/mapa/mapa.component';
 // search
 import {Ng2SearchPipeModule} from "ng2-search-filter";
 
+//Cliente
+import {AltaComponentCliente} from "./Cliente/alta/alta.component";
+
 
 
 @NgModule({
   declarations: [
+    AltaComponentCliente,
     AppComponent,
     AltaComponent,
     BajaComponent,
@@ -48,7 +52,7 @@ import {Ng2SearchPipeModule} from "ng2-search-filter";
     HomeComponent,
     MapaComponent,
     ConsultarComponent,
-
+   
   ],
   imports: [
     BrowserModule,

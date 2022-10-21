@@ -1,0 +1,70 @@
+<div class="container">
+    <form [formGroup]="formularioAltaCliente" >
+      <h2>Registro  de nuevo Cliente</h2>
+      
+      <div class="mb-3">
+        <label for="txtNombre" class="form-label">Dni</label>
+        <input type="text" class="form-control" id="txtNombre"  formControlName="Dni" />
+        <span *ngIf="formularioAltaCliente.get('nombre')?.touched &&
+         formularioAltaCliente.get('nombre')?.hasError('required')">
+          * campo requerido 
+        </span>
+  
+     
+      </div>
+  
+      <div class="mb-3">
+        <label for="txtCuil" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="txtCuil" name="cuil" formControlName="Nombre" />
+        
+        <span *ngIf="formularioAltaCliente.get('cuil')?.touched &&
+        formularioAltaCliente.get('cuil')?.hasError('required')">
+          * campo requerido 
+        </span>
+  
+      </div>
+  
+      <div class="mb-3">
+        <label for="txtTelefono" class="form-label">Telefono</label>
+        <input type="text" class="form-control" id="txtTelefono" name="telefono" formControlName="telefono"  />
+  
+        <span *ngIf="formularioAltaCliente.get('telefono')?.touched &&
+         formularioAltaCliente.get('telefono')?.hasError('required')">
+          * campo requerido 
+        </span>
+  
+      </div>
+  
+  
+       
+      <div class="mb-3">
+          <label for="txtDireccion" class="form-label">Direccion</label>
+          <input type="text" class="form-control" id="txtDireccion" name="direccion" formControlName="direccion"/>
+  
+          <span *ngIf="formularioAltaCliente.get('direccion')?.touched &&
+          formularioAltaCliente.get('direccion')?.hasError('required')">
+           * campo requerido 
+         </span>
+  
+        </div>
+  
+     
+  
+        <div class="mb-3">
+          <label for="txtCorreo" class="form-label">Correo electronico</label>
+          <input type="email" class="form-control" id="txtCorreo" name="correo" formControlName="correo" />
+  
+          <span *ngIf="formularioAltaCliente.get('correo')?.touched &&
+          formularioAltaCliente.get('correo')?.hasError('required')">
+           * campo requerido 
+         </span>
+  
+        </div>
+  
+  
+      
+      <button type="button" class="btn btn-primary"  (click)="guardar()" [disabled]="formularioAltaCliente.invalid" >Guardar</button>
+      <button type="button" class="btn btn-warning">Volver</button>
+  
+      </form>
+  </div>
