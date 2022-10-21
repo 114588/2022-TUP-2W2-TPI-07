@@ -19,6 +19,9 @@ import {AltaComponentProveedor} from "../app/Proveedor/alta/alta.component";
 import {ConsultarComponentProveedor} from "./Proveedor/consultar-modificar-eliminar/consultar.component"
 
 
+//Ofertas
+import { ConsultarComponent } from './Oferta/consultar/consultar.component'
+
 //services
 import {ProveedorServiceService} from "../app/Services/proveedor-service.service"
 
@@ -27,7 +30,8 @@ import {GoogleMapsModule} from "@angular/google-maps";
 
 // search
 import {Ng2SearchPipeModule} from "ng2-search-filter";
-import { MapaComponent } from '../app/Proveedor/mapa/mapa.component'
+import { MapaComponent } from '../app/Proveedor/mapa/mapa.component';
+
 
 @NgModule({
   declarations: [
@@ -40,6 +44,7 @@ import { MapaComponent } from '../app/Proveedor/mapa/mapa.component'
     ConsultarComponentProveedor,
     HomeComponent,
     MapaComponent,
+    ConsultarComponent,
 
   ],
   imports: [
