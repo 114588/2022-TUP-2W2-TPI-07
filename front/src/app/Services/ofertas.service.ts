@@ -1,9 +1,36 @@
 import { Injectable } from '@angular/core';
+import {HttpClient} from "@angular/common/http"
+import {Ofertas} from "../models/ofertas"
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OfertasService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+
+  obtenerTodos(): Observable<Ofertas[]>{
+    return this.http.get<Ofertas[]>("http://localhost:8081/ofertas/listado/")
+  }
+
+  buscarOfertaPorNombre(nombre: string): Observable<any>{
+    return this.http.get("http://localhost:8081/proveedores/ofertas/"+ nombre)
+  }
+
+
+  modificarOferta(ofertaModificado: Ofertas, ofertaViejo: Ofertas): Observable<any>{
+    return this.http.put("http://localhost:8081/ofertas/actualizar/"+ ofertaModificado, ofertaViejo)
+  }
+
+  eliminarOferta(id:number): Observable<any>{
+    return this.http.delete("http://localhost:8081/ofertas/eliminar/"+id)
+  }
+
+  agregarOferta(nuevaOferta: Ofertas): Observable<Ofertas>{
+    return this.http.post<Ofertas>("http://localhost:8081/ofertas/alta/",nuevaOferta)
+  }
+
+
 }

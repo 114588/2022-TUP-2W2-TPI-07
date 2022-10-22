@@ -3,7 +3,7 @@
     <h2>Gestión de Ofertas</h2>
 
     <form class="form-control">
-        <input type="search"  class="form-control" placeholder="Buscar oferta" aria-label="Search" />  
+        <input type="search"  class="form-control" placeholder="Buscar oferta" aria-label="Search" [formControl]="busqueda" />  
         <button type="button" (click)="buscarOfertaPorNombre()" >buscar</button>
     </form>
 

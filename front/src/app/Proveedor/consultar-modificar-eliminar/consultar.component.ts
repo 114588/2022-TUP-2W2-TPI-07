@@ -162,6 +162,7 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
   // }
 
   buscarProveedorPorNombre(){
+    // https://www.youtube.com/watch?v=vZ91vDD7FGY
     this.subscripcion.add(
       this.proveedorService.buscarProveedorPorNombre(this.valorBusqueda).subscribe({
         next: (proveedor: Proveedor) => {
