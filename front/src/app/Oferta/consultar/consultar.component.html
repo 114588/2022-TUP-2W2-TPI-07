@@ -2,10 +2,8 @@
 
     <h2>Gestión de Ofertas</h2>
 
-    <form class="form-control">
-        <input  class="form-control"  type="search"  placeholder="Buscar oferta" aria-label="Search" [formControl]="valorBuscarProveedor" [(ngModel)]="valorBusqueda" />  
-     
-        
+    <form>
+        <input type="search"  placeholder="Buscar oferta" aria-label="Search"/>  
         <button type="button" (click)="buscarOfertaPorNombre()" >buscar</button>
     </form>
 
@@ -23,8 +21,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of listadoOfertas | filter: valorBusqueda">
-              <td>{{ item.decripcion }}</td>
+            <tr *ngFor="let item of listadoOfertas">
+              <td>{{ item.descripcion }}</td>
               <td>{{ item.precio }}</td>
               <td>{{ item.puntos }}</td>
               <td>{{ item.fecha_inicio }}</td>
@@ -33,7 +31,7 @@
               <td>
                
       
-                <button type="button" class="btn btn-outline-success" (click)="editar(item)">Editar</button>
+                <button type="button" class="btn btn-outline-success" >Editar</button>
       
       
                 <button type="button" class="btn btn-outline-danger" (click)="borrar(item)" >Eliminar</button> 

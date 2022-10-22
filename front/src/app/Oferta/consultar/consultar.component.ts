@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import {Ofertas} from "../../models/ofertas"
 
 
@@ -11,8 +10,8 @@ import {Ofertas} from "../../models/ofertas"
 export class ConsultarComponent implements OnInit {
 
   valorBusqueda: string = ""
-  valorBuscarProveedor = new FormControl("")
   listadoOfertas: Ofertas[] = [] 
+  banderaMostrarFormulario: boolean  =  false
 
 
   constructor() { }
@@ -24,7 +23,8 @@ export class ConsultarComponent implements OnInit {
 
   }
 
-  editar(oferta: Ofertas){
+  modificar(oferta: Ofertas){
+    this.banderaMostrarFormulario=true;
 
   }
   
