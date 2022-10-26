@@ -6,6 +6,11 @@ import { Router } from '@angular/router';
 import { FormControl, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {ProveedorModificado} from "../../models/proveedor-modificado";
 
+interface posicion {
+  lat: number,
+  lng: number
+}
+
 
 
 @Component({
@@ -24,8 +29,13 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
   proveedorSeleccionado : Proveedor = {} as Proveedor;
   banderaMostrarMapa: boolean = false;
   
-  latitud!: number 
-  longitud!: number
+  miLatitud!: number 
+  miLongitud!: number 
+
+  posicionProveedorPadre: posicion = {
+    lat: this.miLatitud,
+    lng: this.miLongitud, 
+} 
 
   
 
@@ -171,11 +181,14 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
           
           //this.latitud = proveedor.latitud!;
           //this.latitud = proveedor.latitud!;
-          this.latitud= -31.3053;
-          this.longitud= -64.2437;
+          //this.miLatitud!= this.listaProveedor[0].latitud;
+          //this.miLongitud!= this.listaProveedor[0].longitud;
 
-          console.log("capturado desde el consultar " + this.latitud);
-          console.log("capturado desde el consultar " + this.longitud);
+          console.log("capturado desde el consultar " + proveedor.latitud);
+          console.log("capturado desde el consultar " + proveedor.longitud);
+
+          this.miLatitud!=proveedor.latitud;
+          this.miLongitud!=proveedor.longitud;
 
           this.listaProveedor.push(proveedor);
 
