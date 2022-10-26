@@ -1,6 +1,10 @@
-<div class="container">
+<div class=" fondo ">
+  
+
   <form [formGroup]="formularioAltaProveedor" >
-    <h2>Registro  de nuevo Proveedor</h2>
+    <h3>Registro  de nuevo Proveedor</h3>
+    
+
     
     <div class="mb-3">
       <label for="txtNombre" class="form-label">Nombre</label>
@@ -69,7 +73,7 @@
       </div>
 
       <div class="mb-3">
-        <label for="txtCorreo" class="form-label">Correo electrónico</label>
+        <label for="txtCorreo" class="form-label">Correo electrónico  </label>
         <input type="text" class="form-control" id="txtCorreo" name="email" formControlName="email" />
 
         <span *ngIf="formularioAltaProveedor.get('email')?.touched &&
@@ -112,3 +116,4 @@
 
     </form>
 </div>
+

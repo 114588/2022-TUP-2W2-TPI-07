@@ -1,0 +1,24 @@
+nav a{
+    text-decoration:none;
+    
+    font-size:14px;
+    color: rgb(255, 253, 253);
+    } 
+    nav li{
+   
+   
+    background-color:#88a1bb;
+    border:1px solid rgb(255, 255, 255);
+    
+    color:rgb(255, 255, 255);
+    }
+    nav li:hover{
+    background-color:rgb(121, 98, 165);
+    color:rgb(35, 71, 148);
+    }
+
+    nav{
+        background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9A0XMFG9sID7coLOeFnbD_heUU_ZczLWKZQ&usqp=CAU");
+    }
+
+
