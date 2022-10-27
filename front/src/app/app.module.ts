@@ -38,7 +38,7 @@ import {Ng2SearchPipeModule} from "ng2-search-filter";
 
 //Cliente
 import {AltaComponentCliente} from "./Cliente/alta/alta.component";
-import {BUscarEditarBorrar} from './Cliente/buscar-editar-borrar/buscar-editar-borrar.component';
+import {BuscarEditarBorrarCliente} from './Cliente/buscar-editar-borrar/buscar-editar-borrar.component';
 
 
 
@@ -55,7 +55,7 @@ import {BUscarEditarBorrar} from './Cliente/buscar-editar-borrar/buscar-editar-b
     HomeComponent,
     MapaComponent,
     ConsultarComponent,
-    BUscarEditarBorrar,
+    BuscarEditarBorrarCliente,
    
   ],
   imports: [

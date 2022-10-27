@@ -11,7 +11,7 @@ import { ClienteService } from 'src/app/Services/cliente.service';
   templateUrl: './buscar-editar-borrar.component.html',
   styleUrls: ['./buscar-editar-borrar.component.css']
 })
-export class BUscarEditarBorrar implements OnInit, OnDestroy {
+export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
   cliente: Cliente = {} as Cliente;
   clienteModificado: ClienteModificado = {} as ClienteModificado;
   listaCliente: Cliente[] = [];
