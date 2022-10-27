@@ -4,6 +4,8 @@ import { Cliente } from 'src/app/models/cliente';
 import { ClienteService } from 'src/app/Services/cliente.service';
 import {Router} from "@angular/router"
 
+
+
 @Component({
   selector: 'app-alta',
   templateUrl: './alta.component.html',
@@ -33,10 +35,10 @@ export class AltaComponentCliente implements OnInit {
       
       this.clienteService.agregarCliente(this.nuevoCliente).subscribe({
         next: () => {
-          alert("proveedor agregado")
+          alert("cliente agregado")
         },
         error: () => {
-          alert("error al agregar proveedor")
+          alert("error al agregar cliente")
         }
       })
 

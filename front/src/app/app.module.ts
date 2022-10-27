@@ -26,6 +26,8 @@ import { ConsultarComponent } from './Oferta/consultar/consultar.component'
 //services
 import {ProveedorServiceService} from "../app/Services/proveedor-service.service"
 import { OfertasService} from "../app/Services/ofertas.service"
+import { ClienteService} from "../app/Services/cliente.service"
+
 
 //google maps
 import {GoogleMapsModule} from "@angular/google-maps";
@@ -66,7 +68,7 @@ import {BUscarEditarBorrar} from './Cliente/buscar-editar-borrar/buscar-editar-b
     Ng2SearchPipeModule,
     
   ],
-  providers: [ProveedorServiceService, OfertasService],
+  providers: [ProveedorServiceService, OfertasService, ClienteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
