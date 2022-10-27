@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms"
 import { Cliente } from 'src/app/models/cliente';
+import { ClienteService } from 'src/app/Services/cliente.service';
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-alta',
@@ -19,7 +21,7 @@ export class AltaComponentCliente implements OnInit {
     correo: new UntypedFormControl("",[Validators.required]),
     cantPuntos: new UntypedFormControl("",[Validators.required])
   })
-  constructor() { }
+  constructor(private clienteService: ClienteService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -27,13 +29,26 @@ export class AltaComponentCliente implements OnInit {
   guardar(){
     if(this.formularioAltaCliente.valid){
       this.nuevoCliente = this.formularioAltaCliente.value
-      //https://blog.angular.io/angular-v14-is-now-available-391a6db736af  UntypedFormControl y UntypedFormGroup
+  
+      
+      this.clienteService.agregarCliente(this.nuevoCliente).subscribe({
+        next: () => {
+          alert("proveedor agregado")
+        },
+        error: () => {
+          alert("error al agregar proveedor")
+        }
+      })
+
 
       console.log(this.nuevoCliente);
     } else{
       alert("formulario invalido, debe completar los campos")
-    }
+    }    
+  }
 
+  volver(){
+    this.router.navigateByUrl("home");
   }
 
 }
