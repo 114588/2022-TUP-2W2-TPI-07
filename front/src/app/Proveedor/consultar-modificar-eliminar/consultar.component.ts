@@ -5,6 +5,7 @@ import { ProveedorServiceService } from '../../Services/proveedor-service.servic
 import { Router } from '@angular/router';
 import { FormControl, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {ProveedorModificado} from "../../models/proveedor-modificado";
+import { ThisReceiver } from '@angular/compiler';
 
 interface posicion {
   lat: number,
@@ -160,48 +161,23 @@ formularioModificarProveedor = new UntypedFormGroup({
     this.router.navigateByUrl('home');
   }
 
-
-  //buscarProveedorAutomaticamente(){
-    //esto es con libreria ng2Search
-      // https://www.youtube.com/watch?v=vZ91vDD7FGY
-    // https://www.npmjs.com/package/ng2-search-filter
-
-  //   this.subscripcion.add(
-  //   this.valorBuscarProveedor.valueChanges
-  //   .pipe(debounceTime(300))
-  //    .subscribe({
-  //     next: () => {
-  //       console.log(this.valorBusqueda);
-  //     },
-  //     error: () => {
-  //       alert("error al buscar proveedor automaticamente")
-  //     }
-  //   }))
-  // }
-
   buscarProveedorPorNombre(){
     // https://www.youtube.com/watch?v=vZ91vDD7FGY
     this.subscripcion.add(
       this.proveedorService.buscarProveedorPorNombre(this.valorBusqueda).subscribe({
         next: (proveedor: Proveedor) => {
-          
-          this.listaProveedor=[]; //limpio la lista asi no acumula
-          
-          //this.latitud = proveedor.latitud!;
-          //this.latitud = proveedor.latitud!;
-          //this.miLatitud!= this.listaProveedor[0].latitud;
-          //this.miLongitud!= this.listaProveedor[0].longitud;
-
-          console.log("capturado desde el consultar " + proveedor.latitud);
-          console.log("capturado desde el consultar " + proveedor.longitud);
-
-          this.miLatitud!=proveedor.latitud;
-          this.miLongitud!=proveedor.longitud;
-
-          this.listaProveedor.push(proveedor);
-
-          this.banderaMostrarMapa= true;
-
+          if(proveedor == null){
+            alert("proveedor no encontrado")
+          } else {
+            this.listaProveedor=[]; //limpio la lista asi no acumula
+            this.miLatitud!=proveedor.latitud;
+            this.miLongitud!=proveedor.longitud;
+  
+            this.listaProveedor.push(proveedor);
+  
+            this.banderaMostrarMapa= true;
+            this.valorBusqueda = ""
+          }
           
         },
         error: () => {
@@ -209,7 +185,6 @@ formularioModificarProveedor = new UntypedFormGroup({
         }
     }))
   }
-
 
  
 }

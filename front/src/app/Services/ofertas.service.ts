@@ -16,8 +16,8 @@ export class OfertasService {
   }
 
   buscarOfertaPorNombre(nombre: string): Observable<any>{
-    return this.http.get("http://localhost:8081/proveedores/ofertas/"+ nombre)
-  }
+    return this.http.get("http://localhost:8081/ofertas/buscarNombre/"+ nombre)
+ }
 
 
   modificarOferta(ofertaModificado: Ofertas, ofertaViejo: Ofertas): Observable<any>{

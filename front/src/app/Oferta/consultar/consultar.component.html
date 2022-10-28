@@ -2,41 +2,55 @@
 
     <h2>Gestión de Ofertas</h2>
 
-    <form class="form-control">
-        <input type="search"  class="form-control" placeholder="Buscar oferta" aria-label="Search" [formControl]="busqueda" />  
-        <button type="button" (click)="buscarOfertaPorNombre()" >buscar</button>
-    </form>
+<!-- =================== BUSCAR =============== -->
+
+<form>
+  <div class="mb-3">
+    <input type="text" class="form-control" id="txtProveedor" name="nombreBuscado" [(ngModel)]="valorBuscado">
+  </div>
+
+  <button type="button" (click)="buscarOfertaPorNombre()" class="btn btn-primary">buscar</button>
+</form>
+
+<div class="container">
+  {{valorBuscado}}
+</div>
 
 
-
+<!-- =================== LISTADO OFERTAS ================ -->
     <div class="container">
         <table class="table">
           <thead>
             <tr>
+              <th scope="col">Codigo Producto</th>
               <th scope="col">Descripcion</th>
-              <th scope="col">Precio</th>
-              <th scope="col">Puntos</th>
+              <th scope="col">Cantidad Puntos</th>
+              <th scope="col">Beneficio</th>
               <th scope="col">Fecha Inicio</th>
               <th scope="col">Fecha Fin</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of listadoOfertas">
-              <td>{{ item.descripcion }}</td>
-              <td>{{ item.precio }}</td>
-              <td>{{ item.puntos }}</td>
-              <td>{{ item.fecha_inicio }}</td>
-              <td>{{ item.fecha_fin }}</td>
+            <tr >
+              <td>{{ ofertaBuscada.codigo_producto }}</td>
+              <td>{{ ofertaBuscada.descripcion }}</td>
+              <td>{{ ofertaBuscada.cantidad_puntos }}</td>
+              <td>{{ ofertaBuscada.beneficio }}</td>
+              <td>{{ ofertaBuscada.fecha_inicio }}</td>
+              <td>{{ ofertaBuscada.fecha_fin }}</td>
 
               <td>
                 <button type="button" class="btn btn-outline-success" >Editar</button>
-                <button type="button" class="btn btn-outline-danger" (click)="borrar(item)" >Eliminar</button>       
+                <button type="button" class="btn btn-outline-danger" (click)="borrar(ofertaBuscada)" >Eliminar</button>       
               </td>
             </tr>
           </tbody>
         </table>
 </div>
 
+
+
+<!-- ================ FORMULARIO MODIFICAR ================ -->
 
 <div class="container">
   <form>

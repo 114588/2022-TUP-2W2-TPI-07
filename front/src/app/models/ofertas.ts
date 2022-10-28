@@ -1,7 +1,9 @@
 export interface Ofertas {
+    id: number
+    codigo_producto: number,
     descripcion: string,
-    precio: number,
-    puntos: number,
+    cantidad_puntos: number
+    beneficio: number,
     fecha_inicio: string,
     fecha_fin: string
 }
