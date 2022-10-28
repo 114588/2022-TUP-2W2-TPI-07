@@ -5,7 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {RouterModule} from "@angular/router"
 import {ReactiveFormsModule} from "@angular/forms"
-import {HttpClientModule} from "@angular/common/http"
+import {HttpClientModule} from "@angular/common/http";
+import {FormsModule} from "@angular/forms"
 
 //usuario
 import { AltaComponent } from "../app/Usuario/alta/alta.component";
@@ -66,6 +67,7 @@ import {BuscarEditarBorrarCliente} from './Cliente/buscar-editar-borrar/buscar-e
     HttpClientModule,
     GoogleMapsModule,
     Ng2SearchPipeModule,
+    FormsModule,
     
   ],
   providers: [ProveedorServiceService, OfertasService, ClienteService],

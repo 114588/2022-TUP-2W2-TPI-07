@@ -37,7 +37,36 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
     lng: this.miLongitud, 
 } 
 
-  
+formularioModificarProveedor = new UntypedFormGroup({
+  //http://estilow3b.com/ejemplos-comunes-de-expresiones-regulares-javascript/
+  nombre: new UntypedFormControl('', [Validators.pattern(/^[a-zA-Z ]+$/)]),
+  cuil: new UntypedFormControl('', [
+    Validators.required,
+    Validators.pattern(/^\d{8}$/),
+  ]),
+  telefono: new UntypedFormControl('', [
+    Validators.required,
+    Validators.pattern(/^\d{7}$/),
+  ]),
+  pais: new UntypedFormControl('', [Validators.required]),
+  direccion: new UntypedFormControl('', [
+    Validators.required,
+    Validators.pattern(/^[a-zA-Z0-9 ]+$/),
+  ]),
+  codigo_postal: new UntypedFormControl('', [
+    Validators.required,
+    Validators.pattern(/^\d{4}$/),
+  ]),
+  email: new UntypedFormControl('', [Validators.required, Validators.email]),
+  latitud: new UntypedFormControl('', [
+    Validators.required,
+    Validators.pattern(/^-?\d{2}(\.[0-9]{4,4})$/),
+  ]),
+  longitud: new UntypedFormControl('', [
+    Validators.required,
+    Validators.pattern(/^-?\d{2}(\.[0-9]{4,4})$/),
+  ]),
+});
 
   
 
@@ -45,6 +74,8 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
     private proveedorService: ProveedorServiceService,
     private router: Router
   ) {}
+
+
 
   ngOnInit(): void {
     //this.obtenerListaProveedores();
@@ -55,6 +86,9 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscripcion.unsubscribe();
   }
+
+
+
 
   obtenerListaProveedores() {
     this.subscripcion.add(
@@ -68,6 +102,8 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
       })
     );
   }
+
+
 
   borrar(proveedor: Proveedor) {
     this.subscripcion.add(
@@ -88,38 +124,9 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
     this.proveedor = Object.assign({}, proveedor);
   }
 
-  formularioModificarProveedor = new UntypedFormGroup({
-    //http://estilow3b.com/ejemplos-comunes-de-expresiones-regulares-javascript/
-    nombre: new UntypedFormControl('', [Validators.pattern(/^[a-zA-Z ]+$/)]),
-    cuil: new UntypedFormControl('', [
-      Validators.required,
-      Validators.pattern(/^\d{8}$/),
-    ]),
-    telefono: new UntypedFormControl('', [
-      Validators.required,
-      Validators.pattern(/^\d{7}$/),
-    ]),
-    pais: new UntypedFormControl('', [Validators.required]),
-    direccion: new UntypedFormControl('', [
-      Validators.required,
-      Validators.pattern(/^[a-zA-Z0-9 ]+$/),
-    ]),
-    codigo_postal: new UntypedFormControl('', [
-      Validators.required,
-      Validators.pattern(/^\d{4}$/),
-    ]),
-    email: new UntypedFormControl('', [Validators.required, Validators.email]),
-    latitud: new UntypedFormControl('', [
-      Validators.required,
-      Validators.pattern(/^-?\d{2}(\.[0-9]{4,4})$/),
-    ]),
-    longitud: new UntypedFormControl('', [
-      Validators.required,
-      Validators.pattern(/^-?\d{2}(\.[0-9]{4,4})$/),
-    ]),
-  });
 
-  guardar() {
+
+  modificar() {
     this.proveedorModificado.codigo_postal = this.proveedor.codigo_postal;
     this.proveedorModificado.direccion = this.proveedor.direccion;
     this.proveedorModificado.email =  this.proveedor.email;
@@ -135,8 +142,9 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
           alert('proveedor modificado');
 
         },
-        error: () => {
-          alert('error al modificar proveedor');
+        error: (e) => {
+          console.log(e)
+          alert('error al modificar proveedor: ' + e);
         },
       })
     );
