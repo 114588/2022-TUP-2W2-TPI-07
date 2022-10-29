@@ -105,6 +105,7 @@ modificarDesdeFormulario() {
     this.apiCliente.modificarCliente(this.clienteParaModificar, this.clienteSeleccionado).subscribe({
       next: () => {
         alert('cliente modificado');
+        this.banderaFormularioEdicion=false;
 
       },
       error: (e) => {
