@@ -1,0 +1,51 @@
+<div class="container">
+    <h2>Orden de Compra</h2>
+
+    <!-- ============ SECCION BUSCAR ============== -->
+    <form class="form-control">
+    
+        <input  class="form-control"  type="search"  placeholder="Buscar proveedor" aria-label="Search" [(ngModel)]="valorBusqueda" />      
+        <button type="button" >buscar</button>
+    </form>
+
+
+    <!-- =============SECCION LISTADO ====================== -->
+<div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Cuit</th>
+          <th scope="col">Teléfono</th>
+          <th scope="col">País</th>
+          <th scope="col">Dirección</th>
+          <th scope="col">Código Postal</th>
+          <th scope="col">Email</th>
+          <th scope="col">Latitud</th>
+          <th scope="col">Longitud</th>
+          <th scope="col">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listaProveedor">
+          <td>{{ item.nombre }}</td>
+          <td>{{ item.cuil }}</td>
+          <td>{{ item.telefono }}</td>
+          <td>{{ item.pais }}</td>
+          <td>{{ item.direccion }}</td>
+          <td>{{ item.codigo_postal }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.latitud }}</td>
+          <td>{{ item.longitud}}</td>
+          <td>
+             <button type="button" class="btn btn-outline-success" (click)="editar(item)">Editar</button>
+   
+            <button type="button" class="btn btn-outline-danger" (click)="borrar(item)" >Eliminar</button> 
+  
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+ </div>
+</div>
