@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BuscarEditarBorrarComponent } from './buscar-editar-borrar.component';
+import { BuscarEditarBorrarCliente} from './buscar-editar-borrar.component';
 
 describe('BuscarEditarBorrarComponent', () => {
-  let component: BuscarEditarBorrarComponent;
-  let fixture: ComponentFixture<BuscarEditarBorrarComponent>;
+  let component: BuscarEditarBorrarCliente;
+  let fixture: ComponentFixture<BuscarEditarBorrarCliente>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BuscarEditarBorrarComponent ]
+      declarations: [ BuscarEditarBorrarCliente ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BuscarEditarBorrarComponent);
+    fixture = TestBed.createComponent(BuscarEditarBorrarCliente);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
