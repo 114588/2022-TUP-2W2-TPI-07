@@ -1,5 +1,5 @@
 export interface Proveedor {
-    cuil?: number;
+    cuit?: number
     nombre?: string ;
     telefono?: number ;
     pais?: string ;
@@ -8,4 +8,5 @@ export interface Proveedor {
     email: string ;
     latitud?: number;
     longitud?: number;
+    cuil?: number;
 }
