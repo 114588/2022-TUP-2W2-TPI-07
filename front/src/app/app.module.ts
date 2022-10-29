@@ -9,7 +9,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms"
 
 //usuario
-import { AltaComponent } from "../app/Usuario/alta/alta.component";
+import {AltaComponentUsuario} from "./Usuario/alta/alta.component";
 import { BajaComponent } from '../app/Usuario/baja/baja.component';
 import { ModificarComponent } from '../app/Usuario/modificar/modificar.component';
 import { IngresarComponent } from '../app/Usuario/ingresar/ingresar.component';
@@ -44,11 +44,13 @@ import { OrdenCompraComponent } from './orden-compra/orden-compra.component';
 
 
 
+
+
 @NgModule({
   declarations: [
+    AltaComponentUsuario,
     AltaComponentCliente,
     AppComponent,
-    AltaComponent,
     BajaComponent,
     ModificarComponent,
     IngresarComponent,
