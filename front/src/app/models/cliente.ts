@@ -3,7 +3,7 @@ export interface Cliente {
     nombre?: string ;
     telefono?: number ;
     direccion?: string ;
-    correo?: string
-    cantPuntos : number; 
+    email?: string
+    cantidad_puntos? : number; 
 
 }

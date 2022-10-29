@@ -101,8 +101,8 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
     this.clienteModificado.nombre = this.cliente.nombre;
     this.clienteModificado.telefono = this.cliente.telefono;
     this.clienteModificado.direccion =  this.cliente.direccion;
-    this.clienteModificado.correo =  this.cliente.correo;
-    this.clienteModificado.cantPuntos = this.cliente.cantPuntos;
+    this.clienteModificado.email =  this.cliente.email;
+    this.clienteModificado.cantidad_puntos = this.cliente.cantidad_puntos;
  
 
     this.subscripcion.add(
@@ -133,8 +133,8 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
   buscarclientePorNombre(){
     this.subscripcion.add(
       this.clienteService.buscarClientePorNombre(this.valorBusqueda).subscribe({
-        next: (cliente: Cliente) => {
-          
+        next: (item: Cliente) => {
+
           this.listaCliente=[]; //limpio la lista asi no acumula
        
 

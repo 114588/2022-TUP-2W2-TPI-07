@@ -3,8 +3,9 @@
       <h2>Registro  de nuevo Cliente</h2>
       
       <div class="mb-3">
-        <label for="txtNombre" class="form-label">Dni</label>
-        <input type="text" class="form-control" id="txtNombre"  formControlName="Dni" />
+        <label for="txtDni" class="form-label">Dni</label>
+        <input type="text" class="form-control" id="txtDni"  formControlName="dni" />
+        
         <span *ngIf="formularioAltaCliente.get('nombre')?.touched &&
          formularioAltaCliente.get('nombre')?.hasError('required')">
           * campo requerido 
@@ -14,11 +15,11 @@
       </div>
   
       <div class="mb-3">
-        <label for="txtCuil" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="txtCuil" name="cuil" formControlName="Nombre" />
+        <label for="txtNombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="txtNombre" name="nombre" formControlName="nombre" />
         
-        <span *ngIf="formularioAltaCliente.get('cuil')?.touched &&
-        formularioAltaCliente.get('cuil')?.hasError('required')">
+        <span *ngIf="formularioAltaCliente.get('nombre')?.touched &&
+        formularioAltaCliente.get('nombre')?.hasError('required')">
           * campo requerido 
         </span>
   
@@ -52,10 +53,21 @@
   
         <div class="mb-3">
           <label for="txtCorreo" class="form-label">Correo electronico</label>
-          <input type="email" class="form-control" id="txtCorreo" name="correo" formControlName="correo" />
+          <input type="email" class="form-control" id="txtCorreo" name="email" formControlName="email" />
   
-          <span *ngIf="formularioAltaCliente.get('correo')?.touched &&
-          formularioAltaCliente.get('correo')?.hasError('required')">
+          <span *ngIf="formularioAltaCliente.get('email')?.touched &&
+          formularioAltaCliente.get('email')?.hasError('required')">
+           * campo requerido 
+         </span>
+  
+        </div>
+
+        <div class="mb-3">
+          <label for="txtCantidadPuntos" class="form-label">Cantidad Puntos</label>
+          <input type="text" class="form-control" id="txtCantidadPuntos" name="cantidad_puntos" formControlName="cantidad_puntos" />
+  
+          <span *ngIf="formularioAltaCliente.get('cantidad_puntos')?.touched &&
+          formularioAltaCliente.get('cantidad_puntos')?.hasError('required')">
            * campo requerido 
          </span>
   

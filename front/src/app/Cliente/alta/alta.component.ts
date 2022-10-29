@@ -20,8 +20,9 @@ export class AltaComponentCliente implements OnInit {
     nombre : new UntypedFormControl ("", [Validators.required]),
     telefono : new UntypedFormControl("",[Validators.required]),
     direccion : new UntypedFormControl("",[Validators.required]),
-    correo: new UntypedFormControl("",[Validators.required]),
-    cantPuntos: new UntypedFormControl("",[Validators.required])
+    email: new UntypedFormControl("",[Validators.required]),
+    cantidad_puntos: new UntypedFormControl("",[Validators.required]),
+
   })
   constructor(private clienteService: ClienteService, private router: Router) { }
 
