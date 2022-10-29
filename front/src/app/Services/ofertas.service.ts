@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http"
 import {Ofertas} from "../models/ofertas"
+import {OfertaModificado} from  "../models/oferta-modificado"
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -20,8 +21,8 @@ export class OfertasService {
  }
 
 
-  modificarOferta(ofertaModificado: Ofertas, ofertaViejo: Ofertas): Observable<any>{
-    return this.http.put("http://localhost:8081/ofertas/actualizar/"+ ofertaModificado, ofertaViejo)
+  modificarOferta(ofertaModificado: OfertaModificado, ofertaViejo: Ofertas): Observable<any>{
+    return this.http.put("http://localhost:8081/ofertas/actualizar/"+ ofertaViejo.id, ofertaModificado)
   }
 
   eliminarOferta(id:number): Observable<any>{

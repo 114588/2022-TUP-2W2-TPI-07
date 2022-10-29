@@ -12,10 +12,6 @@
   <button type="button" (click)="buscarOfertaPorNombre()" class="btn btn-primary">buscar</button>
 </form>
 
-<div class="container">
-  {{valorBuscado}}
-</div>
-
 
 <!-- =================== LISTADO OFERTAS ================ -->
     <div class="container">
@@ -31,17 +27,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr >
-              <td>{{ ofertaBuscada.codigo_producto }}</td>
-              <td>{{ ofertaBuscada.descripcion }}</td>
-              <td>{{ ofertaBuscada.cantidad_puntos }}</td>
-              <td>{{ ofertaBuscada.beneficio }}</td>
-              <td>{{ ofertaBuscada.fecha_inicio }}</td>
-              <td>{{ ofertaBuscada.fecha_fin }}</td>
+            <tr  *ngFor="let item of listadoOfertasBuscadas" >
+              <td>{{ item.codigo_producto }}</td>
+              <td>{{ item.descripcion }}</td>
+              <td>{{ item.cantidad_puntos }}</td>
+              <td>{{ item.beneficio }}</td>
+              <td>{{ item.fecha_inicio }}</td>
+              <td>{{ item.fecha_fin }}</td>
 
               <td>
-                <button type="button" class="btn btn-outline-success" >Editar</button>
-                <button type="button" class="btn btn-outline-danger" (click)="borrar(ofertaBuscada)" >Eliminar</button>       
+                <button type="button" class="btn btn-outline-success" (click)="elegidoParaEditar(item)" >Editar</button>
+                <button type="button" class="btn btn-outline-danger" (click)="borrar(item)" >Eliminar</button>       
               </td>
             </tr>
           </tbody>
@@ -52,34 +48,40 @@
 
 <!-- ================ FORMULARIO MODIFICAR ================ -->
 
-<div class="container">
+<div class="container"  *ngIf="banderaFormularioEdicion">
   <form>
+
     <div class="mb-3">
-      <label for="txtDescripcion" class="form-label">Descripcionn</label>
-      <input type="text" class="form-control" id="txtDescripcion" aria-describedby="emailHelp">
+      <label for="txtDescripcion" class="form-label">Codigo Producto</label>
+      <input type="text" class="form-control" id="txtDescripcion" name="codigo_producto" [(ngModel)]="ofertaBuscada.codigo_producto">
     </div>
 
     <div class="mb-3">
-      <label for="txtPrecio" class="form-label">Precio</label>
-      <input type="text" class="form-control" id="txtPrecio">
+      <label for="txtDescripcion" class="form-label">Descripcion</label>
+      <input type="text" class="form-control" id="txtDescripcion" name="descripcion" [(ngModel)]="ofertaBuscada.descripcion">
     </div>
 
     <div class="mb-3">
-      <label for="txtPuntos" class="form-label">Puntos</label>
-      <input type="text" class="form-control" id="txtPuntos">
+      <label for="txtPrecio" class="form-label">Cantidad Puntos</label>
+      <input type="text" class="form-control" id="txtPrecio" name="precio" [(ngModel)]="ofertaBuscada.cantidad_puntos">
+    </div>
+
+    <div class="mb-3">
+      <label for="txtPuntos" class="form-label">Beneficio</label>
+      <input type="text" class="form-control" id="txtPuntos" name="beneficio" [(ngModel)]="ofertaBuscada.beneficio" >
     </div>
 
     <div class="mb-3">
       <label for="txtFechaInicio" class="form-label">Fecha Inicio</label>
-      <input type="text" class="form-control" id="txtFechaInicio">
+      <input type="text" class="form-control" id="txtFechaInicio" name="fecha_inicio" [(ngModel)]="ofertaBuscada.fecha_inicio">
     </div>
 
     <div class="mb-3">
       <label for="txtFechaFin" class="form-label">Fecha Fin</label>
-      <input type="text" class="form-control" id="txtFechaFin">
+      <input type="text" class="form-control" id="txtFechaFin" name="fecha_fin" [(ngModel)]="ofertaBuscada.fecha_fin">
     </div>
 
 
-    <button type="button" class="btn btn-primary">Modificar</button>
+    <button type="button" class="btn btn-primary" (click)="modificarDesdeFormulario()" >Modificar</button>
   </form>
 </div>

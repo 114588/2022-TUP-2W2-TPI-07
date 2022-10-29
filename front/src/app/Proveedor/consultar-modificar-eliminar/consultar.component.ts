@@ -88,79 +88,7 @@ formularioModificarProveedor = new UntypedFormGroup({
     this.subscripcion.unsubscribe();
   }
 
-
-
-
-  obtenerListaProveedores() {
-    this.subscripcion.add(
-      this.proveedorService.obtenerTodos().subscribe({
-        next: (proveedores: Proveedor[]) => {
-          this.listaProveedor = proveedores  ;
-        },
-        error: () => {
-          alert('error al obtener listado');
-        },
-      })
-    );
-  }
-
-
-
-  borrar(proveedor: Proveedor) {
-    this.subscripcion.add(
-      this.proveedorService.eliminarProveedor(proveedor.cuil!).subscribe({
-        next: () => {
-          alert('proveedor borrado');
-          this.obtenerListaProveedores();
-        },
-        error: () => {
-          alert('error al borrar proveedor');
-        },
-      })
-    );
-  }
-
-  editar(proveedor: Proveedor) {
-    this.mostrarFormulario = true;
-    this.proveedor = Object.assign({}, proveedor);
-  }
-
-
-
-  modificar() {
-    this.proveedorModificado.codigo_postal = this.proveedor.codigo_postal;
-    this.proveedorModificado.direccion = this.proveedor.direccion;
-    this.proveedorModificado.email =  this.proveedor.email;
-    this.proveedorModificado.latitud =  this.proveedor.latitud;
-    this.proveedorModificado.longitud = this.proveedor.longitud;
-    this.proveedorModificado.pais = this.proveedor.pais;
-    this.proveedorModificado.telefono = this.proveedor.telefono;
-    this.proveedorModificado.nombre = this.proveedor.nombre;
-
-    this.subscripcion.add(
-      this.proveedorService.modificarProveedor(this.proveedorModificado, this.proveedor).subscribe({
-        next: () => {
-          alert('proveedor modificado');
-
-        },
-        error: (e) => {
-          console.log(e)
-          alert('error al modificar proveedor: ' + e);
-        },
-      })
-    );
-  }
-
-  cancelar() {
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(["buscarProveedor"]);
-    }); 
-  }
-
-  volver() {
-    this.router.navigateByUrl('home');
-  }
-
+// =============== SECCION BUSCAR ===================
   buscarProveedorPorNombre(){
     // https://www.youtube.com/watch?v=vZ91vDD7FGY
     this.subscripcion.add(
@@ -185,6 +113,85 @@ formularioModificarProveedor = new UntypedFormGroup({
         }
     }))
   }
+  
+  // ============ SECCION LISTADO ================
+
+  editar(item: Proveedor) {
+    this.mostrarFormulario = true;
+    this.proveedor = Object.assign({}, item);
+  }
+
+
+  borrar(item: Proveedor) {
+    this.subscripcion.add(
+      this.proveedorService.eliminarProveedor(item.cuil!).subscribe({
+        next: () => {
+          alert('proveedor borrado');
+          this.obtenerListaProveedores();
+        },
+        error: () => {
+          alert('error al borrar proveedor');
+        },
+      })
+    );
+  }
+
+
+  obtenerListaProveedores() {
+    this.subscripcion.add(
+      this.proveedorService.obtenerTodos().subscribe({
+        next: (proveedores: Proveedor[]) => {
+          this.listaProveedor = proveedores  ;
+        },
+        error: () => {
+          alert('error al obtener listado');
+        },
+      })
+    );
+  }
+
+
+
+// =============== SECCION FORMULARIO EDITAR ==================
+
+  modificar() {
+    this.proveedorModificado.codigo_postal = this.proveedor.codigo_postal;
+    this.proveedorModificado.direccion = this.proveedor.direccion;
+    this.proveedorModificado.email =  this.proveedor.email;
+    this.proveedorModificado.latitud =  this.proveedor.latitud;
+    this.proveedorModificado.longitud = this.proveedor.longitud;
+    this.proveedorModificado.pais = this.proveedor.pais;
+    this.proveedorModificado.telefono = this.proveedor.telefono;
+    this.proveedorModificado.nombre = this.proveedor.nombre;
+
+    this.subscripcion.add(
+      this.proveedorService.modificarProveedor(this.proveedorModificado, this.proveedor).subscribe({
+        next: () => {
+          alert('proveedor modificado');
+
+        },
+        error: (e) => {
+          console.log(e)
+          alert('error al modificar proveedor: ' + e.message);
+        },
+      })
+    );
+  }
+
+  cancelar() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(["buscarProveedor"]);
+    }); 
+  }
+
+
+// ============= PAGINA PRINCIPAL =============
+
+  volver() {
+    this.router.navigateByUrl('home');
+  }
+
+  
 
  
 }
