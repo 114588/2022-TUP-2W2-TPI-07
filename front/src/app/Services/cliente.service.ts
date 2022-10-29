@@ -20,8 +20,8 @@ export class ClienteService {
     return this.http.post<Cliente>("http://localhost:8081/clientes/alta/",nuevoCliente)
   }
 
-  eliminarCliente(cuil:number): Observable<any>{
-    return this.http.delete("http://localhost:8081/clientes/eliminar/"+cuil)
+  eliminarCliente(dni:number): Observable<any>{
+    return this.http.delete("http://localhost:8081/clientes/eliminar/"+dni)
   }
    /// EL NEGRO ESTO LO HIZO CON CLIENTE, HAY QUE DECIRLE QUE CAMBIE A "CLIENTES"
   modificarCliente(ClienteModificado: Cliente, ClienteViejo: Cliente): Observable<any>{

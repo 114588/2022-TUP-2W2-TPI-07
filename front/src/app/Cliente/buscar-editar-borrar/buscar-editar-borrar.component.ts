@@ -12,22 +12,24 @@ import { ClienteService } from 'src/app/Services/cliente.service';
   styleUrls: ['./buscar-editar-borrar.component.css']
 })
 export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
+  
+  subscripcion = new Subscription();
+
+  valorBusqueda: string = "";  
+  listaCliente: Cliente[] = [];
+  banderaFormularioEdicion: boolean =  false;
+  clienteSeleccionado: Cliente = {} as Cliente;
   cliente: Cliente = {} as Cliente;
   clienteModificado: ClienteModificado = {} as ClienteModificado;
-  listaCliente: Cliente[] = [];
-  subscripcion = new Subscription();
-  mostrarFormulario: boolean = false;
+
+
   valorBuscarCliente = new FormControl('');
-  valorBusqueda: string = "";
+
   ClienteSeleccionado : Cliente = {} as Cliente;
  
   
-  
-
-  
-
   constructor(
-    private clienteService: ClienteService,
+    private apiCliente: ClienteService,
     private router: Router
   ) {}
 
@@ -40,9 +42,82 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
     this.subscripcion.unsubscribe();
   }
 
-  obtenerListaclientees() {
+// ====================== BUSCAR =================
+  buscarClientePorNombre(){
     this.subscripcion.add(
-      this.clienteService.obtenerClientes().subscribe({
+      this.apiCliente.buscarClientePorNombre(this.valorBusqueda).subscribe({
+        next: (item: Cliente) => {
+
+          this.listaCliente=[]; //limpio la lista asi no acumula
+          this.listaCliente.push(item);
+          this.valorBusqueda = ""
+                
+        },
+        error: () => {
+          alert ("error al obtener cliente por nombre")
+        }
+    }))
+  }
+
+  // ================== LISTADO ====================
+
+ elegirCliente(item: Cliente){
+  this.banderaFormularioEdicion = true
+  this.clienteSeleccionado = item
+
+ }
+
+ eliminar(item: Cliente){
+  this.subscripcion.add(
+  this.apiCliente.eliminarCliente(item.dni!).subscribe({
+    next: () => {
+      alert("cliente eliminado");
+      
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate(["registrarCliente"]);
+      }); 
+
+    },
+    error: (e) => {
+      alert("error al eliminar cliente: " + e.message)
+    }
+
+  }))
+ }
+
+
+//  =========== FORMULARIO EDICION ================
+
+modificarDesdeFormulario() {
+  this.clienteModificado.nombre = this.cliente.nombre;
+  this.clienteModificado.telefono = this.cliente.telefono;
+  this.clienteModificado.direccion =  this.cliente.direccion;
+  this.clienteModificado.email =  this.cliente.email;
+  this.clienteModificado.cantidad_puntos = this.cliente.cantidad_puntos;
+
+
+  this.subscripcion.add(
+    this.apiCliente.modificarCliente(this.clienteModificado, this.cliente).subscribe({
+      next: () => {
+        alert('cliente modificado');
+
+      },
+      error: () => {
+        alert('error al modificar cliente');
+      },
+    })
+  );
+}
+
+
+
+
+
+
+
+  obtenerListaclientes() {
+    this.subscripcion.add(
+      this.apiCliente.obtenerClientes().subscribe({
         next: (cliente: Cliente[]) => {
           this.listaCliente = cliente  ;
         },
@@ -53,12 +128,12 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
     );
   }
 
-  borrar(cliente: Cliente) {
+  eliminarCliente(cliente: Cliente) {
     this.subscripcion.add(
-      this.clienteService.eliminarCliente(cliente.dni!).subscribe({
+      this.apiCliente.eliminarCliente(cliente.dni!).subscribe({
         next: () => {
           alert('cliente borrado');
-          this.obtenerListaclientees();
+          //this.obtenerListaclientees();
         },
         error: () => {
           alert('error al borrar cliente');
@@ -68,7 +143,7 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
   }
 
   editar(cliente: Cliente) {
-    this.mostrarFormulario = true;
+    //this.mostrarFormulario = true;
     this.cliente = Object.assign({}, cliente);
   }
 
@@ -97,26 +172,7 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
   
   });
 
-  guardar() {
-    this.clienteModificado.nombre = this.cliente.nombre;
-    this.clienteModificado.telefono = this.cliente.telefono;
-    this.clienteModificado.direccion =  this.cliente.direccion;
-    this.clienteModificado.email =  this.cliente.email;
-    this.clienteModificado.cantidad_puntos = this.cliente.cantidad_puntos;
  
-
-    this.subscripcion.add(
-      this.clienteService.modificarCliente(this.clienteModificado, this.cliente).subscribe({
-        next: () => {
-          alert('cliente modificado');
-
-        },
-        error: () => {
-          alert('error al modificar cliente');
-        },
-      })
-    );
-  }
 
   cancelar() {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
@@ -128,23 +184,6 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
     this.router.navigateByUrl('home');
   }
 
-
-  
-  buscarclientePorNombre(){
-    this.subscripcion.add(
-      this.clienteService.buscarClientePorNombre(this.valorBusqueda).subscribe({
-        next: (item: Cliente) => {
-
-          this.listaCliente=[]; //limpio la lista asi no acumula
-       
-
-          
-        },
-        error: () => {
-          alert ("error al obtener cliente por nombre")
-        }
-    }))
-  }
 
 
  
