@@ -4,14 +4,14 @@
     <!-- ============ SECCION BUSCAR ============== -->
     <form class="form-control">
     
-        <input  class="form-control"  type="search"  placeholder="Buscar proveedor" aria-label="Search" name="valorBusqueda" [(ngModel)]="valorBusqueda" />      
+        <input  class="form-control"  type="search"  placeholder="Buscar cliente" aria-label="Search" name="valorBusqueda" [(ngModel)]="valorBuscado" />      
         <button type="button" (click)="buscarClientePorNombre()">buscar</button>
 
     </form>
 
 
     <!-- =============SECCION LISTADO ====================== -->
-    <div class="container">
+    <div class="container" *ngIf="banderaListado">
         <table class="table">
         <thead>
             <tr>
@@ -30,7 +30,7 @@
                 <td>{{ item.telefono }}</td>
                 <td>{{ item.direccion}}</td>
                 <td>{{ item.email }}</td>
-                <td>{{ item.cantidad_puntos}}</td>
+                <!-- <td>{{ item.cantidad_puntos}}</td> -->
                 <td>
                     <button type="button" class="btn btn-outline-danger" (click)="eliminarCliente(item)">Eliminar</button>
                     <button type="button" class="btn btn-outline-success" (click)="elegirCliente(item)">Editar</button>
@@ -66,11 +66,11 @@
         <input type="text" class="form-control" id="txtEmail" name="email" [(ngModel)]="clienteSeleccionado.email" >
       </div>
   
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label for="txtCantidadPuntos" class="form-label">Cantidad Puntos</label>
         <input type="text" class="form-control" id="txtCantidadPuntos" name="fecha_inicio" [(ngModel)]="clienteSeleccionado.cantidad_puntos">
       </div>
-  
+   -->
       <button type="button" class="btn btn-primary" (click)="modificarDesdeFormulario()" >Modificar</button>
     </form>
   </div>
