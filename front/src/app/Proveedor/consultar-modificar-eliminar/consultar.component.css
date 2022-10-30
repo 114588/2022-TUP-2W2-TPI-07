@@ -6,3 +6,24 @@
     height: 100vh;
     
 }
+form{
+	width:400px;
+	padding:16px;
+	border-radius:10px;
+	margin-right: 100px;
+	background: #78a4d0;
+    color: white;
+    font-size: 13px;
+}
+
+button {
+    width: 60px;
+    background: #24303c;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border: 1px solid #1f53c5;
+    font-family: 'calibri';
+    font-size: 13px;
+    color: white;
+  }
