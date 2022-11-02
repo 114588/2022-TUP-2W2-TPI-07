@@ -1,4 +1,4 @@
-<div class=" fondo ">
+
   <div class="container">
   
 
@@ -84,28 +84,7 @@
 
       </div>
 
-      <div class="mb-3">
-        <label for="txtLatitud" class="form-label">Latitud</label>
-        <input type="text" class="form-control" id="txtLatitud" name="latitud" formControlName="latitud" />
-
-        <span *ngIf="formularioAltaProveedor.get('latitud')?.touched &&
-        formularioAltaProveedor.get('latitud')?.hasError('pattern')">
-         * campo requerido 2 enteros . y 4 decimales
-       </span>
-
-      </div>
-
-
-      <div class="mb-3">
-        <label for="txtLongitud" class="form-label">Longitud</label>
-        <input type="text" class="form-control" id="txtLongitud" name="longitud" formControlName="longitud" />
-
-        <span *ngIf="formularioAltaProveedor.get('longitud')?.touched &&
-        formularioAltaProveedor.get('longitud')?.hasError('pattern')">
-         * campo requerido 2 enteros . y 4 decimales
-       </span>
-
-      </div>
+      
 
 
 
@@ -117,5 +96,5 @@
 
     </form>
 </div>
-</div>
+
 
