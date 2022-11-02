@@ -8,12 +8,13 @@
  
     <input  class="form-control"  type="search"  placeholder="Buscar proveedor" aria-label="Search" [formControl]="valorBuscarProveedor" [(ngModel)]="valorBusqueda" />      
     <button type="button" (click)="buscarProveedorPorNombre()" >buscar</button>
+    <button type="button" (click)="mostrarListaCompleta()" >mostrar lista completa</button>
   </form>
 </div>
 
 
 
-<!-- =============SECCION LISTADO ====================== -->
+<!-- =============SECCION LISTADO BUSCADO ====================== -->
 <div class="container">
   <table class="table">
     <thead>
@@ -25,8 +26,8 @@
         <th scope="col">Dirección</th>
         <th scope="col">Código Postal</th>
         <th scope="col">Email</th>
-        <th scope="col">Latitud</th>
-        <th scope="col">Longitud</th>
+        <!-- <th scope="col">Latitud</th>
+        <th scope="col">Longitud</th> -->
         <th scope="col">Acción</th>
       </tr>
     </thead>
@@ -40,8 +41,8 @@
         <td>{{ item.direccion }}</td>
         <td>{{ item.codigo_postal }}</td>
         <td>{{ item.email }}</td>
-        <td>{{ item.latitud }}</td>
-        <td>{{ item.longitud}}</td>
+        <!-- <td>{{ item.latitud }}</td>
+        <td>{{ item.longitud}}</td> -->
         <td>
          
 
@@ -62,16 +63,17 @@
 </div>
 
 
+
 <!-- ======== MAPA =============== -->
 <div class="container">
   <div class="row">
     <div class="col-md-6">
           <!-- <app-mapa *ngIf="banderaMostrarMapa" [latitud]="latitud" [longitud]="longitud" ></app-mapa> -->
-          <app-mapa [posicionRecibida]="posicionProveedorPadre" *ngIf="miLatitud != null; else error" ></app-mapa>
+          <!-- <app-mapa [posicionRecibida]="posicionProveedorPadre" *ngIf="miLatitud != null; else error" ></app-mapa> -->
 
-      <ng-template #error>
+      <!-- <ng-template #error>
         <h2>cargando</h2>
-      </ng-template>
+      </ng-template> -->
 
     </div>
 
@@ -193,10 +195,47 @@
         
         <button type="button" class="btn btn-primary"  (click)="modificar()" [disabled]="formularioModificarProveedor.invalid" >Guardar</button>
         <button type="button" class="btn btn-warning" (click)="cancelar()">Volver</button>
-
         </form>
       </div>
     </div>
+
+
+
+<!-- =============SECCION LISTA COMUN ====================== -->
+<div class="container"  *ngIf="banderaMostrarListaCompleta">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Cuit</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">País</th>
+        <th scope="col">Dirección</th>
+        <th scope="col">Código Postal</th>
+        <th scope="col">Email</th>
+        <!-- <th scope="col">Latitud</th>
+        <th scope="col">Longitud</th> -->
+        <!-- <th scope="col">Acción</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listaProveedorCompleta">
+      <!-- <tr *ngFor="let item of listaProveedor | filter: valorBusqueda"> -->
+        <td>{{ item.nombre }}</td>
+        <td>{{ item.cuil }}</td>
+        <td>{{ item.telefono }}</td>
+        <td>{{ item.pais }}</td>
+        <td>{{ item.direccion }}</td>
+        <td>{{ item.codigo_postal }}</td>
+        <td>{{ item.email }}</td>
+        <!-- <td>{{ item.latitud }}</td>
+        <td>{{ item.longitud}}</td> -->
+       
+      </tr>
+    </tbody>
+  </table>
+
+
 
   </div>
 </div>

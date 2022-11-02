@@ -23,12 +23,14 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
   proveedor: Proveedor = {} as Proveedor;
   proveedorModificado: ProveedorModificado = {} as ProveedorModificado;
   listaProveedor: Proveedor[] = [];
+  listaProveedorCompleta: Proveedor[] = []
   subscripcion = new Subscription();
   mostrarFormulario: boolean = false;
   valorBuscarProveedor = new FormControl('');
   valorBusqueda: string = "";
   proveedorSeleccionado : Proveedor = {} as Proveedor;
   banderaMostrarMapa: boolean = false;
+  banderaMostrarListaCompleta : boolean =false
   
   miLatitud!: number 
   miLongitud!: number 
@@ -81,6 +83,7 @@ formularioModificarProveedor = new UntypedFormGroup({
   ngOnInit(): void {
     //this.obtenerListaProveedores();
    // this.buscarProveedorAutomaticamente();
+   this.obtenerListaProveedoresCompleta()
 
   }
 
@@ -114,7 +117,7 @@ formularioModificarProveedor = new UntypedFormGroup({
     }))
   }
   
-  // ============ SECCION LISTADO ================
+  // ============ SECCION LISTADO BUSCADO================
 
   editar(item: Proveedor) {
     this.mostrarFormulario = true;
@@ -183,6 +186,28 @@ formularioModificarProveedor = new UntypedFormGroup({
       this.router.navigate(["buscarProveedor"]);
     }); 
   }
+
+
+  // =============SECCION LISTA COMUN ======================
+
+  obtenerListaProveedoresCompleta() {
+    this.subscripcion.add(
+      this.proveedorService.obtenerTodos().subscribe({
+        next: (proveedores: Proveedor[]) => {
+          this.listaProveedorCompleta = proveedores  ;
+        },
+        error: () => {
+          alert('error al obtener listado');
+        },
+      })
+    );
+  }
+
+  mostrarListaCompleta(){
+    this.banderaMostrarListaCompleta=true;
+  }
+
+
 
 
 // ============= PAGINA PRINCIPAL =============
