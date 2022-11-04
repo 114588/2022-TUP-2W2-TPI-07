@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import { Subscription } from 'rxjs';
 import { Cliente } from '../models/Ventas/cliente';
 import { Detalle } from '../models/Ventas/detalle';
@@ -7,6 +9,7 @@ import { Producto } from '../models/Ventas/producto';
 import { TipoProducto } from '../models/Ventas/tipo-producto';
 import { VentaService } from '../Services/venta.service';
 
+
 @Component({
   selector: 'app-ventas',
   templateUrl: './ventas.component.html',
@@ -14,9 +17,16 @@ import { VentaService } from '../Services/venta.service';
 })
 export class VentasComponent implements OnInit {
   
+  //para el pdf
+  //https://www.youtube.com/watch?v=Eh6StPjcWjE
+  @ViewChild("factura") myData!: ElementRef;
+
+
   fecha = new Date()
   nuevaFactura: Factura = {} as Factura;
   nuevoDetalle: Detalle = {} as Detalle;
+  banderaMostrarFactura: boolean = false;
+  banderaMostrarFormularioCarga : boolean = true;
 
   suscripcion = new Subscription();
   sumaFactura : number = 0;
@@ -37,7 +47,8 @@ export class VentasComponent implements OnInit {
 
 
 
-  constructor(private apiVenta: VentaService) { }
+
+  constructor(private apiProveedor: VentaService) { }
   ngOnDestroy(): void {
     this.suscripcion.unsubscribe();
   }
@@ -51,7 +62,7 @@ export class VentasComponent implements OnInit {
   buscarProducto(){
     // https://www.youtube.com/watch?v=vZ91vDD7FGY
     this.suscripcion.add(
-      this.apiVenta.obtenerTodosProductos().subscribe({
+      this.apiProveedor.obtenerTodosProductos().subscribe({
         next: (item: Producto[]) => {
           console.log(item)
          // Object.assign((this.listadoProductos),item );
@@ -66,7 +77,7 @@ export class VentasComponent implements OnInit {
 
   buscarCliente(){
     this.suscripcion.add(
-    this.apiVenta.obtenerClientes().subscribe({
+    this.apiProveedor.obtenerClientes().subscribe({
       next: (item : Cliente[]) => {
        this.listadoCliente = item
   
@@ -84,6 +95,7 @@ export class VentasComponent implements OnInit {
     //   this.conceptos.push(Object.assign({}, this.itemEnviar));
     //  
 
+    this.clienteSeleccionado = this.getClienteById(this.clienteSeleccionado.id!)
     console.log(this.productoSeleccionado)
     console.log(this.getProductoById(this.productoSeleccionado.codigo))
     console.log(this.getClienteById(this.nuevaFactura.id))
@@ -96,13 +108,12 @@ export class VentasComponent implements OnInit {
     //EMPIEZO A CONSTRUIR LA  FACTURA A PASAR
     this.nuevaFactura.items.push( {producto: this.getProductoById(this.productoSeleccionado.codigo), cantidad:this.nuevoDetalle.cantidad, importe: this.nuevoDetalle.importe } as Detalle )
     
-    this.sumarItems();
-    
     // this.nuevaFactura.id=3
     this.nuevaFactura.cliente = this.getClienteById(this.clienteSeleccionado.id!)
     this.nuevaFactura.fecha= this.fecha.toString()
     this.nuevaFactura.monto_total = this.sumaFactura
-    // console.log(this.nuevaFactura)
+    this.nuevoDetalle.cantidad = 0
+    this.sumarItems();
  
    }
 
@@ -110,7 +121,7 @@ export class VentasComponent implements OnInit {
    sumarItems(){
     this.sumaFactura = 0;
     this.nuevaFactura.items.forEach(item => {
-    this.sumaFactura = this.sumaFactura + (item.cantidad * item.importe)
+    this.sumaFactura = this.sumaFactura + (item.cantidad * item.producto.precio_unitario_venta!)
    });
    }
 
@@ -125,8 +136,10 @@ export class VentasComponent implements OnInit {
 
    guardarVenta(){
     console.log(this.nuevaFactura)
-    this.apiVenta.guardarFactura(this.nuevaFactura).subscribe({
+    this.apiProveedor.guardarFactura(this.nuevaFactura).subscribe({
       next: () => {
+        this.banderaMostrarFormularioCarga=false
+        this.banderaMostrarFactura = true;
         alert("factura cargada")
       },
       error: (e) => {
@@ -134,5 +147,24 @@ export class VentasComponent implements OnInit {
       }
     })
    }
+
+
+    descargarPdf(){
+      var data = document.getElementById('factura');
+    if(data !== null) {
+      html2canvas(data).then(canvas => {  
+        // https://www.youtube.com/watch?v=Eh6StPjcWjE 
+        let imgWidth = 208;   
+        let imgHeight = canvas.height * imgWidth / canvas.width;  
+  
+        const contentDataURL = canvas.toDataURL('image/png')  
+        let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+        let position = 5;  
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+        pdf.save('facturapdf'); // Generated PDF   
+      });
+    }
+  }
+
 
 }
