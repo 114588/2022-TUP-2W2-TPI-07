@@ -47,10 +47,10 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
   buscarClientePorNombre(){
     this.subscripcion.add(
       this.apiCliente.buscarClientePorNombre(this.valorBuscado).subscribe({
-        next: (item: Cliente) => {
+        next: (item: Cliente[]) => {
 
           this.listaCliente=[]; //limpio la lista asi no acumula
-          this.listaCliente.push(item);
+          this.listaCliente = item;
           this.banderaListado=true;
           this.valorBuscado = ""
                 

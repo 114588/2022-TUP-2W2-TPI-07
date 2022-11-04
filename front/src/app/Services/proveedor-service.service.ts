@@ -35,7 +35,7 @@ export class ProveedorServiceService {
   }
 
   buscarProveedorPorNombre(nombre: string): Observable<any>{
-    return this.http.get("http://localhost:8081/proveedores/buscarNombre/"+ nombre)
+    return this.http.get("http://localhost:8081/proveedores/listarNombre/"+ nombre)
   }
 
 }

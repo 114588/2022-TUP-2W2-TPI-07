@@ -31,7 +31,7 @@ export class ClienteService {
   }
 
   buscarClientePorNombre(nombre: string): Observable<any>{
-    return this.http.get("http://localhost:8081/clientes/buscarNombre/"+ nombre)
+    return this.http.get("http://localhost:8081/clientes/listarNombre/"+ nombre)
   }
 
 }
