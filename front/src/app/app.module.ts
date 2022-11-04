@@ -41,6 +41,7 @@ import {Ng2SearchPipeModule} from "ng2-search-filter";
 import {AltaComponentCliente} from "./Cliente/alta/alta.component";
 import {BuscarEditarBorrarCliente} from './Cliente/buscar-editar-borrar/buscar-editar-borrar.component';
 import { OrdenCompraComponent } from './orden-compra/orden-compra.component';
+import { VentasComponent } from './ventas/ventas.component';
 
 
 
@@ -59,6 +60,7 @@ import { OrdenCompraComponent } from './orden-compra/orden-compra.component';
     ConsultarComponent,
     BuscarEditarBorrarCliente,
     OrdenCompraComponent,
+    VentasComponent,
    
   ],
   imports: [

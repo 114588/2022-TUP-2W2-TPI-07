@@ -20,11 +20,11 @@
     </div>
 
     <div class="mb-3">
-      <label for="txtCuil" class="form-label">Cuit</label>
-      <input type="text" class="form-control" id="txtCuil" name="cuil" formControlName="cuil" />
+      <label for="txtCuit" class="form-label">Cuit</label>
+      <input type="text" class="form-control" id="txtCuit" name="cuit" formControlName="cuit" />
       
-      <span *ngIf="formularioAltaProveedor.get('cuil')?.touched 
-        && formularioAltaProveedor.get('cuil')?.hasError('pattern')">
+      <span *ngIf="formularioAltaProveedor.get('cuit')?.touched 
+        && formularioAltaProveedor.get('cuit')?.hasError('pattern')">
         * campo requerido y solo numerico de 11 digitos
       </span>
 
@@ -41,7 +41,7 @@
 
     </div>
 
-
+<!-- 
     <div class="mb-3">
     <label for="txtTelefono" class="form-label">Seleccione País</label>
     <select class="form-select" name="pais" formControlName="pais" >
@@ -49,7 +49,7 @@
         <option value="2">Uruguay</option>
         <option value="3">Brasil</option>
       </select>
-    </div>
+    </div> -->
 
     <div class="mb-3">
         <label for="txtDireccion" class="form-label">Dirección</label>

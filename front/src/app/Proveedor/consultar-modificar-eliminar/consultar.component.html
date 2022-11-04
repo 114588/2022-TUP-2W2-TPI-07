@@ -32,12 +32,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of listaProveedor">
+      <tr *ngFor="let item of listaProveedorBuscado">
       <!-- <tr *ngFor="let item of listaProveedor | filter: valorBusqueda"> -->
         <td>{{ item.nombre }}</td>
-        <td>{{ item.cuil }}</td>
+        <td>{{ item.cuit }}</td>
         <td>{{ item.telefono }}</td>
-        <td>{{ item.pais }}</td>
+        <!-- <td>{{ item.pais }}</td> -->
         <td>{{ item.direccion }}</td>
         <td>{{ item.codigo_postal }}</td>
         <td>{{ item.email }}</td>
@@ -65,17 +65,17 @@
 
 
 <!-- ======== MAPA =============== -->
-<div class="container">
+<!-- <div class="container">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6"> -->
           <!-- <app-mapa *ngIf="banderaMostrarMapa" [latitud]="latitud" [longitud]="longitud" ></app-mapa> -->
           <!-- <app-mapa [posicionRecibida]="posicionProveedorPadre" *ngIf="miLatitud != null; else error" ></app-mapa> -->
 
       <!-- <ng-template #error>
         <h2>cargando</h2>
       </ng-template> -->
-
-    </div>
+<!-- 
+    </div> -->
 
      
 
@@ -111,11 +111,11 @@
         </div>
 
         <div class="mb-3">
-          <label for="txtCuil" class="form-label">Cuit</label>
-          <input type="text" class="form-control" id="txtCuil"  formControlName="cuil" name="cuil" [(ngModel)]="proveedor.cuil"/>
+          <label for="txtCuit" class="form-label">Cuit</label>
+          <input type="text" class="form-control" id="txtCuit"  formControlName="cuit" name="cuit" [(ngModel)]="proveedor.cuit"/>
           
-          <span *ngIf="formularioModificarProveedor.get('cuil')?.touched 
-            && formularioModificarProveedor.get('cuil')?.hasError('pattern')">
+          <span *ngIf="formularioModificarProveedor.get('cuit')?.touched 
+            && formularioModificarProveedor.get('cuit')?.hasError('pattern')">
             * campo requerido y solo numerico de 11 digitos
           </span>
 
@@ -222,7 +222,7 @@
       <tr *ngFor="let item of listaProveedorCompleta">
       <!-- <tr *ngFor="let item of listaProveedor | filter: valorBusqueda"> -->
         <td>{{ item.nombre }}</td>
-        <td>{{ item.cuil }}</td>
+        <td>{{ item.cuit }}</td>
         <td>{{ item.telefono }}</td>
         <td>{{ item.pais }}</td>
         <td>{{ item.direccion }}</td>
@@ -238,5 +238,5 @@
 
 
   </div>
-</div>
+<!-- </div> -->
 

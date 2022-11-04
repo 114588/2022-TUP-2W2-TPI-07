@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  arrayLista: String []= ["Pineda, Kevin - Legajo 109833", "Cabrera, Guillermo - Legajo 109884", "Miguez, Pablo - Legajo 108537", "Zamuz, Ismael - Legajo 111942", "Ivetta, Luis - Legajo 114588"]
+  // arrayLista: String []= ["Pineda, Kevin - Legajo 109833", "Cabrera, Guillermo - Legajo 109884", "Miguez, Pablo - Legajo 108537", "Zamuz, Ismael - Legajo 111942", "Ivetta, Luis - Legajo 114588"]
 
 
   constructor() { }

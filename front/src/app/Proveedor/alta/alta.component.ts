@@ -17,14 +17,14 @@ export class AltaComponentProveedor implements OnInit {
   formularioAltaProveedor = new  UntypedFormGroup({
     //http://estilow3b.com/ejemplos-comunes-de-expresiones-regulares-javascript/
     nombre : new UntypedFormControl("",[Validators.pattern(/^[a-zA-Z ]+$/)]),
-    cuil : new UntypedFormControl ("", [Validators.required, Validators.pattern(/^\d{8}$/)] ),
+    cuit : new UntypedFormControl ("", [Validators.required, Validators.pattern(/^\d{11}$/)] ),
     telefono : new UntypedFormControl("",[Validators.required, Validators.pattern(/^\d{7}$/)]),
-    pais : new UntypedFormControl("",[Validators.required]),
+    // pais : new UntypedFormControl("",[Validators.required]),
     direccion: new UntypedFormControl("",[Validators.required, Validators.pattern(/^[a-zA-Z0-9 ]+$/)]),
     codigo_postal: new UntypedFormControl("",[Validators.required, Validators.pattern(/^\d{4}$/)]),
     email: new UntypedFormControl("",[Validators.required, Validators.email]),
-    latitud: new UntypedFormControl("",[Validators.required, Validators.pattern(/^-?\d{2}(\.[0-9]{4,4})$/)]),
-    longitud: new UntypedFormControl("",[Validators.required, Validators.pattern(/^-?\d{2}(\.[0-9]{4,4})$/)])
+    // latitud: new UntypedFormControl("",[Validators.required, Validators.pattern(/^-?\d{2}(\.[0-9]{4,4})$/)]),
+    // longitud: new UntypedFormControl("",[Validators.required, Validators.pattern(/^-?\d{2}(\.[0-9]{4,4})$/)])
   })
 
   
@@ -48,8 +48,8 @@ export class AltaComponentProveedor implements OnInit {
         next: () => {
           alert("proveedor agregado")
         },
-        error: () => {
-          alert("error al agregar proveedor")
+        error: (e) => {
+          alert("error al agregar proveedor " + e.message )
         }
       })
 

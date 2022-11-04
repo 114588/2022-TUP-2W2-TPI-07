@@ -92,7 +92,7 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
 
 modificarDesdeFormulario() {
   this.clienteParaModificar.dni = this.clienteSeleccionado.dni;
-  this.clienteParaModificar.nombre = this.clienteSeleccionado.nombre;
+  this.clienteParaModificar.nombre = this.clienteSeleccionado.nombre_apellido;
   this.clienteParaModificar.telefono = this.clienteSeleccionado.telefono;
   this.clienteParaModificar.direccion =  this.clienteSeleccionado.direccion;
   this.clienteParaModificar.email =  this.clienteSeleccionado.email;

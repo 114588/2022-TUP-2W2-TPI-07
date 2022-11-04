@@ -28,7 +28,7 @@
         <tbody>
             <tr *ngFor="let item of listaCliente">
                 <td>{{ item.dni }}</td>
-                <td>{{ item.nombre }}</td>
+                <td>{{ item.nombre_apellido }}</td>
                 <td>{{ item.telefono }}</td>
                 <td>{{ item.direccion}}</td>
                 <td>{{ item.email }}</td>
@@ -49,8 +49,8 @@
     <form>
   
       <div class="mb-3">
-        <label for="txtDescripcion" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="txtDescripcion" name="nombre" [(ngModel)]="clienteSeleccionado.nombre">
+        <label for="txtNombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="txtNombre" name="nombre_apellido" [(ngModel)]="clienteSeleccionado.nombre_apellido">
       </div>
   
       <div class="mb-3">

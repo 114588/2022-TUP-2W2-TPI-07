@@ -17,10 +17,10 @@
   
       <div class="mb-3">
         <label for="txtNombre" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="txtNombre" name="nombre" formControlName="nombre" />
+        <input type="text" class="form-control" id="txtNombre" name="nombre_apellido" formControlName="nombre_apellido" />
         
-        <span *ngIf="formularioAltaCliente.get('nombre')?.touched &&
-        formularioAltaCliente.get('nombre')?.hasError('required')">
+        <span *ngIf="formularioAltaCliente.get('nombre_apellido')?.touched &&
+        formularioAltaCliente.get('nombre_apellido')?.hasError('required')">
           * campo requerido 
         </span>
   
@@ -62,7 +62,7 @@
          </span>
   
         </div>
-
+<!-- 
         <div class="mb-3">
           <label for="txtCantidadPuntos" class="form-label">Cantidad Puntos</label>
           <input type="text" class="form-control" id="txtCantidadPuntos" name="cantidad_puntos" formControlName="cantidad_puntos" />
@@ -70,9 +70,9 @@
           <span *ngIf="formularioAltaCliente.get('cantidad_puntos')?.touched &&
           formularioAltaCliente.get('cantidad_puntos')?.hasError('required')">
            * campo requerido 
-         </span>
+         </span> -->
   
-        </div>
+        <!-- </div> -->
   
   
       

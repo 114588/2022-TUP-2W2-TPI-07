@@ -17,11 +17,11 @@ export class AltaComponentCliente implements OnInit {
 
   formularioAltaCliente = new  UntypedFormGroup({
     dni : new UntypedFormControl("",[Validators.required]),
-    nombre : new UntypedFormControl ("", [Validators.required]),
+    nombre_apellido : new UntypedFormControl ("", [Validators.required]),
     telefono : new UntypedFormControl("",[Validators.required]),
     direccion : new UntypedFormControl("",[Validators.required]),
-    email: new UntypedFormControl("",[Validators.required]),
-    cantidad_puntos: new UntypedFormControl("",[Validators.required]),
+    email: new UntypedFormControl("",[Validators.required])
+    // cantidad_puntos: new UntypedFormControl("",[Validators.required]),
 
   })
   constructor(private clienteService: ClienteService, private router: Router) { }
@@ -38,8 +38,8 @@ export class AltaComponentCliente implements OnInit {
         next: () => {
           alert("cliente agregado")
         },
-        error: () => {
-          alert("error al agregar cliente")
+        error: (e) => {
+          alert("error al agregar cliente " + e.message)
         }
       })
 

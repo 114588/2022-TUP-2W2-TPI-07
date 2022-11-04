@@ -5,12 +5,12 @@ import { ProveedorServiceService } from '../../Services/proveedor-service.servic
 import { Router } from '@angular/router';
 import { FormControl, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {ProveedorModificado} from "../../models/proveedor-modificado";
-import { ThisReceiver } from '@angular/compiler';
 
-interface posicion {
-  lat: number,
-  lng: number
-}
+
+// interface posicion {
+//   lat: number,
+//   lng: number
+// }
 
 
 
@@ -23,7 +23,8 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
   proveedor: Proveedor = {} as Proveedor;
   proveedorModificado: ProveedorModificado = {} as ProveedorModificado;
   listaProveedor: Proveedor[] = [];
-  listaProveedorCompleta: Proveedor[] = []
+  listaProveedorCompleta: Proveedor[] = [];
+  listaProveedorBuscado: Proveedor[] = [];
   subscripcion = new Subscription();
   mostrarFormulario: boolean = false;
   valorBuscarProveedor = new FormControl('');
@@ -32,18 +33,18 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
   banderaMostrarMapa: boolean = false;
   banderaMostrarListaCompleta : boolean =false
   
-  miLatitud!: number 
-  miLongitud!: number 
+  // miLatitud!: number 
+  // miLongitud!: number 
 
-  posicionProveedorPadre: posicion = {
-    lat: this.miLatitud,
-    lng: this.miLongitud, 
-} 
+  // posicionProveedorPadre: posicion = {
+  //   lat: this.miLatitud,
+  //   lng: this.miLongitud, 
+//} 
 
 formularioModificarProveedor = new UntypedFormGroup({
   //http://estilow3b.com/ejemplos-comunes-de-expresiones-regulares-javascript/
   nombre: new UntypedFormControl('', [Validators.pattern(/^[a-zA-Z ]+$/)]),
-  cuil: new UntypedFormControl('', [
+  cuit: new UntypedFormControl('', [
     Validators.required,
     Validators.pattern(/^\d{8}$/),
   ]),
@@ -96,23 +97,23 @@ formularioModificarProveedor = new UntypedFormGroup({
     // https://www.youtube.com/watch?v=vZ91vDD7FGY
     this.subscripcion.add(
       this.proveedorService.buscarProveedorPorNombre(this.valorBusqueda).subscribe({
-        next: (proveedor: Proveedor) => {
-          if(proveedor == null){
+        next: (item: Proveedor[]) => {
+          if(item == null){
             alert("proveedor no encontrado")
           } else {
             this.listaProveedor=[]; //limpio la lista asi no acumula
-            this.miLatitud!=proveedor.latitud;
-            this.miLongitud!=proveedor.longitud;
+            // this.miLatitud!=proveedor.latitud;
+            // this.miLongitud!=proveedor.longitud;
   
-            this.listaProveedor.push(proveedor);
+            this.listaProveedorBuscado =  item;
   
-            this.banderaMostrarMapa= true;
+            // this.banderaMostrarMapa= true;
             this.valorBusqueda = ""
           }
           
         },
-        error: () => {
-          alert ("error al obtener proveedor por nombre")
+        error: (e) => {
+          alert ("error al obtener proveedor por nombre " + e.message )
         }
     }))
   }

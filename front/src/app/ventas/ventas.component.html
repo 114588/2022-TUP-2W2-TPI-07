@@ -1,0 +1,90 @@
+<div class="container">
+    <div class="row">
+      
+      <div class="col">
+        <li>Empresa: La bocha </li>
+        <li> Direccion: Colon  1234</li>
+      </div>
+  
+      <div class="col">
+        Fecha:  {{fecha | date : "dd/MM/yyyy" }}
+      </div>
+  
+    </div>
+  </div>
+  
+  
+  
+  <div class="container">
+    <form>
+  <!-- ============= CLIENTE ============= -->
+  Cliente    
+  <select class="form-select" name="item" [(ngModel)]="clienteSeleccionado.id">
+        <option >Open this select menu</option>
+        <option *ngFor="let item of listadoCliente" [value]="item.id" > {{item.nombre_apellido}} </option>
+      </select>
+  <hr>
+  
+  <!-- ============= PRODUCTO ============= -->
+  Producto    
+  <select class="form-select" name="item" [(ngModel)]="productoSeleccionado.codigo">
+                                                       <!-- id, producto[], precio, cantidad -->
+        <option >Open this select menu</option>
+        <option *ngFor="let item of listadoProductos" [value]="item.codigo" > {{item.descripcion}} </option>  
+                                    <!-- listadoProductos: id, nombre, tipo  -->
+      </select>
+  
+      
+  <!-- ============= CANTIDAD ============= -->
+      <div class="mb-3">
+        <label for="txtCantidad" class="form-label">Cantidad</label>
+        <input type="text" class="form-control" id="txtCantidad" name="cantidad" [(ngModel)]="nuevoDetalle.cantidad">
+                                                                                              <!-- id, producto[], precio, cantidad -->
+    </div>
+  
+  
+    <!-- ============= IMPORTE ============= -->
+    <div class="mb-3">
+      <label for="txtImporte" class="form-label">Importe</label>
+      <input type="text" class="form-control" id="txtImporte" name="precio" [(ngModel)]="nuevoDetalle.importe">
+                                                                                          <!-- id, producto[], precio, cantidad -->
+  </div>
+  
+  
+  <!-- {{ detalleSeleccionado| json }} -->
+  <br>
+      <button type="button" class="btn btn-primary" (click)="agregarDetalles()" >agregar item</button>
+    </form>
+  </div>
+  
+  
+  <div class="container">
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Id Producto</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Importe</th>
+          <th scope="col">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of nuevaFactura.items">
+          <td> {{item.producto.descripcion}} </td>
+          <td> {{item.cantidad}} </td>
+          <td> {{item.importe}} </td>
+          <td> {{item.importe * item.cantidad}} </td>
+        </tr>
+  
+  
+  
+      </tbody>
+    </table>
+  
+  suma factura {{sumaFactura}}
+  <br>
+  
+  <button class="btn btn-primary" (click)="guardarVenta()">guardar</button>
+  </div>
+  

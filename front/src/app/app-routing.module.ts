@@ -7,6 +7,7 @@ import { ConsultarComponent } from './Oferta/consultar/consultar.component';
 import { OrdenCompraComponent } from './orden-compra/orden-compra.component';
 import { AltaComponentProveedor } from './Proveedor/alta/alta.component';
 import { ConsultarComponentProveedor } from './Proveedor/consultar-modificar-eliminar/consultar.component';
+import { VentasComponent } from './ventas/ventas.component';
 
 const routes: Routes = [
   {path: "home", component:HomeComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: "buscarCliente", component:BuscarEditarBorrarCliente},
   {path: "ofertas", component:ConsultarComponent},
   {path: "ordenCompra", component:OrdenCompraComponent},
+  {path: "venta", component:VentasComponent},
   {path:"", redirectTo:"home", pathMatch:"full"}
 ];
 
