@@ -49,6 +49,9 @@ import { BuscarEditarBorrarProductoComponent } from "../app/Productos/buscar-edi
 //producto
 import {ProductoService} from "../app/Services/producto.service"
 
+//tipo producto
+import {TipoProductoService} from "../app/Services/tipo-producto.service"
+
 
 
 @NgModule({
@@ -83,7 +86,7 @@ import {ProductoService} from "../app/Services/producto.service"
     FormsModule,
     
   ],
-  providers: [ProveedorServiceService, OfertasService, ClienteService, ProductoService],
+  providers: [ProveedorServiceService, OfertasService, ClienteService, ProductoService, TipoProductoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

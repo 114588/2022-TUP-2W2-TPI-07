@@ -10,11 +10,10 @@
         <span *ngIf="formularioAltaProducto.get('codigo')?.touched &&
         formularioAltaProducto.get('codigo')?.hasError('required')">
           * campo requerido 
-        </span>
-  
-     
+        </span>     
       </div>
   
+
       <div class="mb-3">
         <label for="txtDescripcion" class="form-label">Descripcion</label>
         <input type="text" class="form-control" id="txtDescripcion" name="nombre_apellido" formControlName="descripcion" />
@@ -22,19 +21,16 @@
         <span *ngIf="formularioAltaProducto.get('descripcion')?.touched &&
         formularioAltaProducto.get('descripcion')?.hasError('required')">
           * campo requerido 
-        </span>
-  
+        </span>  
       </div>
   
+
+
       <div class="mb-3">
-        <label for="txtTipo" class="form-label">ID TiPO</label>
-        <input type="number" class="form-control" id="txtTipo" name="id_tipo" formControlName="id_tipo"  />
-  
-        <span *ngIf="formularioAltaProducto.get('id_tipo')?.touched &&
-        formularioAltaProducto.get('id_tipo')?.hasError('required')">
-          * campo requerido 
-        </span>
-  
+        <select class="form-select" name="item" formControlName="tipoProducto">
+          <option >Seleccionar el tipo producto</option>
+          <option *ngFor="let item of listaTipoProducto" [value]="item.id" > {{item.tipo}} </option>
+        </select>  
       </div>
   
   

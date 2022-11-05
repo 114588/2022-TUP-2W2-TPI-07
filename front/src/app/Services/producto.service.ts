@@ -14,8 +14,8 @@ export class ProductoService {
     return this.http.get<Producto[]>("http://localhost:8081/productos/listado/")
   }
 
-  agregarProducto(nuevoCliente: Producto): Observable<Producto>{
-    return this.http.post<Producto>("http://localhost:8081/productos/alta/",nuevoCliente)
+  agregarProducto(item: Producto): Observable<Producto>{
+    return this.http.post<Producto>("http://localhost:8081/productos/alta/",item)
   }
 
   eliminarProducto(id:number): Observable<any>{

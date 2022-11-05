@@ -4,7 +4,8 @@ export interface Producto {
     id: number,
     codigo: number,
     descripcion: number,
-    id_tipo: TipoProducto,
+    // id_tipo: number,
     precio_unitario_venta: number,
-    precio_unitario_compra: number
+    precio_unitario_compra: number,
+    tipoProducto: TipoProducto
 }

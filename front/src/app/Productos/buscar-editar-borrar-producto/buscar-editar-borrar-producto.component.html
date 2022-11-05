@@ -1,1 +1,109 @@
-<p>buscar-editar-borrar-producto works!</p>
+
+
+<div class="container">
+    <h2>Buscar de Producto</h2>
+
+    <!-- ============ SECCION BUSCAR ============== -->
+    <form class="form-control">
+    
+        <input  class="form-control"  type="search"  placeholder="Buscar producto" aria-label="Search" name="valorBusqueda" [(ngModel)]="valorBuscado" />      
+        <br>
+        <button type="button" class="btn btn-primary" (click)="buscarProductoPorNombre()">buscar</button>
+
+    </form>
+
+
+    <!-- =============SECCION LISTADO BUSQUEDA ====================== -->
+    <div class="container" *ngIf="banderaListadoBusqueda">
+      <h2 class="text-center">Listado Búsqueda</h2>
+        <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Dni</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Email</th>
+                <th scope="col">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- <tr *ngFor="let item of listaClienteBusqueda">
+                <td>{{ item.dni }}</td>
+                <td>{{ item.nombre_apellido }}</td>
+                <td>{{ item.telefono }}</td>
+                <td>{{ item.direccion}}</td>
+                <td>{{ item.email }}</td>
+                <td>
+                  <button type="button" class="btn btn-success" (click)="editarCliente(item)">Editar</button>
+                  <button type="button" class="btn btn-danger" (click)="eliminarCliente(item)">Eliminar</button>
+                </td>
+            </tr> -->
+        </tbody>
+        </table>    
+    </div>
+
+
+    <!-- ================ FORMULARIO MODIFICAR ================ -->
+
+<div class="container"  *ngIf="banderaFormularioEdicion">
+  <h2 class="text-center" >Modificar Cliente</h2>
+  <form>
+
+  <!-- ===========PRIMEROS DOS =============== -->
+    <div class="row">
+      <div class="col-md-6">
+        <label for="txtNombre" class="form-label">Nombre</label>
+        <!-- <input type="text" class="form-control" id="txtNombre" name="nombre_apellido" [(ngModel)]="clienteSeleccionado.nombre_apellido"> -->
+      </div>
+  
+      <div class="col-md-6">
+        <label for="txtTelefono" class="form-label">Telefono</label>
+        <!-- <input type="text" class="form-control" id="txtTelefono" name="telefono" [(ngModel)]="clienteSeleccionado.telefono"> -->
+      </div>
+    </div>
+  
+      <!-- ===========SEGUNDOS DOS =============== -->
+    <div class="row">
+      <div class="col-md-6">
+        <label for="txtDireccion" class="form-label">Direccion</label>
+        <!-- <input type="text" class="form-control" id="txtPrecio" name="direccion" [(ngModel)]="clienteSeleccionado.direccion"> -->
+      </div>
+  
+      <div class="col-md-6">
+        <label for="txtEmail" class="form-label">Email</label>
+        <!-- <input type="text" class="form-control" id="txtEmail" name="email" [(ngModel)]="clienteSeleccionado.email" > -->
+      </div>
+    </div>
+    <br>
+    <!-- <button type="button" class="btn btn-primary" (click)="modificarDesdeFormulario()" >Modificar</button> -->
+    </form>
+  </div>
+
+<!-- =============SECCION LISTADO COMPLETO ====================== -->
+<div class="container" *ngIf="banderaListadoCompleto">
+  <br>
+  <h2 class="text-center">Listado Completo</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Codigo</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Tipo Producto</th>
+        <th scope="col">Precio Venta</th>
+        <th scope="col">Precio Compra</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listadoProductosOriginal">
+        <td>{{ item.codigo }}</td>
+        <td>{{ item.descripcion }}</td>
+        <td>{{ item.tipoProducto.tipo }}</td>
+        <td>{{ item.precio_unitario_venta }}</td>
+        <td>{{ item.precio_unitario_compra}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>
