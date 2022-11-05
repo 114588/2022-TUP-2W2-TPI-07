@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
     
@@ -7,15 +6,18 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
-        <li class="nav-item">
-          
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Productos
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="registrarProducto">Registrar</a></li>
+            <li><a class="dropdown-item" routerLink="buscarProducto">Buscar</a></li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" routerLink="ordenCompra">Compras</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" routerLink="venta">Ventas</a>
-        </li>
+
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Proveedores
@@ -25,6 +27,12 @@
             <li><a class="dropdown-item" routerLink="buscarProveedor">Buscar</a></li>
           </ul>
         </li>
+
+        
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="#" routerLink="ordenCompra">Compras</a>
+        </li> -->
+
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -36,19 +44,26 @@
           </ul>
         </li>
 
+
+
+        <li class="nav-item">
+          <a class="nav-link" href="#" routerLink="venta">Ventas</a>
+        </li>
+        
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
            Consultas
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Stock</a></li>
-            <li><a class="dropdown-item" href="#">Ofertas disponibles</a></li>
+            <!-- <li><a class="dropdown-item" href="#">Ofertas disponibles</a></li> -->
             <li><a class="dropdown-item" href="#">Estadisticas</a></li>
           </ul>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" routerLink="ofertas">Ofertas</a>
-        </li>
+        </li> -->
 
       </ul>
     </div>

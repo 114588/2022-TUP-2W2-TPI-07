@@ -53,9 +53,6 @@
                 <td> {{item.cantidad}} </td>
                 <td> {{item.producto.precio_unitario_venta}} </td>
                 <td> {{item.producto.precio_unitario_venta! * item.cantidad}} </td>
-
-
-
               </tr>
             </tbody>
           </table>
@@ -67,23 +64,16 @@
              <p class="text-black float-start"><span class="text-black me-3"> Total: </span><span
                 style="font-size: 25px;">$ {{sumaFactura}} </span></p>
           </div>
-        </div>
+         </div>
         <hr>
-        <div class="row">
-          <div class="col-xl-10">
-            <p>Gracias por elegirnos !!</p>
-          </div>
+        <div class="container">
         </div>
       </div>
-    </div>
-   
+    </div>   
   </div>
-
-
 </div>
-<div class="container">
-  <button class="btn btn-primary"  (click)="descargarPdf()"  >Descargar PDF</button>
-</div>
+
+<button class="btn btn-primary"  (click)="descargarPdf()"  >Descargar PDF</button>
 
 
 
@@ -92,7 +82,7 @@
 
 
 <div class="container" *ngIf="banderaMostrarFormularioCarga" >
-  <h2>Registrar Factura</h2>
+  <h2 class="text-center  ">Registrar Factura</h2>
 
   <form>
 <!-- ============= CLIENTE ============= -->
@@ -116,22 +106,13 @@ Producto
 <!-- ============= CANTIDAD ============= -->
     <div class="mb-3">
       <label for="txtCantidad" class="form-label">Cantidad</label>
-      <input type="text" class="form-control" id="txtCantidad" name="cantidad" [(ngModel)]="nuevoDetalle.cantidad">
+      <input type="number" class="form-control" id="txtCantidad" name="cantidad" [(ngModel)]="nuevoDetalle.cantidad">
                                                                                             <!-- id, producto[], precio, cantidad -->
   </div>
 
 
-  <!-- ============= IMPORTE ============= -->
-  <!-- <div class="mb-3">
-    <label for="txtImporte" class="form-label">Importe</label>
-    <input type="text" class="form-control" id="txtImporte" name="precio" [(ngModel)]="nuevoDetalle.importe"> -->
-                                                                                        <!-- id, producto[], precio, cantidad -->
-<!-- </div> -->
-
-
-<!-- {{ detalleSeleccionado| json }} -->
 <br>
-    <button type="button" class="btn btn-primary" (click)="agregarDetalles()" >agregar item</button>
+    <button type="button" class="btn btn-primary" (click)="agregarDetalles()" >Agregar Item</button>
   </form>
 </div>
 
@@ -159,9 +140,7 @@ Producto
 
     </tbody>
   </table>
-
-suma factura {{sumaFactura}}
 <br>
 
-<button class="btn btn-primary" (click)="guardarVenta()">guardar</button>
+<button class="btn btn-primary" (click)="guardarVenta()">Guardar</button>
 </div>

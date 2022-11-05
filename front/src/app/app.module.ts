@@ -42,6 +42,12 @@ import {AltaComponentCliente} from "./Cliente/alta/alta.component";
 import {BuscarEditarBorrarCliente} from './Cliente/buscar-editar-borrar/buscar-editar-borrar.component';
 import { OrdenCompraComponent } from './orden-compra/orden-compra.component';
 import { VentasComponent } from './ventas/ventas.component';
+import { AltaProductoComponent } from "../app/Productos/alta-producto/alta-producto.component";
+import { BuscarEditarBorrarProductoComponent } from "../app/Productos/buscar-editar-borrar-producto/buscar-editar-borrar-producto.component";
+
+
+//producto
+import {ProductoService} from "../app/Services/producto.service"
 
 
 
@@ -61,6 +67,9 @@ import { VentasComponent } from './ventas/ventas.component';
     BuscarEditarBorrarCliente,
     OrdenCompraComponent,
     VentasComponent,
+    AltaProductoComponent,
+    BuscarEditarBorrarProductoComponent,
+
    
   ],
   imports: [
@@ -74,7 +83,7 @@ import { VentasComponent } from './ventas/ventas.component';
     FormsModule,
     
   ],
-  providers: [ProveedorServiceService, OfertasService, ClienteService],
+  providers: [ProveedorServiceService, OfertasService, ClienteService, ProductoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -18,26 +18,20 @@
           <th scope="col">Nombre</th>
           <th scope="col">Cuit</th>
           <th scope="col">Teléfono</th>
-          <th scope="col">País</th>
           <th scope="col">Dirección</th>
           <th scope="col">Código Postal</th>
           <th scope="col">Email</th>
-          <th scope="col">Latitud</th>
-          <th scope="col">Longitud</th>
           <th scope="col">Acción</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of listaProveedores">
           <td>{{ item.nombre }}</td>
-          <td>{{ item.cuil }}</td>
+          <td>{{ item.cuit }}</td>
           <td>{{ item.telefono }}</td>
-          <td>{{ item.pais }}</td>
           <td>{{ item.direccion }}</td>
           <td>{{ item.codigo_postal }}</td>
           <td>{{ item.email }}</td>
-          <td>{{ item.latitud }}</td>
-          <td>{{ item.longitud}}</td>
           <td>
              <button type="button" class="btn btn-outline-success" (click)="elegir(item)">Elegir</button>
    

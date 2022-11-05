@@ -16,12 +16,12 @@ export class AltaComponentProveedor implements OnInit {
 
   formularioAltaProveedor = new  UntypedFormGroup({
     //http://estilow3b.com/ejemplos-comunes-de-expresiones-regulares-javascript/
-    nombre : new UntypedFormControl("",[Validators.pattern(/^[a-zA-Z ]+$/)]),
-    cuit : new UntypedFormControl ("", [Validators.required, Validators.pattern(/^\d{11}$/)] ),
-    telefono : new UntypedFormControl("",[Validators.required, Validators.pattern(/^\d{7}$/)]),
+    nombre : new UntypedFormControl("",[Validators.pattern(/^[a-zA-Z áéíóú]+$/)]), //solo letras
+    cuit : new UntypedFormControl ("", [Validators.required, Validators.pattern(/^\d{11}$/)] ), //solo numeros y deben ser 11
+    telefono : new UntypedFormControl("",[Validators.required, Validators.pattern(/^\d{10}$/)]), //solo numeros yy debenn ser 7
     // pais : new UntypedFormControl("",[Validators.required]),
-    direccion: new UntypedFormControl("",[Validators.required, Validators.pattern(/^[a-zA-Z0-9 ]+$/)]),
-    codigo_postal: new UntypedFormControl("",[Validators.required, Validators.pattern(/^\d{4}$/)]),
+    direccion: new UntypedFormControl("",[Validators.required, Validators.pattern(/^[a-zA-Z0-9,áéíóú ]+$/)]), //solo letras y numeros
+    codigo_postal: new UntypedFormControl("",[Validators.required, Validators.pattern(/^\d{4}$/)]), //solo numeros y deben ser 4 
     email: new UntypedFormControl("",[Validators.required, Validators.email]),
     // latitud: new UntypedFormControl("",[Validators.required, Validators.pattern(/^-?\d{2}(\.[0-9]{4,4})$/)]),
     // longitud: new UntypedFormControl("",[Validators.required, Validators.pattern(/^-?\d{2}(\.[0-9]{4,4})$/)])

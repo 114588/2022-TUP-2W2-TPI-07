@@ -1,0 +1,71 @@
+
+  <div class="container">
+    <form [formGroup]="formularioAltaProducto" >
+      <h2>Registro de nuevo Producto</h2>
+      
+      <div class="mb-3">
+        <label for="txtCodigo" class="form-label">Codigo</label>
+        <input type="number" class="form-control" id="txtCodigo"  formControlName="codigo" />
+        
+        <span *ngIf="formularioAltaProducto.get('codigo')?.touched &&
+        formularioAltaProducto.get('codigo')?.hasError('required')">
+          * campo requerido 
+        </span>
+  
+     
+      </div>
+  
+      <div class="mb-3">
+        <label for="txtDescripcion" class="form-label">Descripcion</label>
+        <input type="text" class="form-control" id="txtDescripcion" name="nombre_apellido" formControlName="descripcion" />
+        
+        <span *ngIf="formularioAltaProducto.get('descripcion')?.touched &&
+        formularioAltaProducto.get('descripcion')?.hasError('required')">
+          * campo requerido 
+        </span>
+  
+      </div>
+  
+      <div class="mb-3">
+        <label for="txtTipo" class="form-label">ID TiPO</label>
+        <input type="number" class="form-control" id="txtTipo" name="id_tipo" formControlName="id_tipo"  />
+  
+        <span *ngIf="formularioAltaProducto.get('id_tipo')?.touched &&
+        formularioAltaProducto.get('id_tipo')?.hasError('required')">
+          * campo requerido 
+        </span>
+  
+      </div>
+  
+  
+       
+      <div class="mb-3">
+          <label for="txtPrecioVenta" class="form-label">Precio Venta</label>
+          <input type="number" class="form-control" id="txtPrecioVenta" name="precio_unitario_venta" formControlName="precio_unitario_venta"/>
+  
+          <span *ngIf="formularioAltaProducto.get('precio_unitario_venta')?.touched &&
+          formularioAltaProducto.get('precio_unitario_venta')?.hasError('required')">
+           * campo requerido 
+         </span>
+  
+        </div>
+  
+     
+  
+        <div class="mb-3">
+          <label for="txtPrecioCompra" class="form-label">Precio Compra</label>
+          <input type="number" class="form-control" id="txtCorreo" name="precio_unitario_compra" formControlName="precio_unitario_compra" />
+  
+          <span *ngIf="formularioAltaProducto.get('precio_unitario_compra')?.touched &&
+          formularioAltaProducto.get('precio_unitario_compra')?.hasError('required')">
+           * campo requerido 
+         </span>
+  
+        </div>
+  
+      
+      <button type="button" class="btn btn-primary"  (click)="guardar()" [disabled]="formularioAltaProducto.invalid" >Guardar</button>
+      <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button>
+  
+      </form>
+  </div>

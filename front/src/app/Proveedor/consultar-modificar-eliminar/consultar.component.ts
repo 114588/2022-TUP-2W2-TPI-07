@@ -7,13 +7,6 @@ import { FormControl, UntypedFormControl, UntypedFormGroup, Validators} from '@a
 import {ProveedorModificado} from "../../models/proveedor-modificado";
 
 
-// interface posicion {
-//   lat: number,
-//   lng: number
-// }
-
-
-
 @Component({
   selector: 'app-consultar',
   templateUrl: './consultar.component.html',
@@ -32,44 +25,31 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
   proveedorSeleccionado : Proveedor = {} as Proveedor;
   banderaMostrarMapa: boolean = false;
   banderaMostrarListaCompleta : boolean =false
+  banderaListadoBuscado: boolean = false;
+  banderaListadoCompleto: boolean =  true;
   
-  // miLatitud!: number 
-  // miLongitud!: number 
 
-  // posicionProveedorPadre: posicion = {
-  //   lat: this.miLatitud,
-  //   lng: this.miLongitud, 
-//} 
 
 formularioModificarProveedor = new UntypedFormGroup({
   //http://estilow3b.com/ejemplos-comunes-de-expresiones-regulares-javascript/
-  nombre: new UntypedFormControl('', [Validators.pattern(/^[a-zA-Z ]+$/)]),
+  nombre: new UntypedFormControl('', [Validators.pattern(/^[a-zA-Z áéíóú]+$/)]),
   cuit: new UntypedFormControl('', [
     Validators.required,
-    Validators.pattern(/^\d{8}$/),
+    Validators.pattern(/^\d{11}$/),
   ]),
   telefono: new UntypedFormControl('', [
     Validators.required,
-    Validators.pattern(/^\d{7}$/),
+    Validators.pattern(/^\d{10}$/),
   ]),
-  pais: new UntypedFormControl('', [Validators.required]),
   direccion: new UntypedFormControl('', [
     Validators.required,
-    Validators.pattern(/^[a-zA-Z0-9 ]+$/),
+    Validators.pattern(/^[a-zA-Z0-9,áéíóú ]+$/),
   ]),
   codigo_postal: new UntypedFormControl('', [
     Validators.required,
     Validators.pattern(/^\d{4}$/),
   ]),
   email: new UntypedFormControl('', [Validators.required, Validators.email]),
-  latitud: new UntypedFormControl('', [
-    Validators.required,
-    Validators.pattern(/^-?\d{2}(\.[0-9]{4,4})$/),
-  ]),
-  longitud: new UntypedFormControl('', [
-    Validators.required,
-    Validators.pattern(/^-?\d{2}(\.[0-9]{4,4})$/),
-  ]),
 });
 
   
@@ -109,6 +89,8 @@ formularioModificarProveedor = new UntypedFormGroup({
   
             // this.banderaMostrarMapa= true;
             this.valorBusqueda = ""
+
+            this.banderaListadoBuscado = true;
           }
           
         },
@@ -121,6 +103,7 @@ formularioModificarProveedor = new UntypedFormGroup({
   // ============ SECCION LISTADO BUSCADO================
 
   editar(item: Proveedor) {
+    this.banderaListadoCompleto = false;
     this.mostrarFormulario = true;
     this.proveedor = Object.assign({}, item);
   }
@@ -128,13 +111,13 @@ formularioModificarProveedor = new UntypedFormGroup({
 
   borrar(item: Proveedor) {
     this.subscripcion.add(
-      this.proveedorService.eliminarProveedor(item.cuil!).subscribe({
+      this.proveedorService.eliminarProveedor(item.id!).subscribe({
         next: () => {
           alert('proveedor borrado');
           this.obtenerListaProveedores();
         },
-        error: () => {
-          alert('error al borrar proveedor');
+        error: (e) => {
+          alert('error al borrar proveedor ' + e.message);
         },
       })
     );
@@ -159,18 +142,17 @@ formularioModificarProveedor = new UntypedFormGroup({
 // =============== SECCION FORMULARIO EDITAR ==================
 
   modificar() {
-    this.proveedorModificado.codigo_postal = this.proveedor.codigo_postal;
+     this.proveedorModificado.codigo_postal = this.proveedor.codigo_postal;
     this.proveedorModificado.direccion = this.proveedor.direccion;
     this.proveedorModificado.email =  this.proveedor.email;
-    this.proveedorModificado.latitud =  this.proveedor.latitud;
-    this.proveedorModificado.longitud = this.proveedor.longitud;
-    this.proveedorModificado.pais = this.proveedor.pais;
     this.proveedorModificado.telefono = this.proveedor.telefono;
     this.proveedorModificado.nombre = this.proveedor.nombre;
+    this.proveedorModificado.cuit = this.proveedor.cuit;
 
     this.subscripcion.add(
       this.proveedorService.modificarProveedor(this.proveedorModificado, this.proveedor).subscribe({
         next: () => {
+
           alert('proveedor modificado');
 
         },
@@ -189,7 +171,7 @@ formularioModificarProveedor = new UntypedFormGroup({
   }
 
 
-  // =============SECCION LISTA COMUN ======================
+  // =============SECCION LISTADO COMPLETO ======================
 
   obtenerListaProveedoresCompleta() {
     this.subscripcion.add(
@@ -204,9 +186,9 @@ formularioModificarProveedor = new UntypedFormGroup({
     );
   }
 
-  mostrarListaCompleta(){
-    this.banderaMostrarListaCompleta=true;
-  }
+  // mostrarListaCompleta(){
+  //   this.banderaMostrarListaCompleta=true;
+  // }
 
 
 

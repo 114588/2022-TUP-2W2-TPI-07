@@ -5,18 +5,24 @@ import {  BuscarEditarBorrarCliente } from './Cliente/buscar-editar-borrar/busca
 import { HomeComponent } from './home/home.component';
 import { ConsultarComponent } from './Oferta/consultar/consultar.component';
 import { OrdenCompraComponent } from './orden-compra/orden-compra.component';
+import { AltaProductoComponent } from '../app/Productos/alta-producto/alta-producto.component';
 import { AltaComponentProveedor } from './Proveedor/alta/alta.component';
 import { ConsultarComponentProveedor } from './Proveedor/consultar-modificar-eliminar/consultar.component';
 import { VentasComponent } from './ventas/ventas.component';
+import { BuscarEditarBorrarProductoComponent } from './Productos/buscar-editar-borrar-producto/buscar-editar-borrar-producto.component';
+
+
 
 const routes: Routes = [
   {path: "home", component:HomeComponent},
+  {path:"registrarProducto", component:AltaProductoComponent},
+  {path:"buscarProducto", component:BuscarEditarBorrarProductoComponent},
   {path: "registrarProveedor", component:AltaComponentProveedor},
   {path: "buscarProveedor", component:ConsultarComponentProveedor},
   {path: "registrarCliente", component:AltaComponentCliente},
   {path: "buscarCliente", component:BuscarEditarBorrarCliente},
-  {path: "ofertas", component:ConsultarComponent},
-  {path: "ordenCompra", component:OrdenCompraComponent},
+  // {path: "ofertas", component:ConsultarComponent},
+  // {path: "ordenCompra", component:OrdenCompraComponent},
   {path: "venta", component:VentasComponent},
   {path:"", redirectTo:"home", pathMatch:"full"}
 ];

@@ -1,41 +1,42 @@
 
 
 <div class="container">
-    <h2>Buscar Cliente</h2>
+    <h2>Buscar de Cliente</h2>
 
     <!-- ============ SECCION BUSCAR ============== -->
     <form class="form-control">
     
         <input  class="form-control"  type="search"  placeholder="Buscar cliente" aria-label="Search" name="valorBusqueda" [(ngModel)]="valorBuscado" />      
-        <button type="button" (click)="buscarClientePorNombre()">buscar</button>
+        <br>
+        <button type="button" class="btn btn-primary" (click)="buscarClientePorNombre()">buscar</button>
 
     </form>
 
 
-    <!-- =============SECCION LISTADO ====================== -->
-    <div class="container" *ngIf="banderaListado">
+    <!-- =============SECCION LISTADO BUSQUEDA ====================== -->
+    <div class="container" *ngIf="banderaListadoBusqueda">
+      <h2 class="text-center">Listado Búsqueda</h2>
         <table class="table">
         <thead>
             <tr>
                 <th scope="col">Dni</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Teléfono</th>
-                <th scope="col">Direccion</th>
+                <th scope="col">Dirección</th>
                 <th scope="col">Email</th>
-                <th scope="col">Cantidad Puntos</th>
+                <th scope="col">Acción</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of listaCliente">
+            <tr *ngFor="let item of listaClienteBusqueda">
                 <td>{{ item.dni }}</td>
                 <td>{{ item.nombre_apellido }}</td>
                 <td>{{ item.telefono }}</td>
                 <td>{{ item.direccion}}</td>
                 <td>{{ item.email }}</td>
-                <!-- <td>{{ item.cantidad_puntos}}</td> -->
                 <td>
-                    <button type="button" class="btn btn-outline-danger" (click)="eliminarCliente(item)">Eliminar</button>
-                    <button type="button" class="btn btn-outline-success" (click)="elegirCliente(item)">Editar</button>
+                  <button type="button" class="btn btn-success" (click)="editarCliente(item)">Editar</button>
+                  <button type="button" class="btn btn-danger" (click)="eliminarCliente(item)">Eliminar</button>
                 </td>
             </tr>
         </tbody>
@@ -46,38 +47,65 @@
     <!-- ================ FORMULARIO MODIFICAR ================ -->
 
 <div class="container"  *ngIf="banderaFormularioEdicion">
-    <form>
-  
-      <div class="mb-3">
+  <h2 class="text-center" >Modificar Cliente</h2>
+  <form>
+
+  <!-- ===========PRIMEROS DOS =============== -->
+    <div class="row">
+      <div class="col-md-6">
         <label for="txtNombre" class="form-label">Nombre</label>
         <input type="text" class="form-control" id="txtNombre" name="nombre_apellido" [(ngModel)]="clienteSeleccionado.nombre_apellido">
       </div>
   
-      <div class="mb-3">
+      <div class="col-md-6">
         <label for="txtTelefono" class="form-label">Telefono</label>
         <input type="text" class="form-control" id="txtTelefono" name="telefono" [(ngModel)]="clienteSeleccionado.telefono">
       </div>
+    </div>
   
-      <div class="mb-3">
+      <!-- ===========SEGUNDOS DOS =============== -->
+    <div class="row">
+      <div class="col-md-6">
         <label for="txtDireccion" class="form-label">Direccion</label>
         <input type="text" class="form-control" id="txtPrecio" name="direccion" [(ngModel)]="clienteSeleccionado.direccion">
       </div>
   
-      <div class="mb-3">
+      <div class="col-md-6">
         <label for="txtEmail" class="form-label">Email</label>
         <input type="text" class="form-control" id="txtEmail" name="email" [(ngModel)]="clienteSeleccionado.email" >
       </div>
-  
-      <!-- <div class="mb-3">
-        <label for="txtCantidadPuntos" class="form-label">Cantidad Puntos</label>
-        <input type="text" class="form-control" id="txtCantidadPuntos" name="fecha_inicio" [(ngModel)]="clienteSeleccionado.cantidad_puntos">
-      </div>
-   -->
-      <button type="button" class="btn btn-primary" (click)="modificarDesdeFormulario()" >Modificar</button>
+    </div>
+    <br>
+    <button type="button" class="btn btn-primary" (click)="modificarDesdeFormulario()" >Modificar</button>
     </form>
   </div>
-  
 
+<!-- =============SECCION LISTADO COMPLETO ====================== -->
+<div class="container" *ngIf="banderaListadoCompleto">
+  <br>
+  <h2 class="text-center">Listado Completo</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Dni</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Direccion</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listaClienteCompleta">
+        <td>{{ item.dni }}</td>
+        <td>{{ item.nombre_apellido }}</td>
+        <td>{{ item.telefono }}</td>
+        <td>{{ item.direccion}}</td>
+        <td>{{ item.email }}</td>
+
+       
+      </tr>
+    </tbody>
+  </table>
 
 
 </div>

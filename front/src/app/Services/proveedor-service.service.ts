@@ -20,8 +20,8 @@ export class ProveedorServiceService {
     return this.http.post<Proveedor>("http://localhost:8081/proveedores/alta/",nuevoProveedor)
   }
 
-  eliminarProveedor(cuil:number): Observable<any>{
-    return this.http.delete("http://localhost:8081/proveedores/eliminar/"+cuil)
+  eliminarProveedor(id:number): Observable<any>{
+    return this.http.delete("http://localhost:8081/proveedores/eliminar/"+id)
   }
 
 /**
@@ -31,7 +31,7 @@ export class ProveedorServiceService {
  * @returns 
  */
   modificarProveedor(proveedorModificado: Proveedor, proveedorViejo: Proveedor): Observable<any>{
-    return this.http.put("http://localhost:8081/proveedor/actualizar/"+ proveedorViejo.cuil, proveedorModificado)
+    return this.http.put("http://localhost:8081/proveedor/actualizar/"+ proveedorViejo.id, proveedorModificado)
   }
 
   buscarProveedorPorNombre(nombre: string): Observable<any>{

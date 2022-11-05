@@ -16,14 +16,15 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
   subscripcion = new Subscription();
 
   valorBuscado: string = "";  
-  listaCliente: Cliente[] = [];
+  listaClienteBusqueda: Cliente[] = [];
+  listaClienteCompleta: Cliente[] = [];
   banderaFormularioEdicion: boolean =  false;
-  banderaListado: boolean = false
+  banderaListadoBusqueda: boolean = false
   clienteSeleccionado: Cliente = {} as Cliente;
   cliente: Cliente = {} as Cliente;
   clienteParaModificar: ClienteModificado = {} as ClienteModificado;
-
-
+  banderaListadoCompleto: boolean = true
+  
   valorBuscarCliente = new FormControl('');
 
   ClienteSeleccionado : Cliente = {} as Cliente;
@@ -35,8 +36,7 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    
-
+    this.buscarTodosClientes()
   }
 
   ngOnDestroy(): void {
@@ -49,9 +49,9 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
       this.apiCliente.buscarClientePorNombre(this.valorBuscado).subscribe({
         next: (item: Cliente[]) => {
 
-          this.listaCliente=[]; //limpio la lista asi no acumula
-          this.listaCliente = item;
-          this.banderaListado=true;
+          this.listaClienteBusqueda=[]; //limpio la lista asi no acumula
+          this.listaClienteBusqueda = item;
+          this.banderaListadoBusqueda=true;
           this.valorBuscado = ""
                 
         },
@@ -61,17 +61,18 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
     }))
   }
 
-  // ================== LISTADO ====================
+  // ================== LISTADO  BUSQUEDA ====================
 
- elegirCliente(item: Cliente){
-  this.banderaFormularioEdicion = true
+  editarCliente(item: Cliente){
+  this.banderaFormularioEdicion = true;
+  this.banderaListadoCompleto =  false;
   this.clienteSeleccionado = Object.assign({}, item)
 
  }
 
  eliminarCliente(item: Cliente){
   this.subscripcion.add(
-  this.apiCliente.eliminarCliente(item.dni!).subscribe({
+  this.apiCliente.eliminarCliente(item.id!).subscribe({
     next: () => {
       alert("cliente eliminado");
       
@@ -92,7 +93,7 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
 
 modificarDesdeFormulario() {
   this.clienteParaModificar.dni = this.clienteSeleccionado.dni;
-  this.clienteParaModificar.nombre = this.clienteSeleccionado.nombre_apellido;
+  this.clienteParaModificar.nombre_apellido = this.clienteSeleccionado.nombre_apellido;
   this.clienteParaModificar.telefono = this.clienteSeleccionado.telefono;
   this.clienteParaModificar.direccion =  this.clienteSeleccionado.direccion;
   this.clienteParaModificar.email =  this.clienteSeleccionado.email;
@@ -114,6 +115,23 @@ modificarDesdeFormulario() {
     })
   );
 }
+
+// ====================== LISTA COMPLETA CLIENTES =================
+buscarTodosClientes(){
+  this.subscripcion.add(
+    this.apiCliente.obtenerClientes().subscribe({
+      next: (item: Cliente[]) => {
+
+        this.listaClienteCompleta = item;
+              
+      },
+      error: (e) => {
+        alert ("error al obtener cliente por nombre " + e.message)
+      }
+  }))
+}
+
+
 
 
 
