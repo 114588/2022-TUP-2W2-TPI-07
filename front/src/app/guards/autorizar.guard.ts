@@ -5,15 +5,15 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AutenticarGuard implements CanActivate {
+export class AutorizarGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
-      if(localStorage.getItem("nombre") == null){
+      
+      if(localStorage.getItem("rol") == "Administrador"){
+        return true
+      } else {
         return false;
-      } else{
-        return true;
       }
 
 

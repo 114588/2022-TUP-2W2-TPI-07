@@ -58,7 +58,11 @@ import {UsuarioService} from "../app/Services/usuario.service";
 import { LoginComponent } from './Usuario/login/login.component'
 
 //login
-import {LoginService} from "../app/Services/login.service"
+import {LoginService} from "../app/Services/login.service";
+import { ReporteVentasComponent } from './Consultas/reporte-ventas/reporte-ventas.component'
+
+//reporte
+import {ReporteVentasService} from "../app/Services/reporte-ventas.service"
 
 @NgModule({
   declarations: [
@@ -77,6 +81,7 @@ import {LoginService} from "../app/Services/login.service"
     BuscarEditarBorrarProductoComponent,
     BuscarEditarBorrarUsuarioComponent,
     LoginComponent,
+    ReporteVentasComponent,
 
    
   ],
@@ -91,7 +96,7 @@ import {LoginService} from "../app/Services/login.service"
     FormsModule,
     
   ],
-  providers: [ProveedorServiceService, OfertasService, ClienteService, ProductoService, TipoProductoService,UsuarioService,LoginService],
+  providers: [ProveedorServiceService, OfertasService, ClienteService, ProductoService, TipoProductoService,UsuarioService,LoginService,ReporteVentasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
