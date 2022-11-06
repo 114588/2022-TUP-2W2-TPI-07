@@ -1,37 +1,46 @@
-<div class="container">
-    <form>
-      <h2>Registro  de nuevo usuario</h2>
+
+  <div class="container">
+    <form [formGroup]="formularioUsuario" >
+      <h2>Registro nuevo Usuario</h2>
+      
       <div class="mb-3">
-        <label for="txtNombreUsuario" class="form-label">Nombre del usuario</label>
-        <input type="text" class="form-control" id="txtNombreUsuario" name="nombre" />
+        <label for="txtLegajo" class="form-label">Legajo</label>
+        <input type="number" class="form-control" id="e"  formControlName="legajo" />
+        
+        <span *ngIf="formularioUsuario.get('legajo')?.touched &&
+        formularioUsuario.get('legajo')?.hasError('required')">
+          * campo requerido 
+        </span>
+  
+     
       </div>
   
       <div class="mb-3">
-        <label for="txtContraseña" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="txtContraseña" name="cuil" />
+        <label for="txtNombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="txtNombre" name="nombre" formControlName="nombre" />
+        
+        <span *ngIf="formularioUsuario.get('nombre')?.touched &&
+        formularioUsuario.get('nombre')?.hasError('required')">
+          * campo requerido 
+        </span>
+  
       </div>
   
       <div class="mb-3">
-        <label for="txtRepetirContra" class="form-label">Repetir contraseña</label>
-        <input type="password" class="form-control" id="txtRepetirContra" name="telefono" />
+        <div class="col-12">
+          Seleccionar el tipo producto
+          <select class="form-select" name="rol" formControlName="rol">
+            <option *ngFor="let item of listaRol" [value]="item.id" > {{item.rol}} </option>
+          </select>  
+        </div>  
       </div>
   
   
-      <div class="mb-3">
-      <label for="txtRol" class="form-label">Seleccione Rol</label>
-      <select class="form-select" >
-  
-          <option value="1">Vendedor</option>
-          <option value="2">Encargado de caja</option>
-          <option value="3">Encargado de salon</option>
-        </select>
-      </div>
   
   
       
-      <button type="button" class="btn btn-primary">Cancelar</button>
-      <button type="button" class="btn btn-warning">Cancelar</button>
+      <button type="button" class="btn btn-primary"  (click)="guardar()" [disabled]="formularioUsuario.invalid" >Guardar</button>
+      <!-- <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button> -->
   
-    </form>
+      </form>
   </div>
-  

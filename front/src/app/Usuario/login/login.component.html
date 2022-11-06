@@ -1,0 +1,35 @@
+<div class="container">
+    <form [formGroup]="formularioLogin" >
+      <h2 class="text-center">Login</h2>
+      
+      <div class="mb-3">
+        <label for="txtUsuario" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="txtUsuario"  formControlName="nombre" />
+        
+        <span *ngIf="formularioLogin.get('nombre')?.touched &&
+        formularioLogin.get('nombre')?.hasError('required')">
+          * campo requerido 
+        </span>
+  
+     
+      </div>
+  
+      <div class="mb-3">
+        <label for="txtPass" class="form-label">Pass</label>
+        <input type="text" class="form-control" id="txtPass" name="pass" formControlName="pass" />
+        
+        <span *ngIf="formularioLogin.get('pass')?.touched &&
+        formularioLogin.get('pass')?.hasError('required')">
+          * campo requerido 
+        </span>
+  
+      </div>
+   
+  
+  
+      
+      <button type="button" class="btn btn-primary"  (click)="login()" [disabled]="formularioLogin.invalid" >Guardar</button>
+      <!-- <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button> -->
+  
+      </form>
+  </div>

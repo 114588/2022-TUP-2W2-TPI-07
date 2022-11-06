@@ -9,10 +9,9 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms"
 
 //usuario
-import { AltaComponent } from "../app/Usuario/alta/alta.component";
-import { BajaComponent } from '../app/Usuario/baja/baja.component';
-import { ModificarComponent } from '../app/Usuario/modificar/modificar.component';
-import { IngresarComponent } from '../app/Usuario/ingresar/ingresar.component';
+import { AltaComponentUsuario } from "../app/Usuario/alta/alta.component";
+
+//home
 import { HomeComponent } from './home/home.component';
 
 //proveedor
@@ -50,18 +49,22 @@ import { BuscarEditarBorrarProductoComponent } from "../app/Productos/buscar-edi
 import {ProductoService} from "../app/Services/producto.service"
 
 //tipo producto
-import {TipoProductoService} from "../app/Services/tipo-producto.service"
+import {TipoProductoService} from "../app/Services/tipo-producto.service";
+import { BuscarEditarBorrarUsuarioComponent } from '../app/Usuario/buscar-editar-borrar-usuario/buscar-editar-borrar-usuario.component'
 
 
+//usuario
+import {UsuarioService} from "../app/Services/usuario.service";
+import { LoginComponent } from './Usuario/login/login.component'
+
+//login
+import {LoginService} from "../app/Services/login.service"
 
 @NgModule({
   declarations: [
     AltaComponentCliente,
     AppComponent,
-    AltaComponent,
-    BajaComponent,
-    ModificarComponent,
-    IngresarComponent,
+    AltaComponentUsuario,
     AltaComponentProveedor,
     ConsultarComponentProveedor,
     HomeComponent,
@@ -72,6 +75,8 @@ import {TipoProductoService} from "../app/Services/tipo-producto.service"
     VentasComponent,
     AltaProductoComponent,
     BuscarEditarBorrarProductoComponent,
+    BuscarEditarBorrarUsuarioComponent,
+    LoginComponent,
 
    
   ],
@@ -86,7 +91,7 @@ import {TipoProductoService} from "../app/Services/tipo-producto.service"
     FormsModule,
     
   ],
-  providers: [ProveedorServiceService, OfertasService, ClienteService, ProductoService, TipoProductoService],
+  providers: [ProveedorServiceService, OfertasService, ClienteService, ProductoService, TipoProductoService,UsuarioService,LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

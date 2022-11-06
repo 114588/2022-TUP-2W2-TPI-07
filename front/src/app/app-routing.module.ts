@@ -10,6 +10,9 @@ import { AltaComponentProveedor } from './Proveedor/alta/alta.component';
 import { ConsultarComponentProveedor } from './Proveedor/consultar-modificar-eliminar/consultar.component';
 import { VentasComponent } from './ventas/ventas.component';
 import { BuscarEditarBorrarProductoComponent } from './Productos/buscar-editar-borrar-producto/buscar-editar-borrar-producto.component';
+import { AltaComponentUsuario } from './Usuario/alta/alta.component';
+import { BuscarEditarBorrarUsuarioComponent } from './Usuario/buscar-editar-borrar-usuario/buscar-editar-borrar-usuario.component';
+import { LoginComponent } from './Usuario/login/login.component';
 
 
 
@@ -21,9 +24,10 @@ const routes: Routes = [
   {path: "buscarProveedor", component:ConsultarComponentProveedor},
   {path: "registrarCliente", component:AltaComponentCliente},
   {path: "buscarCliente", component:BuscarEditarBorrarCliente},
-  // {path: "ofertas", component:ConsultarComponent},
-  // {path: "ordenCompra", component:OrdenCompraComponent},
+  {path: "registrarUsuario", component:AltaComponentUsuario},
+  {path: "buscarUsuario", component:BuscarEditarBorrarUsuarioComponent},
   {path: "venta", component:VentasComponent},
+  {path: "login", component:LoginComponent},
   {path:"", redirectTo:"home", pathMatch:"full"}
 ];
 

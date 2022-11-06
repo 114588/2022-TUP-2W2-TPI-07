@@ -1,0 +1,23 @@
+<!-- =============SECCION LISTADO COMPLETO ====================== -->
+<div class="container">
+    <br>
+    <h2 class="text-center">Listado Usuarios</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Legajo</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Rol</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listaUsuarioCompleta">
+          <td>{{ item.legajo }}</td>
+          <td>{{ item.nombre }}</td>
+          <td>{{ item.rol.rol }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+  
+  </div>

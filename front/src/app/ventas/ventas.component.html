@@ -1,5 +1,5 @@
-<div id="factura" *ngIf="banderaMostrarFactura" >
-  <div class="card-body">
+<div  *ngIf="banderaMostrarFactura" >
+  <div class="card-body" id="factura">
     <div class="container">
       <div class="col-md-12">
       <div class="text-sm-end">
@@ -71,9 +71,15 @@
       </div>
     </div>   
   </div>
+
+  <div class="container">
+    <button class="btn btn-primary"  (click)="descargarPdf()"  >Descargar PDF</button>
+  </div>
 </div>
 
-<button class="btn btn-primary"  (click)="descargarPdf()"  >Descargar PDF</button>
+
+
+
 
 
 
