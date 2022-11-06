@@ -22,10 +22,10 @@ export class ProductoService {
     return this.http.delete("http://localhost:8081/productos/eliminar/"+id)
   }
 
-  // modificarCliente( ClienteModificado: ClienteModificado, ClienteViejo: Cliente): Observable<any>{
-  //   return this.http.put("http://localhost:8081/productos/actualizar/"+ ClienteViejo.id, ClienteModificado)
+   modificarProducto( id: number, productoModificado: Producto): Observable<any>{
+     return this.http.put("http://localhost:8081/productos/actualizar/"+ id, productoModificado)
     
-  // }
+  }
 
   buscarProductosPorNombre(nombre: string): Observable<any>{
     return this.http.get("http://localhost:8081/productos/listarNombre/"+ nombre)

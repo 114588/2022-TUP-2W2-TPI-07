@@ -19,26 +19,26 @@
         <table class="table">
         <thead>
             <tr>
-                <th scope="col">Dni</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Teléfono</th>
-                <th scope="col">Dirección</th>
-                <th scope="col">Email</th>
-                <th scope="col">Acción</th>
+                <th scope="col">Codigo</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Tipo Producto</th>
+                <th scope="col">Precio Venta</th>
+                <th scope="col">Precio Compra</th>
+                <th>Acccion </th>
             </tr>
         </thead>
         <tbody>
-            <!-- <tr *ngFor="let item of listaClienteBusqueda">
-                <td>{{ item.dni }}</td>
-                <td>{{ item.nombre_apellido }}</td>
-                <td>{{ item.telefono }}</td>
-                <td>{{ item.direccion}}</td>
-                <td>{{ item.email }}</td>
+            <tr *ngFor="let item of listadoBuscado">
+                <td>{{ item.codigo }}</td>
+                <td>{{ item.descripcion }}</td>
+                <td>{{ item.tipoProducto.tipo }}</td>
+                <td>{{ item.precio_unitario_venta }}</td>
+                <td>{{ item.precio_unitario_compra}}</td>
                 <td>
-                  <button type="button" class="btn btn-success" (click)="editarCliente(item)">Editar</button>
-                  <button type="button" class="btn btn-danger" (click)="eliminarCliente(item)">Eliminar</button>
+                  <button type="button" class="btn btn-success" (click)="editarProducto(item)">Editar</button>
+                  <!-- <button type="button" class="btn btn-danger" (click)="eliminarCliente(item)">Eliminar</button> -->
                 </td>
-            </tr> -->
+            </tr>
         </tbody>
         </table>    
     </div>
@@ -47,36 +47,71 @@
     <!-- ================ FORMULARIO MODIFICAR ================ -->
 
 <div class="container"  *ngIf="banderaFormularioEdicion">
-  <h2 class="text-center" >Modificar Cliente</h2>
-  <form>
+  <h2 class="text-center" >Modificar Producto</h2>
 
-  <!-- ===========PRIMEROS DOS =============== -->
-    <div class="row">
-      <div class="col-md-6">
-        <label for="txtNombre" class="form-label">Nombre</label>
-        <!-- <input type="text" class="form-control" id="txtNombre" name="nombre_apellido" [(ngModel)]="clienteSeleccionado.nombre_apellido"> -->
-      </div>
-  
-      <div class="col-md-6">
-        <label for="txtTelefono" class="form-label">Telefono</label>
-        <!-- <input type="text" class="form-control" id="txtTelefono" name="telefono" [(ngModel)]="clienteSeleccionado.telefono"> -->
-      </div>
+  <form [formGroup]="formularioModicacionProducto" >
+
+    <div class="row">  
+        <div class="col-md-6">
+            <label for="txtCodigo" class="form-label">Codigo</label>
+            <input type="number" class="form-control" id="txtCodigo"  formControlName="codigo" />
+            
+            <span *ngIf="formularioModicacionProducto.get('codigo')?.touched &&
+            formularioModicacionProducto.get('codigo')?.hasError('required')">
+            * campo requerido 
+            </span>     
+        </div>
+    
+
+        <div class="col-md-6">
+            <label for="txtDescripcion" class="form-label">Descripcion</label>
+            <input type="text" class="form-control" id="txtDescripcion" name="nombre_apellido" formControlName="descripcion" />
+            
+            <span *ngIf="formularioModicacionProducto.get('descripcion')?.touched &&
+            formularioModicacionProducto.get('descripcion')?.hasError('required')">
+            * campo requerido 
+            </span>  
+        </div>
     </div>
-  
-      <!-- ===========SEGUNDOS DOS =============== -->
-    <div class="row">
-      <div class="col-md-6">
-        <label for="txtDireccion" class="form-label">Direccion</label>
-        <!-- <input type="text" class="form-control" id="txtPrecio" name="direccion" [(ngModel)]="clienteSeleccionado.direccion"> -->
+
+<br>
+      <div class="col-12">
+        Seleccionar el tipo producto
+        <select class="form-select" name="item" formControlName="tipoProducto">
+          <option *ngFor="let item of listaTipoProducto" [value]="item.id" > {{item.tipo}} </option>
+        </select>  
       </div>
   
-      <div class="col-md-6">
-        <label for="txtEmail" class="form-label">Email</label>
-        <!-- <input type="text" class="form-control" id="txtEmail" name="email" [(ngModel)]="clienteSeleccionado.email" > -->
-      </div>
-    </div>
-    <br>
-    <!-- <button type="button" class="btn btn-primary" (click)="modificarDesdeFormulario()" >Modificar</button> -->
+  <br>
+      <div class="row">
+       
+        <div class="col-md-6">
+                <label for="txtPrecioVenta" class="form-label">Precio Venta</label>
+                <input type="number" class="form-control" id="txtPrecioVenta" name="precio_unitario_venta" formControlName="precio_unitario_venta"/>
+        
+                <span *ngIf="formularioModicacionProducto.get('precio_unitario_venta')?.touched &&
+                formularioModicacionProducto.get('precio_unitario_venta')?.hasError('required')">
+                * campo requerido 
+                </span>        
+        </div>
+        
+
+            
+        
+        <div class="col-md-6">
+                <label for="txtPrecioCompra" class="form-label">Precio Compra</label>
+                <input type="number" class="form-control" id="txtCorreo" name="precio_unitario_compra" formControlName="precio_unitario_compra" />
+        
+                <span *ngIf="formularioModicacionProducto.get('precio_unitario_compra')?.touched &&
+                formularioModicacionProducto.get('precio_unitario_compra')?.hasError('required')">
+                * campo requerido 
+                </span>
+            </div>
+        </div>
+  <br>
+      
+      <button type="button" class="btn btn-primary"  (click)="guardar()" [disabled]="formularioModicacionProducto.invalid" >Guardar</button>
+      <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button>
     </form>
   </div>
 
