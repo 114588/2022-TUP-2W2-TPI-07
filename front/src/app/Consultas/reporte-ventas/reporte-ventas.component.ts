@@ -1,6 +1,8 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Factura } from 'src/app/models/Ventas/factura';
-import {ReporteVentasService} from "../../Services/reporte-ventas.service"
+import {ReporteVentasService} from "../../Services/reporte-ventas.service";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-reporte-ventas',
@@ -9,20 +11,21 @@ import {ReporteVentasService} from "../../Services/reporte-ventas.service"
 })
 export class ReporteVentasComponent implements OnInit {
 
-  fecha1: string= "20082022"; 
-  fecha2: string = "23082022"; 
-  listadoReporte: Factura[] = [];
+  fecha1: string = "";
+  fecha2: string = "";
 
-  constructor(private apiReporte: ReporteVentasService ) { }
+  constructor(private apiReporte: ReporteVentasService ) {   }
 
   ngOnInit(): void {
-    console.log(this.fecha1)
-    console.log(this.fecha2)
-    this.obtenerReporteVenta()
+    
   }
 
+ 
   obtenerReporteVenta(){
-    this. apiReporte.obtenerTodos(this.fecha1,this.fecha2).subscribe({
+    
+    const fechaConvertida1 =  moment(this.fecha1, "YYYY-MM-DD").format('DDMMYYYY')
+    const fechaConvertida2 =  moment(this.fecha2, "YYYY-MM-DD").format('DDMMYYYY')
+    this. apiReporte.obtenerTodos(fechaConvertida1,fechaConvertida2).subscribe({
       next: (item: Factura[]) => {
         console.log(item)
       },

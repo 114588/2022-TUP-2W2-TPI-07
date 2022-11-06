@@ -1,1 +1,13 @@
-<p>reporte-ventas works!</p>
+<div class="container">
+    <div>
+        <label for="fecha1">Fecha desde</label>
+        <input type="date" placeholder="Datepicker" name="fecha1" id="fecha1" [(ngModel)]="fecha1">
+    </div>
+
+    <div>
+        <label for="fecha2">Fecha hasta</label>
+        <input type="date" placeholder="Datepicker" name="fecha2" id="fecha2" [(ngModel)]="fecha2">
+    </div>
+
+</div>
+<button (click)="obtenerReporteVenta()" >obtener</button>
