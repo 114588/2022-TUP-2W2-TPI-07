@@ -13,22 +13,23 @@ import { BuscarEditarBorrarProductoComponent } from './Productos/buscar-editar-b
 import { AltaComponentUsuario } from './Usuario/alta/alta.component';
 import { BuscarEditarBorrarUsuarioComponent } from './Usuario/buscar-editar-borrar-usuario/buscar-editar-borrar-usuario.component';
 import { LoginComponent } from './Usuario/login/login.component';
+import { AutenticarGuard } from './guards/autenticar.guard';
 
 
 
 const routes: Routes = [
   {path: "home", component:HomeComponent},
-  {path:"registrarProducto", component:AltaProductoComponent},
-  {path:"buscarProducto", component:BuscarEditarBorrarProductoComponent},
-  {path: "registrarProveedor", component:AltaComponentProveedor},
+  {path: "registrarProducto", component:AltaProductoComponent, canActivate: [AutenticarGuard]},
+  {path: "buscarProducto", component:BuscarEditarBorrarProductoComponent},
+  {path: "registrarProveedor", component:AltaComponentProveedor, canActivate: [AutenticarGuard]},
   {path: "buscarProveedor", component:ConsultarComponentProveedor},
-  {path: "registrarCliente", component:AltaComponentCliente},
+  {path: "registrarCliente", component:AltaComponentCliente, canActivate: [AutenticarGuard]},
   {path: "buscarCliente", component:BuscarEditarBorrarCliente},
-  {path: "registrarUsuario", component:AltaComponentUsuario},
+  {path: "registrarUsuario", component:AltaComponentUsuario, canActivate: [AutenticarGuard]},
   {path: "buscarUsuario", component:BuscarEditarBorrarUsuarioComponent},
   {path: "venta", component:VentasComponent},
   {path: "login", component:LoginComponent},
-  {path:"", redirectTo:"home", pathMatch:"full"}
+  {path: "", redirectTo:"login", pathMatch:"full"}
 ];
 
 @NgModule({

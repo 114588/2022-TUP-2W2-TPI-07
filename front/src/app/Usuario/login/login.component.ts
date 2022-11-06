@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Login } from 'src/app/models/Usuario/login';
 import {LoginService} from "../../Services/login.service"
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-login',
@@ -17,9 +18,14 @@ export class LoginComponent implements OnInit {
 
   nuevoLogin: Login = {} as Login
 
-  constructor(private apiLogin: LoginService) { }
+  constructor(private apiLogin: LoginService, private router: Router) { }
 
   ngOnInit(): void {
+    localStorage.removeItem("legajo");
+    localStorage.removeItem("nombre");
+    localStorage.removeItem("rol");
+    localStorage.removeItem("usuarioCompleto");
+
   }
 
   login(){
@@ -27,7 +33,13 @@ export class LoginComponent implements OnInit {
     this.apiLogin.login(this.formularioLogin.controls["nombre"].value, this.formularioLogin.controls["pass"].value).subscribe({
       next: (item: any) => {
         console.log(item)
-        alert("Exito")
+        localStorage.setItem("legajo", item.legajo)
+        localStorage.setItem("nombre", item.nombre)
+        localStorage.setItem("rol", item.rol.rol)
+        localStorage.setItem("usuarioCompleto", JSON.stringify(item))
+
+        this.router.navigateByUrl("venta");
+
       },
       error: () => {
         alert("error")
