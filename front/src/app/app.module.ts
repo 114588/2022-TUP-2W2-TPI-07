@@ -64,6 +64,9 @@ import { ReporteVentasComponent } from './Consultas/reporte-ventas/reporte-venta
 //reporte
 import {ReporteVentasService} from "../app/Services/reporte-ventas.service"
 
+//ng2-charts
+import { NgChartsModule } from 'ng2-charts';
+
 @NgModule({
   declarations: [
     AltaComponentCliente,
@@ -94,6 +97,7 @@ import {ReporteVentasService} from "../app/Services/reporte-ventas.service"
     GoogleMapsModule,
     Ng2SearchPipeModule,
     FormsModule,
+    NgChartsModule,
     
   ],
   providers: [ProveedorServiceService, OfertasService, ClienteService, ProductoService, TipoProductoService,UsuarioService,LoginService,ReporteVentasService],
