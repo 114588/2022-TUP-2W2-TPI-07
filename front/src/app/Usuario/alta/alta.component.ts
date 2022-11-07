@@ -34,18 +34,19 @@ export class AltaComponentUsuario implements OnInit {
   }
 
   guardar(){
-    this.usuario = this.formularioUsuario.value as Usuario
-
     this.formularioUsuario.patchValue({
       rol: this.getRolById(this.formularioUsuario.controls["rol"].value)
     })
     
+    this.usuario = this.formularioUsuario.value as Usuario
+
+    console.log(this.formularioUsuario.value)
     this.apiUsuario.agregarUsuario(this.formularioUsuario.value as Usuario).subscribe({
       next: () => {
         alert("agregado con exito")
       },
-      error: () => {
-        alert("error")
+      error: (e) => {
+        alert("error " + e.message)
       }
     })
 

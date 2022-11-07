@@ -26,11 +26,12 @@
         </div>
     </div>
 
+    <br>
 
       <div class="mb-3">
-        <select class="form-select" name="item" formControlName="tipoProducto">
-          <option >Seleccionar el tipo producto</option>
-          <option *ngFor="let item of listaTipoProducto" [value]="item.id" > {{item.tipo}} </option>
+        <label for="item">Seleccione Tipo Producto</label>
+        <select class="form-select" id="item" name="item" formControlName="tipoProducto">
+         <option *ngFor="let item of listaTipoProducto" [value]="item.id" > {{item.tipo}} </option>
         </select>  
       </div>
   
