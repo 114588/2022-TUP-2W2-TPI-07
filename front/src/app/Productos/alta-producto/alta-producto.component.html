@@ -1,7 +1,7 @@
 
   <div class="container">
     <form [formGroup]="formularioAltaProducto" >
-      <h2>Registro de nuevo Producto</h2>
+      <h2 class="text-center">Registrar Nuevo Producto</h2>
       
       <div class="row">
         <div class="col-md-6">
@@ -62,9 +62,10 @@
     
           </div>
         </div>
-      
-      <button type="button" class="btn btn-primary"  (click)="guardar()" [disabled]="formularioAltaProducto.invalid" >Guardar</button>
-      <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button>
-  
+      <br>
+      <div class="container text-end"  >
+        <button type="button" class="btn btn-primary me-3"  (click)="guardar()" [disabled]="formularioAltaProducto.invalid" >Guardar</button>
+        <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button>
+      </div>
       </form>
   </div>

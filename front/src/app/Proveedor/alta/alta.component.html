@@ -3,11 +3,11 @@
   
 
   <form [formGroup]="formularioAltaProveedor" >
-    <h2 class="text-center">Agregar un nuevo Proveedor</h2>
+    <h2 class="text-center">Agregar Nuevo Proveedor</h2>
     
 
-    
-    <div class="mb-3">
+  <div class="row">    
+    <div class="col-md-6">
       <label for="txtNombre" class="form-label">Nombre</label>
       <input type="text" class="form-control" id="txtNombre"  formControlName="nombre" />
      
@@ -15,11 +15,9 @@
          && formularioAltaProveedor.get('nombre')?.hasError('pattern')">
         * campo requerido,  solo puede ingresar letras y/o espacios
       </span>
-
-   
     </div>
 
-    <div class="mb-3">
+    <div class="col-md-6">
       <label for="txtCuit" class="form-label">Cuit</label>
       <input type="text" class="form-control" id="txtCuit" name="cuit" formControlName="cuit" />
       
@@ -27,10 +25,11 @@
         && formularioAltaProveedor.get('cuit')?.hasError('pattern')">
         * campo requerido y solo numerico de 11 digitos
       </span>
-
     </div>
+  </div>
 
-    <div class="mb-3">
+  <div class="row">
+    <div class="col-md-6">
       <label for="txtTelefono" class="form-label">Teléfono</label>
       <input type="text" class="form-control" id="txtTelefono" name="telefono" formControlName="telefono"  />
 
@@ -38,20 +37,10 @@
         && formularioAltaProveedor.get('telefono')?.hasError('pattern')">
         * campo requerido  y solo numérico de 7 digitos
       </span>
-
     </div>
 
-<!-- 
-    <div class="mb-3">
-    <label for="txtTelefono" class="form-label">Seleccione País</label>
-    <select class="form-select" name="pais" formControlName="pais" >
-         <option value="1">Argentina</option>
-        <option value="2">Uruguay</option>
-        <option value="3">Brasil</option>
-      </select>
-    </div> -->
 
-    <div class="mb-3">
+    <div class="col-md-6">
         <label for="txtDireccion" class="form-label">Dirección</label>
         <input type="text" class="form-control" id="txtDireccion" name="direccion" formControlName="direccion"/>
 
@@ -59,10 +48,11 @@
         formularioAltaProveedor.get('direccion')?.hasError('pattern')">
          * campo requerido digitos y letras solamente
        </span>
-
       </div>
+    </div>
 
-      <div class="mb-3">
+    <div class="row">
+      <div class="col-md-6">
         <label for="txtCodigoPostal" class="form-label">Código Postal</label>
         <input type="text" class="form-control" id="txtCodigoPostal" name="codigo_postal" formControlName="codigo_postal" />
 
@@ -70,10 +60,9 @@
         && formularioAltaProveedor.get('codigo_postal')?.hasError('pattern')">
          * campo requerido solo 4 dígitos
        </span>
-
       </div>
 
-      <div class="mb-3">
+      <div class="col-md-6">
         <label for="txtCorreo" class="form-label">Correo electrónico  </label>
         <input type="text" class="form-control" id="txtCorreo" name="email" formControlName="email" />
 
@@ -81,13 +70,14 @@
         formularioAltaProveedor.get('email')?.hasError('email')">
          * campo requerido formato email
        </span>
-
       </div>
-
-    <button type="button" class="btn btn-primary"  (click)="guardar()" [disabled]="formularioAltaProveedor.invalid" >Guardar</button>
+    </div>
+  <br>
+  <div class="container text-end"  >
+    <button type="button" class="btn btn-primary me-3"  (click)="guardar()" [disabled]="formularioAltaProveedor.invalid" >Guardar</button>
     <button type="button" class="btn btn-warning" (click)="volver()">Volver</button>
-
-    </form>
+  </div>
+  </form>
 </div>
 
 

@@ -30,11 +30,11 @@ import { ClienteService} from "../app/Services/cliente.service"
 
 
 //google maps
-import {GoogleMapsModule} from "@angular/google-maps";
-import { MapaComponent } from '../app/Proveedor/mapa/mapa.component';
+// import {GoogleMapsModule} from "@angular/google-maps";
+// import { MapaComponent } from '../app/Proveedor/mapa/mapa.component';
 
 // search
-import {Ng2SearchPipeModule} from "ng2-search-filter";
+// import {Ng2SearchPipeModule} from "ng2-search-filter";
 
 //Cliente
 import {AltaComponentCliente} from "./Cliente/alta/alta.component";
@@ -75,7 +75,7 @@ import { NgChartsModule } from 'ng2-charts';
     AltaComponentProveedor,
     ConsultarComponentProveedor,
     HomeComponent,
-    MapaComponent,
+    // MapaComponent,
     ConsultarComponent,
     BuscarEditarBorrarCliente,
     OrdenCompraComponent,
@@ -94,8 +94,8 @@ import { NgChartsModule } from 'ng2-charts';
     RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
-    GoogleMapsModule,
-    Ng2SearchPipeModule,
+    // GoogleMapsModule,
+    // Ng2SearchPipeModule,
     FormsModule,
     NgChartsModule,
     

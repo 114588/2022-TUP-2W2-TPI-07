@@ -7,7 +7,7 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/cor
 })
 export class MapaComponent implements OnInit, OnChanges {
 
-  @Input() posicionRecibida: any = {} 
+  // @Input() posicionRecibida: any = {} 
 
 
 //https://www.coordenadas-gps.com/
@@ -15,10 +15,10 @@ export class MapaComponent implements OnInit, OnChanges {
 
 
 
-  label = {
-    color: "red",
-    text: 'mi casa',
-  };
+  // label = {
+  //   color: "red",
+  //   text: 'mi casa',
+  // };
   constructor() { }
   
   ngOnChanges(changes: SimpleChanges): void {

@@ -19,6 +19,10 @@ export class ReporteVentasComponent implements OnInit {
 
   fecha1: string = "";
   fecha2: string = "";
+  fechaConvertida1: string = ""
+  fechaConvertida2: string = ""
+
+  banderaMostrarGrafico:boolean = false;
 
   // datos: ChartData<'bar', number[], string > = {
   //   labels: ['12/04/2022', '12/05-2022', '12/06/2022'],
@@ -40,7 +44,7 @@ export class ReporteVentasComponent implements OnInit {
 
   labeldata: any[] = [];
   realdata: any[] = [];
-  colordata: any[] = [];
+  colordata: any[] = ["yellow", "red", "green", "pink", "brown", "orange", "lightblue", "cian", "violet"];
 
   ngOnInit(): void {
     
@@ -48,13 +52,17 @@ export class ReporteVentasComponent implements OnInit {
 
  
   obtenerReporteVenta(){
+    this.banderaMostrarGrafico = true
     
-    const fechaConvertida1 =  moment(this.fecha1, "YYYY-MM-DD").format('DDMMYYYY')
-    const fechaConvertida2 =  moment(this.fecha2, "YYYY-MM-DD").format('DDMMYYYY')
+    this.fechaConvertida1 =  moment(this.fecha1, "YYYY-MM-DD").format('DDMMYYYY')
+    this.fechaConvertida2 =  moment(this.fecha2, "YYYY-MM-DD").format('DDMMYYYY')
+    console.log("fecha 1 enviada: " + this.fechaConvertida1)
+    console.log("fecha 2 enviada: " + this.fechaConvertida2)
 
-    this.apiReporte.obtenerPorFechaMontos(fechaConvertida1,fechaConvertida2 ).subscribe(result => {
+
+    this.apiReporte.obtenerPorFechaMontos(this.fechaConvertida1,this.fechaConvertida2 ).subscribe(result => {
       this.chartdata = result;
-      console.log(result)
+      console.log("array devuelto " + JSON.stringify(result))
       if(this.chartdata!=null){
         for(let i=0; i<this.chartdata.length ;i++){
           //console.log(this.chartdata[i]);
@@ -64,16 +72,22 @@ export class ReporteVentasComponent implements OnInit {
         }
         this.RenderChart(this.labeldata,this.realdata,this.colordata,'bar','barchart');
         this.RenderChart(this.labeldata,this.realdata,this.colordata,'pie','piechart');
-        this.RenderChart(this.labeldata,this.realdata,this.colordata,'doughnut','dochart');
-        this.RenderChart(this.labeldata,this.realdata,this.colordata,'polarArea','pochart');
+        // this.RenderChart(this.labeldata,this.realdata,this.colordata,'doughnut','dochart');
+        // this.RenderChart(this.labeldata,this.realdata,this.colordata,'polarArea','pochart');
 
-        this.RenderChart(this.labeldata,this.realdata,this.colordata,'radar','rochart');
-
-        
+        // this.RenderChart(this.labeldata,this.realdata,this.colordata,'radar','rochart');
       }
+
+      this.fecha1=""
+      this.fecha2=""
+      console.log(this.chartdata)
+      this.chartdata = []
+      this.labeldata= [];
+      this.realdata= [];
+      this.colordata= [];
     });
-    this.RenderBubblechart();
-    this.RenderScatterchart();
+    // this.RenderBubblechart();
+    // this.RenderScatterchart();
     
 
 
@@ -115,64 +129,64 @@ export class ReporteVentasComponent implements OnInit {
     });
  }
 
- RenderBubblechart(){
-  const data = {
-    datasets: [{
-      label: 'First Dataset',
-      data: [{
-        x: 20,
-        y: 30,
-        r: 15
-      }, {
-        x: 40,
-        y: 10,
-        r: 10
-      }],
-      backgroundColor: 'rgb(255, 99, 132)'
-    }]
-  };
-  const myChart = new Chart('bubchart', {
-    type: 'bubble',
-    data: data,
-    options: {
+//  RenderBubblechart(){
+//   const data = {
+//     datasets: [{
+//       label: 'First Dataset',
+//       data: [{
+//         x: 20,
+//         y: 30,
+//         r: 15
+//       }, {
+//         x: 40,
+//         y: 10,
+//         r: 10
+//       }],
+//       backgroundColor: 'rgb(255, 99, 132)'
+//     }]
+//   };
+//   const myChart = new Chart('bubchart', {
+//     type: 'bubble',
+//     data: data,
+//     options: {
       
-    }
-  });
-}
+//     }
+//   });
+// }
 
-RenderScatterchart(){
-  const data = {
-    datasets: [{
-      label: 'Scatter Dataset',
-      data: [{
-        x: -10,
-        y: 0
-      }, {
-        x: 0,
-        y: 10
-      }, {
-        x: 10,
-        y: 5
-      }, {
-        x: 0.5,
-        y: 5.5
-      }],
-      backgroundColor: 'rgb(255, 99, 132)'
-    }],
-  };
-  const myChart = new Chart('scchart', {
-    type: 'scatter',
-    data: data,
-    options: {
-      scales: {
-        x: {
-          type: 'linear',
-          position: 'bottom'
-        }
-      }
-    }
-  });
-}
+// RenderScatterchart(){
+//   const data = {
+//     datasets: [{
+//       label: 'Scatter Dataset',
+//       data: [{
+//         x: -10,
+//         y: 0
+//       }, {
+//         x: 0,
+//         y: 10
+//       }, {
+//         x: 10,
+//         y: 5
+//       }, {
+//         x: 0.5,
+//         y: 5.5
+//       }],
+//       backgroundColor: 'rgb(255, 99, 132)'
+//     }],
+//   };
+//   const myChart = new Chart('scchart', {
+//     type: 'scatter',
+//     data: data,
+//     options: {
+//       scales: {
+//         x: {
+//           type: 'linear',
+//           position: 'bottom'
+//         }
+//       }
+//     }
+//   });
+// }
 
 
 }

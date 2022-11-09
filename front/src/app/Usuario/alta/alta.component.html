@@ -1,7 +1,7 @@
 
   <div class="container">
     <form [formGroup]="formularioUsuario" >
-      <h2>Registro nuevo Usuario</h2>
+      <h2 class="text-center">Registrar Nuevo Usuario</h2>
       
       <div class="mb-3">
         <label for="txtLegajo" class="form-label">Legajo</label>
@@ -28,7 +28,7 @@
   
       <div class="mb-3">
         <div class="col-12">
-          Seleccionar el Rol
+          Seleccionar Rol
           <select class="form-select" name="rol" formControlName="rol">
             <option *ngFor="let item of listaRol" [value]="item.id" > {{item.rol}} </option>
           </select>  
@@ -37,10 +37,9 @@
   
   
   
-  
-      
-      <button type="button" class="btn btn-primary"  (click)="guardar()" [disabled]="formularioUsuario.invalid" >Guardar</button>
-      <!-- <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button> -->
-  
+    <div class="container text-end">
+      <button  type="button" class="btn btn-primary me-3"  (click)="guardar()" [disabled]="formularioUsuario.invalid" >Guardar</button>
+      <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button>
+    </div>
       </form>
   </div>

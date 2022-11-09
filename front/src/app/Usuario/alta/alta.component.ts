@@ -62,5 +62,8 @@ export class AltaComponentUsuario implements OnInit {
     return this.listaRol.find(x => x.id == id) ?? {} as Rol 
   }
 
+  volver(){
+    
+  }
 
  }

@@ -2,7 +2,7 @@
   <div class="card-body" id="factura">
     <div class="container">
       <div class="col-md-12">
-      <div class="text-sm-end">
+       <div class="text-sm-end">
 
           <p style="color: #7e8d9f;font-size: 20px;">Factura <strong>Nro: 0001-12345678</strong></p>
         </div>
@@ -141,11 +141,12 @@ Producto
         <td> {{item.producto.precio_unitario_venta}} </td>
         <td> {{item.producto.precio_unitario_venta! * item.cantidad}} </td>
       </tr>
-
-
-
     </tbody>
   </table>
+  <div class="container text-end" >
+    monto total: {{nuevaFactura.monto_total}}
+  </div>
+ 
 <br>
 
 <button class="btn btn-primary" (click)="guardarVenta()">Guardar</button>

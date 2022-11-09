@@ -8,6 +8,7 @@ import { Factura } from '../models/Ventas/factura';
 import { Producto } from '../models/Ventas/producto';
 import { TipoProducto } from '../models/Ventas/tipo-producto';
 import { VentaService } from '../Services/venta.service';
+import * as moment from 'moment';
 
 
 @Component({
@@ -21,8 +22,9 @@ export class VentasComponent implements OnInit {
   //https://www.youtube.com/watch?v=Eh6StPjcWjE
   @ViewChild("factura") myData!: ElementRef;
 
-
-  fecha = new Date()
+// mes/dia/año
+  fechaOriginal = new Date("11/01/2022")
+  fecha =  moment(this.fechaOriginal, "YYYY-MM-DD").format('DD/MM/YYYY')
   nuevaFactura: Factura = {} as Factura;
   nuevoDetalle: Detalle = {} as Detalle;
   banderaMostrarFactura: boolean = false;
@@ -111,6 +113,7 @@ export class VentasComponent implements OnInit {
     // this.nuevaFactura.id=3
     this.nuevaFactura.cliente = this.getClienteById(this.clienteSeleccionado.id!)
     this.nuevaFactura.fecha= this.fecha.toString()
+    this.sumarItems();
     this.nuevaFactura.monto_total = this.sumaFactura
     this.nuevoDetalle.cantidad = 0
     this.sumarItems();

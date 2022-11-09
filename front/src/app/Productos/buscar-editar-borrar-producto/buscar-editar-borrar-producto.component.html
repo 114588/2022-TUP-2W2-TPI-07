@@ -1,15 +1,17 @@
-
-
 <div class="container">
-    <h2>Buscar de Producto</h2>
+    <h2 class="text-center">Buscar Producto</h2>
 
     <!-- ============ SECCION BUSCAR ============== -->
     <form class="form-control">
-    
-        <input  class="form-control"  type="search"  placeholder="Buscar producto" aria-label="Search" name="valorBusqueda" [(ngModel)]="valorBuscado" />      
-        <br>
-        <button type="button" class="btn btn-primary" (click)="buscarProductoPorNombre()">buscar</button>
-
+    <div class="row">
+      <div class="col-md-9">
+        <input  class="form-control"  type="search"  placeholder="Introduzca el nombre del producto" aria-label="Search" name="valorBusqueda" [(ngModel)]="valorBuscado" />      
+      </div>
+      
+      <div class="col-md-3 text-end">
+        <button type="button" class="btn btn-primary" (click)="buscarProductoPorNombre()">Buscar</button>
+      </div>
+    </div>
     </form>
 
 
@@ -33,7 +35,7 @@
                 <td>{{ item.descripcion }}</td>
                 <td>{{ item.tipoProducto.tipo }}</td>
                 <td>{{ item.precio_unitario_venta }}</td>
-                <td>{{ item.precio_unitario_compra}}</td>
+                <td>{{ item.precio_unitario_compra }}</td>
                 <td>
                   <button type="button" class="btn btn-success" (click)="editarProducto(item)">Editar</button>
                   <!-- <button type="button" class="btn btn-danger" (click)="eliminarCliente(item)">Eliminar</button> -->

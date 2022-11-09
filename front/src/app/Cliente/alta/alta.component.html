@@ -1,9 +1,10 @@
 
   <div class="container">
     <form [formGroup]="formularioAltaCliente" >
-      <h2>Registro  de nuevo Cliente</h2>
-      
-      <div class="mb-3">
+      <h2 class="text-center">Agregar Nuevo Cliente</h2>
+  
+    <div class="row">
+      <div class="col-md-6">
         <label for="txtDni" class="form-label">Dni</label>
         <input type="text" class="form-control" id="txtDni"  formControlName="dni" />
         
@@ -11,11 +12,9 @@
          formularioAltaCliente.get('nombre')?.hasError('required')">
           * campo requerido 
         </span>
-  
-     
       </div>
   
-      <div class="mb-3">
+      <div class="col-md-6">
         <label for="txtNombre" class="form-label">Nombre</label>
         <input type="text" class="form-control" id="txtNombre" name="nombre_apellido" formControlName="nombre_apellido" />
         
@@ -23,61 +22,51 @@
         formularioAltaCliente.get('nombre_apellido')?.hasError('required')">
           * campo requerido 
         </span>
-  
+        </div>
       </div>
-  
-      <div class="mb-3">
-        <label for="txtTelefono" class="form-label">Telefono</label>
-        <input type="text" class="form-control" id="txtTelefono" name="telefono" formControlName="telefono"  />
-  
-        <span *ngIf="formularioAltaCliente.get('telefono')?.touched &&
-         formularioAltaCliente.get('telefono')?.hasError('required')">
-          * campo requerido 
-        </span>
-  
-      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <label for="txtTelefono" class="form-label">Teléfono</label>
+          <input type="text" class="form-control" id="txtTelefono" name="telefono" formControlName="telefono"  />
+    
+          <span *ngIf="formularioAltaCliente.get('telefono')?.touched &&
+          formularioAltaCliente.get('telefono')?.hasError('required')">
+            * campo requerido 
+          </span>
+        </div>
   
   
        
-      <div class="mb-3">
-          <label for="txtDireccion" class="form-label">Direccion</label>
-          <input type="text" class="form-control" id="txtDireccion" name="direccion" formControlName="direccion"/>
-  
-          <span *ngIf="formularioAltaCliente.get('direccion')?.touched &&
-          formularioAltaCliente.get('direccion')?.hasError('required')">
-           * campo requerido 
-         </span>
-  
+        <div class="col-md-6">
+            <label for="txtDireccion" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="txtDireccion" name="direccion" formControlName="direccion"/>
+    
+            <span *ngIf="formularioAltaCliente.get('direccion')?.touched &&
+            formularioAltaCliente.get('direccion')?.hasError('required')">
+            * campo requerido 
+          </span>
         </div>
-  
+      </div>
      
   
-        <div class="mb-3">
-          <label for="txtCorreo" class="form-label">Correo electronico</label>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="txtCorreo" class="form-label">Correo electrónico</label>
           <input type="email" class="form-control" id="txtCorreo" name="email" formControlName="email" />
   
           <span *ngIf="formularioAltaCliente.get('email')?.touched &&
           formularioAltaCliente.get('email')?.hasError('required')">
            * campo requerido 
          </span>
-  
+      </div>
+    </div>
+
+      <br>
+      <div class="container text-end" >     
+        <button type="button" class="btn btn-primary me-3"  (click)="guardar()" [disabled]="formularioAltaCliente.invalid" >Guardar</button>
+        <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button>
         </div>
-<!-- 
-        <div class="mb-3">
-          <label for="txtCantidadPuntos" class="form-label">Cantidad Puntos</label>
-          <input type="text" class="form-control" id="txtCantidadPuntos" name="cantidad_puntos" formControlName="cantidad_puntos" />
-  
-          <span *ngIf="formularioAltaCliente.get('cantidad_puntos')?.touched &&
-          formularioAltaCliente.get('cantidad_puntos')?.hasError('required')">
-           * campo requerido 
-         </span> -->
-  
-        <!-- </div> -->
-  
-  
-      
-      <button type="button" class="btn btn-primary"  (click)="guardar()" [disabled]="formularioAltaCliente.invalid" >Guardar</button>
-      <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button>
-  
-      </form>
+
+     </form>
   </div>
