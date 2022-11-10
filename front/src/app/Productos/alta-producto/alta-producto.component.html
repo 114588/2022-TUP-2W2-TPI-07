@@ -1,4 +1,3 @@
-
   <div class="container">
     <form [formGroup]="formularioAltaProducto" >
       <h2 class="text-center">Registrar Nuevo Producto</h2>
@@ -18,15 +17,15 @@
         <div class="col-md-6">
           <label for="txtDescripcion" class="form-label">Descripcion</label>
           <input type="text" class="form-control" id="txtDescripcion" name="nombre_apellido" formControlName="descripcion" />
-          
+
           <span *ngIf="formularioAltaProducto.get('descripcion')?.touched &&
           formularioAltaProducto.get('descripcion')?.hasError('required')">
             * campo requerido 
           </span>  
         </div>
-    </div>
+      </div>
 
-    <br>
+      <br>
 
       <div class="mb-3">
         <label for="item">Seleccione Tipo Producto</label>
@@ -34,8 +33,7 @@
          <option *ngFor="let item of listaTipoProducto" [value]="item.id" > {{item.tipo}} </option>
         </select>  
       </div>
-  
-  
+    
       <div class="row">
        
         <div class="col-md-6">
@@ -45,13 +43,10 @@
             <span *ngIf="formularioAltaProducto.get('precio_unitario_venta')?.touched &&
             formularioAltaProducto.get('precio_unitario_venta')?.hasError('required')">
             * campo requerido 
-          </span>
+             </span>    
+        </div>         
     
-          </div>
-    
-      
-    
-          <div class="col-md-6">
+        <div class="col-md-6">
             <label for="txtPrecioCompra" class="form-label">Precio Compra</label>
             <input type="number" class="form-control" id="txtCorreo" name="precio_unitario_compra" formControlName="precio_unitario_compra" />
     
@@ -59,13 +54,14 @@
             formularioAltaProducto.get('precio_unitario_compra')?.hasError('required')">
             * campo requerido 
           </span>
-    
-          </div>
         </div>
+     </div>
+
       <br>
+
       <div class="container text-end"  >
         <button type="button" class="btn btn-primary me-3"  (click)="guardar()" [disabled]="formularioAltaProducto.invalid" >Guardar</button>
         <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button>
       </div>
-      </form>
+    </form>
   </div>

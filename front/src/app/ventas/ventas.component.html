@@ -73,7 +73,7 @@
   </div>
 
   <div class="container">
-    <button class="btn btn-primary"  (click)="descargarPdf()"  >Descargar PDF</button>
+    <button class="btn btn-primary me-3"  (click)="descargarPdf()"  >Descargar PDF</button>
     <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button>
   </div>
 </div>
@@ -91,10 +91,11 @@
 <div class="container" *ngIf="banderaMostrarFormularioCarga" >
   <h2 class="text-center  ">Registrar Factura</h2>
 
-  <form>
+  <form [formGroup]="formularioVenta" >
 <!-- ============= CLIENTE ============= -->
 Cliente    
-<select class="form-select" name="item" [(ngModel)]="clienteSeleccionado.id">
+<!-- <select class="form-select" name="item" [(ngModel)]="clienteSeleccionado.id"> -->
+<select class="form-select" name="item" formControlName="cliente" >
       <option >Open this select menu</option>
       <option *ngFor="let item of listadoCliente" [value]="item.id" > {{item.nombre_apellido}} </option>
     </select>
@@ -102,8 +103,10 @@ Cliente
 
 <!-- ============= PRODUCTO ============= -->
 Producto    
-<select class="form-select" name="item" [(ngModel)]="productoSeleccionado.codigo">
-                                                     <!-- id, producto[], precio, cantidad -->
+<!-- id, producto[], precio, cantidad -->
+<!-- <select class="form-select" name="item" [(ngModel)]="productoSeleccionado.codigo" > -->
+<select class="form-select" name="item" formControlName="producto" >
+                                                     
       <option >Open this select menu</option>
       <option *ngFor="let item of listadoProductos" [value]="item.codigo" > {{item.descripcion}} </option>  
                                   <!-- listadoProductos: id, nombre, tipo  -->
@@ -113,13 +116,15 @@ Producto
 <!-- ============= CANTIDAD ============= -->
     <div class="mb-3">
       <label for="txtCantidad" class="form-label">Cantidad</label>
-      <input type="number" class="form-control" id="txtCantidad" name="cantidad" [(ngModel)]="nuevoDetalle.cantidad">
-                                                                                            <!-- id, producto[], precio, cantidad -->
+       <!-- id, producto[], precio, cantidad -->
+      <!-- <input type="number" class="form-control" id="txtCantidad" name="cantidad" [(ngModel)]="nuevoDetalle.cantidad"> -->
+      <input type="number" class="form-control" id="txtCantidad" name="cantidad" formControlName="cantidad" >
+
   </div>
 
 
 <br>
-    <button type="button" class="btn btn-primary" (click)="agregarDetalles()" >Agregar Item</button>
+    <button type="button" class="btn btn-primary" (click)="agregarDetalles()" [disabled]="formularioVenta.invalid" >Agregar Item</button>
   </form>
 </div>
 

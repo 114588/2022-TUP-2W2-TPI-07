@@ -38,8 +38,6 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
     tipoProducto: new FormControl()
   })
 
-
-
   constructor(private apiProducto: ProductoService, private apiTipoProducto: TipoProductoService, private router: Router) { }
   ngOnDestroy(): void {
     this.suscripcion.unsubscribe();
@@ -47,15 +45,12 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.obtenerProductos()
-    this.obtenerTipoProducto()
-  
+    this.obtenerTipoProducto()  
   }
-
   
   // <!-- ============ SECCION BUSCAR ============== -->  
   buscarProductoPorNombre(){
-    if(this.valorBuscado == ""){
-     
+    if(this.valorBuscado == ""){     
      this.obtenerProductos();
      this.banderaListadoBusqueda=false;
      this.banderaListadoCompleto=true;
@@ -69,7 +64,6 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
           this.listadoBuscado = item; //asigno  lo que viene de la api
           this.banderaListadoCompleto = false //oculto el listado completo
           this.banderaListadoBusqueda = true; //muestro el listado de la busqueda
-
           //this.valorBuscado.setValue("")
         },
         error: (e) => {
@@ -79,9 +73,6 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
       )
     }
   }
-
-
-
   // ============ SECCION LISTADO BUSQUEDA ==============
 
   editarProducto(item:Producto){
@@ -95,10 +86,7 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
       precio_unitario_compra: this.productoSeleccionado.precio_unitario_compra,
       tipoProducto: this.productoSeleccionado.tipoProducto.id
     })
-
   }
-
-
 
   // <!-- =============SECCION LISTADO COMPLETO ====================== -->
   obtenerProductos(){
@@ -128,28 +116,8 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
     )
   }
 
-  // obtenerAnidados() {
-  //     this.apiTipoProducto.obtenerTipoProducto().subscribe({
-  //       next: (itemTipoProducto: TipoProducto[]) => {
-  //         this.apiProducto.obtenerProducto().subscribe({
-  //           next: (itemProducto: Producto[]) => {
-  //             for (const variable of itemProducto) {
-  //               const categoriaIndex = itemTipoProducto.findIndex((x) => x.id === variable.id_tipo);
-  //               variable.tipo = itemTipoProducto[categoriaIndex];
-  //             }
-  //             this.listadoProductosOriginal = itemProducto;
-  //           },
-  //           error: () => {
-  //             alert('error al comunicarse con la API');
-  //           },
-  //         });
-  //       },
-  //     })
-
-
   // <!-- ================ FORMULARIO MODIFICAR ================ -->
   modificarDesdeFormulario(){
-
     this.formularioModicacionProducto.patchValue({
       tipoProducto:this.getTipoProductoById(this.formularioModicacionProducto.controls["tipoProducto"].value)
     })
@@ -160,13 +128,11 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
         Swal.fire("Producto modificado")
         this.banderaFormularioEdicion=false;  //oculto formulario edicion
         this.buscarProductoPorNombre() //vuelvo a llamar a la api y traigo todo
-
       },
       error: (e)  =>{
         Swal.fire("Error al modificar " + e.message)
       }
     })
-
   }
 
   volver(){
@@ -176,9 +142,4 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
   getTipoProductoById(id: number){
     return this.listaTipoProducto.find(x => x.id == id) ?? {} as TipoProducto;
   }
-
-  }
-
-
-
-
+}

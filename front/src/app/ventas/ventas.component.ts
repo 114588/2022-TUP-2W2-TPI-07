@@ -12,6 +12,7 @@ import * as moment from 'moment';
 import {Router} from "@angular/router"
 import Swal from "sweetalert2"
 import { ThemeService } from 'ng2-charts';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class VentasComponent implements OnInit {
   @ViewChild("factura") myData!: ElementRef;
 
 // mes/dia/año
-  fechaOriginal = new Date("11/01/2022")
+  fechaOriginal = new Date()
   fecha =  moment(this.fechaOriginal, "YYYY-MM-DD").format('DD/MM/YYYY')
   nuevaFactura: Factura = {} as Factura;
   nuevoDetalle: Detalle = {} as Detalle;
@@ -47,10 +48,14 @@ export class VentasComponent implements OnInit {
   tipoSeleccionado: TipoProducto= {id: 0, tipo: ""} //id, tipo
   arrayDetalleSeleccionado: Detalle[] = [];
 
-
   idCliente: number = 0;
 
 
+  formularioVenta = new UntypedFormGroup({
+    cliente: new UntypedFormControl("", Validators.required),
+    producto: new UntypedFormControl("", Validators.required),
+    cantidad: new UntypedFormControl("", Validators.required)
+  })
 
 
   constructor(private apiProveedor: VentaService, private router: Router) { }
@@ -69,7 +74,7 @@ export class VentasComponent implements OnInit {
     this.suscripcion.add(
       this.apiProveedor.obtenerTodosProductos().subscribe({
         next: (item: Producto[]) => {
-          console.log(item)
+          //console.log(item)
          // Object.assign((this.listadoProductos),item );
             this.listadoProductos = item          
         },
@@ -98,12 +103,17 @@ export class VentasComponent implements OnInit {
    agregarDetalles(){
     //   this.itemEnviar = Object.assign({}, this.itemEnviar)
     //   this.conceptos.push(Object.assign({}, this.itemEnviar));
-    //  
 
-    this.clienteSeleccionado = this.getClienteById(this.clienteSeleccionado.id!)
-    console.log(this.productoSeleccionado)
-    console.log(this.getProductoById(this.productoSeleccionado.codigo))
-    console.log(this.getClienteById(this.nuevaFactura.id))
+    // this.clienteSeleccionado = this.getClienteById(this.clienteSeleccionado.id!)
+    this.clienteSeleccionado = this.getClienteById(this.formularioVenta.controls['cliente'].value)
+    console.log(this.clienteSeleccionado)
+
+    console.log(this.getProductoById(this.formularioVenta.controls['producto'].value))
+    // console.log(this.getProductoById(this.productoSeleccionado.codigo))
+    //console.log("producto: " + JSON.stringify(this.getProductoById(this.formularioVenta.controls['producto'].value)))
+    
+
+    console.log(this.formularioVenta.controls['cantidad'].value)
 
     if(this.nuevaFactura.items == null || this.nuevaFactura.items == undefined){
       this.nuevaFactura.items = new Array<Detalle>();
@@ -111,28 +121,33 @@ export class VentasComponent implements OnInit {
     
 
     //EMPIEZO A CONSTRUIR LA  FACTURA A PASAR
-    this.nuevaFactura.items.push( {producto: this.getProductoById(this.productoSeleccionado.codigo), cantidad:this.nuevoDetalle.cantidad, importe: this.nuevoDetalle.importe } as Detalle )
+    // this.nuevaFactura.items.push( {producto: this.getProductoById(this.productoSeleccionado.codigo), cantidad:this.nuevoDetalle.cantidad, importe: this.nuevoDetalle.importe } as Detalle )
+    this.nuevaFactura.items.push( {producto: this.getProductoById(this.formularioVenta.controls['producto'].value), cantidad: this.formularioVenta.controls['cantidad'].value, importe: this.nuevoDetalle.importe} as Detalle )
     
     // this.nuevaFactura.id=3
-    this.nuevaFactura.cliente = this.getClienteById(this.clienteSeleccionado.id!)
+    this.nuevaFactura.cliente = this.getClienteById(this.formularioVenta.controls['cliente'].value)
     this.nuevaFactura.fecha= this.fecha.toString()
     this.sumarItems();
     this.nuevaFactura.monto_total = this.sumaFactura
     //this.nuevoDetalle.cantidad = 0
-    this.sumarItems();
- 
+    this.sumarItems(); 
+    console.log(this.nuevaFactura.items)
    }
 
-   eliminarDetalle(item: Detalle){
-   
+
+
+   eliminarDetalle(item: Detalle){   
     //obtengo el indice del objeto que quiero eliminar
     const indice = this.nuevaFactura.items.findIndex(x => x == item)
     console.log(indice);
-
-    //con splice le digo que desde el indice obtenido borro 1 elemento
-    this.nuevaFactura.items.splice(indice,1);
-
     
+    //con splice le digo que desde el indice obtenido borro 1 elemento
+    this.nuevaFactura.items.splice(indice,1);    
+    this.sumarItems();
+    this.nuevaFactura.monto_total = this.sumaFactura
+    this.sumarItems(); 
+    console.log(this.nuevaFactura.items)
+ 
   }
 
    sumarItems(){
@@ -152,18 +167,22 @@ export class VentasComponent implements OnInit {
    }
 
    guardarVenta(){
-    console.log(this.nuevaFactura)
-    this.apiProveedor.guardarFactura(this.nuevaFactura).subscribe({
-      next: () => {
-        this.banderaMostrarFormularioCarga=false
-        this.banderaMostrarFactura = true;
-        Swal.fire("Factura cargada")
-      },
-      error: (e) => {
-        Swal.fire("error al cargar la factura " + e.message )
-      }
-    })
-   }
+    if(this.nuevaFactura.items.length<1){
+      Swal.fire("Debe agregar detalle para poder generar factura")
+    } else {
+      console.log(this.nuevaFactura)
+      this.suscripcion.add(
+        this.apiProveedor.guardarFactura(this.nuevaFactura).subscribe({
+          next: () => {
+            this.banderaMostrarFormularioCarga=false
+            this.banderaMostrarFactura = true;
+            Swal.fire("Factura cargada")
+          },
+          error: (e) => {
+            Swal.fire("error al cargar la factura " + e.message )
+          }
+      }))
+   }}
 
 
     descargarPdf(){
@@ -184,7 +203,9 @@ export class VentasComponent implements OnInit {
   }
 
   volver(){
-    this.router.navigateByUrl('home');
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(["venta"]);
+    }); 
   }
 
 
