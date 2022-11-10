@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import {Proveedor} from "../../models/proveedor";
 import {ProveedorServiceService} from "../../Services/proveedor-service.service"
 import {Router} from "@angular/router"
+import Swal from "sweetalert2"
 
 @Component({
   selector: 'app-alta',
@@ -46,17 +47,17 @@ export class AltaComponentProveedor implements OnInit {
       
       this.proveedorService.agregarProveedor(this.nuevoProveedor).subscribe({
         next: () => {
-          alert("proveedor agregado")
+          Swal.fire("Proveedor agregado")
         },
         error: (e) => {
-          alert("error al agregar proveedor " + e.message )
+          Swal.fire("Error al agregar proveedor " + e.message )
         }
       })
 
 
       console.log(this.nuevoProveedor);
     } else{
-      alert("formulario invalido, debe completar los campos")
+      Swal.fire("Formulario invalido, debe completar los campos")
     }    
   }
 

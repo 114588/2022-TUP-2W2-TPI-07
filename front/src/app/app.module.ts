@@ -34,7 +34,7 @@ import { ClienteService} from "../app/Services/cliente.service"
 // import { MapaComponent } from '../app/Proveedor/mapa/mapa.component';
 
 // search
-// import {Ng2SearchPipeModule} from "ng2-search-filter";
+import {Ng2SearchPipeModule} from "ng2-search-filter";
 
 //Cliente
 import {AltaComponentCliente} from "./Cliente/alta/alta.component";
@@ -67,6 +67,12 @@ import {ReporteVentasService} from "../app/Services/reporte-ventas.service"
 //ng2-charts
 import { NgChartsModule } from 'ng2-charts';
 
+//pagination
+import {NgxPaginationModule} from 'ngx-pagination'; 
+
+//sweet Alert 2
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
 @NgModule({
   declarations: [
     AltaComponentCliente,
@@ -95,9 +101,11 @@ import { NgChartsModule } from 'ng2-charts';
     ReactiveFormsModule,
     HttpClientModule,
     // GoogleMapsModule,
-    // Ng2SearchPipeModule,
+    Ng2SearchPipeModule,
     FormsModule,
     NgChartsModule,
+    NgxPaginationModule,
+    SweetAlert2Module
     
   ],
   providers: [ProveedorServiceService, OfertasService, ClienteService, ProductoService, TipoProductoService,UsuarioService,LoginService,ReporteVentasService],

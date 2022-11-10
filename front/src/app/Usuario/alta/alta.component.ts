@@ -5,6 +5,7 @@ import { Rol } from 'src/app/models/Usuario/rol';
 import { Usuario } from 'src/app/models/Usuario/usuario';
 import {RolService} from "../../Services/rol.service"
 import {UsuarioService} from "../../Services/usuario.service"
+import Swal from "sweetalert2"
 
 @Component({
   selector: 'app-alta',
@@ -43,10 +44,9 @@ export class AltaComponentUsuario implements OnInit {
     console.log(this.formularioUsuario.value)
     this.apiUsuario.agregarUsuario(this.formularioUsuario.value as Usuario).subscribe({
       next: () => {
-        alert("agregado con exito")
       },
       error: (e) => {
-        alert("error " + e.message)
+        Swal.fire("Error " + e.message)
       }
     })
 

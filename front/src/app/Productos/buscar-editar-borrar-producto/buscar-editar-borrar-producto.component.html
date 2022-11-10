@@ -5,7 +5,7 @@
     <form class="form-control">
     <div class="row">
       <div class="col-md-9">
-        <input  class="form-control"  type="search"  placeholder="Introduzca el nombre del producto" aria-label="Search" name="valorBusqueda" [(ngModel)]="valorBuscado" />      
+        <input  class="form-control"  type="search"  placeholder="Introduzca el nombre del producto" aria-label="Search" name="valorBusqueda" [(ngModel)] ="valorBuscado" />      
       </div>
       
       <div class="col-md-3 text-end">
@@ -34,10 +34,10 @@
                 <td>{{ item.codigo }}</td>
                 <td>{{ item.descripcion }}</td>
                 <td>{{ item.tipoProducto.tipo }}</td>
-                <td>{{ item.precio_unitario_venta }}</td>
-                <td>{{ item.precio_unitario_compra }}</td>
+                <td>{{ item.precio_unitario_venta | number:'1.2-2' }}</td>
+                <td>{{ item.precio_unitario_compra  | number:'1.2-2'}}</td>
                 <td>
-                  <button type="button" class="btn btn-success" (click)="editarProducto(item)">Editar</button>
+                  <button type="button" class="btn btn-success me-3" (click)="editarProducto(item)">Editar</button>
                   <!-- <button type="button" class="btn btn-danger" (click)="eliminarCliente(item)">Eliminar</button> -->
                 </td>
             </tr>
@@ -112,7 +112,7 @@
         </div>
   <br>
       
-      <button type="button" class="btn btn-primary"  (click)="guardar()" [disabled]="formularioModicacionProducto.invalid" >Guardar</button>
+      <button type="button" class="btn btn-primary me-3"  (click)="modificarDesdeFormulario()" [disabled]="formularioModicacionProducto.invalid" >Guardar</button>
       <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button>
     </form>
   </div>
@@ -132,15 +132,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of listadoProductosOriginal">
+      <tr *ngFor="let item of listadoProductosOriginal | paginate: { itemsPerPage: 5,currentPage: p }">
         <td>{{ item.codigo }}</td>
         <td>{{ item.descripcion }}</td>
         <td>{{ item.tipoProducto.tipo }}</td>
-        <td>{{ item.precio_unitario_venta }}</td>
-        <td>{{ item.precio_unitario_compra}}</td>
+        <td>{{ item.precio_unitario_venta  | number:'1.2-2' }}</td>
+        <td>{{ item.precio_unitario_compra   | number:'1.2-2'}}</td>
       </tr>
     </tbody>
   </table>
 
+  <!-- https://www.youtube.com/watch?v=3KIez1oRi2Q&list=LL&index=3 -->
+  <pagination-controls (pageChange)="p = $event" previousLabel="Previa" nextLabel="Siguiente"></pagination-controls>
 
 </div>

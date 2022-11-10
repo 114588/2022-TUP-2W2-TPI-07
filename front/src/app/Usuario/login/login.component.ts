@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Login } from 'src/app/models/Usuario/login';
 import {LoginService} from "../../Services/login.service"
 import {Router} from "@angular/router"
+import Swal from "sweetalert2"
 
 @Component({
   selector: 'app-login',
@@ -41,8 +42,8 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl("venta");
 
       },
-      error: () => {
-        alert("error")
+      error: (e) => {
+        Swal.fire("error " + e.message)
       }
     })
   }

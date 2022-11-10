@@ -5,6 +5,7 @@ import { ProveedorServiceService } from '../../Services/proveedor-service.servic
 import { Router } from '@angular/router';
 import { FormControl, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {ProveedorModificado} from "../../models/proveedor-modificado";
+import Swal from "sweetalert2"
 
 
 @Component({
@@ -19,14 +20,16 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
   listaProveedorCompleta: Proveedor[] = [];
   listaProveedorBuscado: Proveedor[] = [];
   subscripcion = new Subscription();
-  mostrarFormulario: boolean = false;
+  banderaFormularioEdicion: boolean = false;
   valorBuscarProveedor = new FormControl('');
-  valorBusqueda: string = "";
+  //valorBusqueda2: string = "";
   proveedorSeleccionado : Proveedor = {} as Proveedor;
-  banderaMostrarMapa: boolean = false;
+  //banderaMostrarMapa: boolean = false;
   banderaMostrarListaCompleta : boolean =false
   banderaListadoBuscado: boolean = false;
   banderaListadoCompleto: boolean =  true;
+  valorBusqueda =  new FormControl("")
+  public p: number = 1
   
 
 
@@ -75,36 +78,40 @@ formularioModificarProveedor = new UntypedFormGroup({
 // =============== SECCION BUSCAR ===================
   buscarProveedorPorNombre(){
     // https://www.youtube.com/watch?v=vZ91vDD7FGY
+   
+   if(this.valorBusqueda.value == ""){
+    this.obtenerListaProveedores(); //traigo toda la lsita
+    this.banderaListadoBuscado=false;
+    this.banderaListadoCompleto = true
+   } else {
+   
     this.subscripcion.add(
-      this.proveedorService.buscarProveedorPorNombre(this.valorBusqueda).subscribe({
+      this.proveedorService.buscarProveedorPorNombre(this.valorBusqueda.value!).subscribe({
         next: (item: Proveedor[]) => {
           if(item == null){
-            alert("proveedor no encontrado")
+            Swal.fire("Proveedor no encontrado")
           } else {
             this.listaProveedor=[]; //limpio la lista asi no acumula
-            // this.miLatitud!=proveedor.latitud;
-            // this.miLongitud!=proveedor.longitud;
-  
-            this.listaProveedorBuscado =  item;
-  
-            // this.banderaMostrarMapa= true;
-            this.valorBusqueda = ""
-
-            this.banderaListadoBuscado = true;
+      
+            this.listaProveedorBuscado = item; //asigno lo que viene de la ap
+            this.banderaListadoCompleto = false //oculto el listado completo
+            this.banderaListadoBuscado = true; //muestro listado busqueda
+            //this.valorBusqueda.setValue("")
           }
           
         },
         error: (e) => {
-          alert ("error al obtener proveedor por nombre " + e.message )
+          Swal.fire ("Error al obtener proveedor por nombre " + e.message )
         }
     }))
   }
+}
   
   // ============ SECCION LISTADO BUSCADO================
 
   editar(item: Proveedor) {
     this.banderaListadoCompleto = false;
-    this.mostrarFormulario = true;
+    this.banderaFormularioEdicion = true;
     this.proveedor = Object.assign({}, item);
   }
 
@@ -113,11 +120,11 @@ formularioModificarProveedor = new UntypedFormGroup({
     this.subscripcion.add(
       this.proveedorService.eliminarProveedor(item.id!).subscribe({
         next: () => {
-          alert('proveedor borrado');
+          Swal.fire('Proveedor borrado');
           this.obtenerListaProveedores();
         },
         error: (e) => {
-          alert('error al borrar proveedor ' + e.message);
+          Swal.fire('Error al borrar proveedor ' + e.message);
         },
       })
     );
@@ -130,8 +137,8 @@ formularioModificarProveedor = new UntypedFormGroup({
         next: (proveedores: Proveedor[]) => {
           this.listaProveedor = proveedores  ;
         },
-        error: () => {
-          alert('error al obtener listado');
+        error: (e) => {
+          Swal.fire('Error al obtener listado ' + e);
         },
       })
     );
@@ -142,7 +149,7 @@ formularioModificarProveedor = new UntypedFormGroup({
 // =============== SECCION FORMULARIO EDITAR ==================
 
   modificar() {
-     this.proveedorModificado.codigo_postal = this.proveedor.codigo_postal;
+    this.proveedorModificado.codigo_postal = this.proveedor.codigo_postal;
     this.proveedorModificado.direccion = this.proveedor.direccion;
     this.proveedorModificado.email =  this.proveedor.email;
     this.proveedorModificado.telefono = this.proveedor.telefono;
@@ -153,12 +160,14 @@ formularioModificarProveedor = new UntypedFormGroup({
       this.proveedorService.modificarProveedor(this.proveedorModificado, this.proveedor).subscribe({
         next: () => {
 
-          alert('proveedor modificado');
+          Swal.fire('Proveedor modificado');
+          this.banderaFormularioEdicion=false;  //oculto formulario edicion
+          this.buscarProveedorPorNombre() //vuelvo a llamar a la api y con la busqueda
 
         },
         error: (e) => {
           console.log(e)
-          alert('error al modificar proveedor: ' + e.message);
+          Swal.fire('Error al modificar proveedor: ' + e.message);
         },
       })
     );
@@ -179,8 +188,8 @@ formularioModificarProveedor = new UntypedFormGroup({
         next: (proveedores: Proveedor[]) => {
           this.listaProveedorCompleta = proveedores  ;
         },
-        error: () => {
-          alert('error al obtener listado');
+        error: (e) => {
+          Swal.fire('Error al obtener listado ' + e);
         },
       })
     );

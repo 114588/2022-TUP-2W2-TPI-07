@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { Cliente } from 'src/app/models/cliente';
 import { ClienteModificado } from 'src/app/models/cliente-modificado';
 import { ClienteService } from 'src/app/Services/cliente.service';
+import Swal from "sweetalert2"
+
 
 @Component({
   selector: 'app-buscar-editar-borrar',
@@ -13,6 +15,8 @@ import { ClienteService } from 'src/app/Services/cliente.service';
 })
 export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
   
+  public p: number = 1
+
   subscripcion = new Subscription();
 
   valorBuscado: string = "";  
@@ -45,20 +49,29 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
 
 // ====================== BUSCAR =================
   buscarClientePorNombre(){
-    this.subscripcion.add(
-      this.apiCliente.buscarClientePorNombre(this.valorBuscado).subscribe({
-        next: (item: Cliente[]) => {
+    if(this.valorBuscado == ""){
 
-          this.listaClienteBusqueda=[]; //limpio la lista asi no acumula
-          this.listaClienteBusqueda = item;
-          this.banderaListadoBusqueda=true;
-          this.valorBuscado = ""
-                
-        },
-        error: () => {
-          alert ("error al obtener cliente por nombre")
-        }
-    }))
+      this.buscarTodosClientes()
+      this.banderaListadoBusqueda=false
+      this.banderaListadoCompleto=true
+
+    } else {
+        this.subscripcion.add(
+          this.apiCliente.buscarClientePorNombre(this.valorBuscado).subscribe({
+            next: (item: Cliente[]) => {
+
+              this.listaClienteBusqueda=[]; //limpio la lista asi no acumula
+              this.listaClienteBusqueda = item;  //asigno lo que viene de la api
+              this.banderaListadoCompleto=false; //oculto el listado completo
+              this.banderaListadoBusqueda=true; //muestro listado de la busqueda
+              //this.valorBuscado = ""
+                    
+            },
+            error: () => {
+              Swal.fire('Error al obtener cliente por nombre')
+            }
+        }))
+    }
   }
 
   // ================== LISTADO  BUSQUEDA ====================
@@ -74,7 +87,7 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
   this.subscripcion.add(
   this.apiCliente.eliminarCliente(item.id!).subscribe({
     next: () => {
-      alert("cliente eliminado");
+      Swal.fire('Cliente eliminado')
       
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigate(["registrarCliente"]);
@@ -82,7 +95,7 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
 
     },
     error: (e) => {
-      alert("error al eliminar cliente: " + e.message)
+      Swal.fire('Error al eliminar cliente:' + e.message)
     }
 
   }))
@@ -99,18 +112,19 @@ modificarDesdeFormulario() {
   this.clienteParaModificar.email =  this.clienteSeleccionado.email;
   //this.clienteModificado.cantidad_puntos = this.clienteSeleccionado.cantidad_puntos;
 
-  console.log(this.clienteParaModificar)
-  console.log(this.clienteSeleccionado)
+  // console.log(this.clienteParaModificar)
+  // console.log(this.clienteSeleccionado)
 
   this.subscripcion.add(
     this.apiCliente.modificarCliente(this.clienteParaModificar, this.clienteSeleccionado).subscribe({
       next: () => {
-        alert('cliente modificado');
-        this.banderaFormularioEdicion=false;
+        Swal.fire('Cliente modificado')
+        this.banderaFormularioEdicion=false;  //oculto formulario edicion
+        this.buscarClientePorNombre() //vuelvo a llamar a la api y traigo todo
 
       },
       error: (e) => {
-        alert('error al modificar cliente' + e.message);
+        Swal.fire('error al modificar cliente' + e.message)
       },
     })
   );
@@ -126,7 +140,7 @@ buscarTodosClientes(){
               
       },
       error: (e) => {
-        alert ("error al obtener cliente por nombre " + e.message)
+        Swal.fire("error al obtener cliente por nombre " + e.message)
       }
   }))
 }

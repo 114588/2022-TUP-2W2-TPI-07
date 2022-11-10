@@ -51,8 +51,8 @@
               <tr *ngFor="let item of nuevaFactura.items">
                 <td> {{item.producto.descripcion}} </td>
                 <td> {{item.cantidad}} </td>
-                <td> {{item.producto.precio_unitario_venta}} </td>
-                <td> {{item.producto.precio_unitario_venta! * item.cantidad}} </td>
+                <td> {{item.producto.precio_unitario_venta | number:'1.2-2'}} </td>
+                <td> {{item.producto.precio_unitario_venta! * item.cantidad | number:'1.2-2'}} </td>
               </tr>
             </tbody>
           </table>
@@ -62,7 +62,7 @@
           </div>
           <div class="col-xl-3">
              <p class="text-black float-start"><span class="text-black me-3"> Total: </span><span
-                style="font-size: 25px;">$ {{sumaFactura}} </span></p>
+                style="font-size: 25px;">$ {{sumaFactura | number:'1.2-2'}} </span></p>
           </div>
          </div>
         <hr>
@@ -74,6 +74,7 @@
 
   <div class="container">
     <button class="btn btn-primary"  (click)="descargarPdf()"  >Descargar PDF</button>
+    <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button>
   </div>
 </div>
 
@@ -122,7 +123,7 @@ Producto
   </form>
 </div>
 
-
+<!-- =============== DETALLE DE FACTURA ================= -->
 <div class="container" *ngIf="banderaMostrarFormularioCarga">
 
   <table class="table">
@@ -132,22 +133,39 @@ Producto
         <th scope="col">Cantidad</th>
         <th scope="col">Importe</th>
         <th scope="col">Subtotal</th>
+        <th scope="col">Eliminar</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of nuevaFactura.items">
         <td> {{item.producto.descripcion}} </td>
         <td> {{item.cantidad}} </td>
-        <td> {{item.producto.precio_unitario_venta}} </td>
-        <td> {{item.producto.precio_unitario_venta! * item.cantidad}} </td>
+        <td> {{item.producto.precio_unitario_venta  | number:'1.2-2'}} </td>
+        <td> {{item.producto.precio_unitario_venta! * item.cantidad | number:'1.2-2'}} </td>
+        <td> <button type="button" class="btn btn-danger" (click)="eliminarDetalle(item)" >Eliminar</button> </td>
       </tr>
     </tbody>
   </table>
   <div class="container text-end" >
-    monto total: {{nuevaFactura.monto_total}}
+    <div class="row">
+
+      <div class="col-7">
+
+      </div>
+
+      <div class="col-3">
+         <strong>Monto Total:  </strong> {{nuevaFactura.monto_total | currency: '$ '}}
+      </div>
+
+      <div class="col-2">
+
+      </div>
+
+    </div>
   </div>
  
 <br>
 
 <button class="btn btn-primary" (click)="guardarVenta()">Guardar</button>
+
 </div>

@@ -1,18 +1,21 @@
-import { ThisReceiver } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Producto } from 'src/app/models/producto';
 import { TipoProducto } from 'src/app/models/tipo-producto';
 import {ProductoService} from "../../Services/producto.service"
 import {TipoProductoService} from "../../Services/tipo-producto.service"
 import {Router} from "@angular/router"
+import { FromTo } from 'moment';
+import { Subscription } from 'rxjs';
+import { ThemeService } from 'ng2-charts';
+import Swal from "sweetalert2"
 
 @Component({
   selector: 'app-buscar-editar-borrar-producto',
   templateUrl: './buscar-editar-borrar-producto.component.html',
   styleUrls: ['./buscar-editar-borrar-producto.component.css']
 })
-export class BuscarEditarBorrarProductoComponent implements OnInit {
+export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
 
   banderaFormularioEdicion: boolean = false;
   banderaListadoCompleto: boolean = true;
@@ -21,10 +24,11 @@ export class BuscarEditarBorrarProductoComponent implements OnInit {
   listadoProductosOriginal:Producto[] = [];
   listaTipoProducto: TipoProducto[] = [];
   listadoBuscado: Producto[] = [];
-  valorBuscado: string = ""
-
+  valorBuscado : string = ""
   productoSeleccionado: Producto = {} as Producto; 
-
+  suscripcion = new Subscription();
+  
+  public p: number = 1
 
   formularioModicacionProducto = new FormGroup({
     codigo: new FormControl("", Validators.required),
@@ -37,6 +41,9 @@ export class BuscarEditarBorrarProductoComponent implements OnInit {
 
 
   constructor(private apiProducto: ProductoService, private apiTipoProducto: TipoProductoService, private router: Router) { }
+  ngOnDestroy(): void {
+    this.suscripcion.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.obtenerProductos()
@@ -45,20 +52,32 @@ export class BuscarEditarBorrarProductoComponent implements OnInit {
   }
 
   
-  // <!-- ============ SECCION BUSCAR ============== -->
-  
+  // <!-- ============ SECCION BUSCAR ============== -->  
   buscarProductoPorNombre(){
-    this.apiProducto.buscarProductosPorNombre(this.valorBuscado).subscribe({
-      next: (item: Producto[]) => {
-        this.banderaListadoCompleto = false
-        this.banderaListadoBusqueda = true;
-        this.listadoBuscado = item;
-        this.valorBuscado=""
-      },
-      error: (e) => {
-        alert("error al obtener el tipo " + e.message)
-      }
-    })
+    if(this.valorBuscado == ""){
+     
+     this.obtenerProductos();
+     this.banderaListadoBusqueda=false;
+     this.banderaListadoCompleto=true;
+
+    } else {
+      this.suscripcion.add(
+      this.apiProducto.buscarProductosPorNombre(this.valorBuscado).subscribe({
+        next: (item: Producto[]) => {
+          
+          this.listadoBuscado = [] //limpio la lista asi no acumula
+          this.listadoBuscado = item; //asigno  lo que viene de la api
+          this.banderaListadoCompleto = false //oculto el listado completo
+          this.banderaListadoBusqueda = true; //muestro el listado de la busqueda
+
+          //this.valorBuscado.setValue("")
+        },
+        error: (e) => {
+          Swal.fire("error al obtener el tipo " + e.message)
+        }
+      })
+      )
+    }
   }
 
 
@@ -83,25 +102,30 @@ export class BuscarEditarBorrarProductoComponent implements OnInit {
 
   // <!-- =============SECCION LISTADO COMPLETO ====================== -->
   obtenerProductos(){
+    this.suscripcion.add(
     this.apiProducto.obtenerProducto().subscribe({
       next: (item: Producto[]) => {
         this.listadoProductosOriginal = item
+        console.log(this.listaTipoProducto)
       },
       error: (e) => {
-        alert("error al obtener el tipo " + e.message)
+        Swal.fire("Error al obtener el tipo " + e.message)
       } 
     })
+    )
   }
 
   obtenerTipoProducto(){
+    this.suscripcion.add(
     this.apiTipoProducto.obtenerTipoProducto().subscribe({
       next: (item: TipoProducto[]) => {
         this.listaTipoProducto = item;
       },
       error: (e) => {
-        alert("error al obtener el tipo " + e.message)
+        Swal.fire("Error al obtener el tipo " + e.message)
       } 
     })
+    )
   }
 
   // obtenerAnidados() {
@@ -124,21 +148,22 @@ export class BuscarEditarBorrarProductoComponent implements OnInit {
 
 
   // <!-- ================ FORMULARIO MODIFICAR ================ -->
-  guardar(){
+  modificarDesdeFormulario(){
 
     this.formularioModicacionProducto.patchValue({
       tipoProducto:this.getTipoProductoById(this.formularioModicacionProducto.controls["tipoProducto"].value)
     })
-
-
-    console.log(this.formularioModicacionProducto.value as Producto)
+    // console.log(this.formularioModicacionProducto.value as Producto)
 
     this.apiProducto.modificarProducto(this.productoSeleccionado.id, this.formularioModicacionProducto.value as Producto).subscribe({
       next: () => {
-        alert("producto modificado")
+        Swal.fire("Producto modificado")
+        this.banderaFormularioEdicion=false;  //oculto formulario edicion
+        this.buscarProductoPorNombre() //vuelvo a llamar a la api y traigo todo
+
       },
       error: (e)  =>{
-        alert("error al modificar " + e.message)
+        Swal.fire("Error al modificar " + e.message)
       }
     })
 

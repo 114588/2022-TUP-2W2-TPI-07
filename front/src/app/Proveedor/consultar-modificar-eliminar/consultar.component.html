@@ -7,7 +7,8 @@
   <form class="form-control">
     <div class="row">
       <div class="col-md-9">
-        <input  class="form-control"  type="search"  placeholder="Introduzca el nombre del producto" aria-label="Search" name="valorBusqueda" [(ngModel)]="valorBusqueda" />      
+        <input  class="form-control"  type="search"  placeholder="Introduzca el nombre del producto" aria-label="Search" name="valorBusqueda" [formControl]="valorBusqueda" />      
+        <!-- <input  class="form-control"  type="search"  placeholder="Introduzca el nombre del producto" aria-label="Search" name="valorBusqueda" [(ngModel)]="valorBusqueda" />       -->
       </div>
       
       <div class="col-md-3 text-end">
@@ -42,7 +43,7 @@
         <td>{{ item.email }}</td>
         <td>
          
-          <button type="button" class="btn btn-success" (click)="editar(item)">Editar</button>
+          <button type="button" class="btn btn-success  me-3" (click)="editar(item)">Editar</button>
           <button type="button" class="btn btn-danger" (click)="borrar(item)" >Eliminar</button> 
 
         </td>
@@ -55,7 +56,7 @@
 
 
 <!-- ========== MODIFICAR ================== -->
-      <div class="container" *ngIf="mostrarFormulario">
+      <div class="container" *ngIf="banderaFormularioEdicion">
         <form [formGroup]="formularioModificarProveedor" >
           <h2 class="text-center">Modificar Proveedor</h2>
         
@@ -129,7 +130,7 @@
         </div>
 
         <br>
-        <button type="button" class="btn btn-primary"  (click)="modificar()" [disabled]="formularioModificarProveedor.invalid" >Guardar</button>
+        <button type="button" class="btn btn-primary me-3"  (click)="modificar()" [disabled]="formularioModificarProveedor.invalid" >Guardar</button>
         <button type="button" class="btn btn-warning" (click)="cancelar()">Volver</button>
         </form>
       </div>
@@ -150,18 +151,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of listaProveedorCompleta">
+      <tr *ngFor="let item of listaProveedorCompleta | paginate: { itemsPerPage: 5,currentPage: p }">
         <td>{{ item.nombre }}</td>
         <td>{{ item.cuit }}</td>
         <td>{{ item.telefono }}</td>
          <td>{{ item.direccion }}</td>
         <td>{{ item.codigo_postal }}</td>
         <td>{{ item.email }}</td>
-
-       
       </tr>
     </tbody>
   </table>
+
+  <!-- https://www.youtube.com/watch?v=3KIez1oRi2Q&list=LL&index=3 -->
+  <pagination-controls (pageChange)="p = $event" previousLabel="Previa" nextLabel="Siguiente"></pagination-controls>
+
   </div>
 
 

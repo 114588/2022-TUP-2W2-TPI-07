@@ -9,6 +9,9 @@ import { Producto } from '../models/Ventas/producto';
 import { TipoProducto } from '../models/Ventas/tipo-producto';
 import { VentaService } from '../Services/venta.service';
 import * as moment from 'moment';
+import {Router} from "@angular/router"
+import Swal from "sweetalert2"
+import { ThemeService } from 'ng2-charts';
 
 
 @Component({
@@ -50,7 +53,7 @@ export class VentasComponent implements OnInit {
 
 
 
-  constructor(private apiProveedor: VentaService) { }
+  constructor(private apiProveedor: VentaService, private router: Router) { }
   ngOnDestroy(): void {
     this.suscripcion.unsubscribe();
   }
@@ -70,8 +73,8 @@ export class VentasComponent implements OnInit {
          // Object.assign((this.listadoProductos),item );
             this.listadoProductos = item          
         },
-        error: () => {
-          alert ("error al obtener proveedor por nombre")
+        error: (e) => {
+          Swal.fire ("Error al obtener proveedor por nombre " + e)
         }
     }))
   }
@@ -85,7 +88,7 @@ export class VentasComponent implements OnInit {
   
       },
       error: (e) => {
-        alert("error al eliminar cliente: " + e.message)
+        Swal.fire("Error al eliminar cliente: " + e.message)
       }
   
     }))
@@ -120,6 +123,12 @@ export class VentasComponent implements OnInit {
  
    }
 
+   eliminarDetalle(item: Detalle){
+   
+    // this.nuevaFactura.items.splice(this.nuevaFactura.items.indexOf()
+    const elegido = this.nuevaFactura.items.find(x => x.id == item.id)
+    
+  }
 
    sumarItems(){
     this.sumaFactura = 0;
@@ -143,10 +152,10 @@ export class VentasComponent implements OnInit {
       next: () => {
         this.banderaMostrarFormularioCarga=false
         this.banderaMostrarFactura = true;
-        alert("factura cargada")
+        Swal.fire("Factura cargada")
       },
       error: (e) => {
-        alert("error al cargar la factura " + e.message )
+        Swal.fire("error al cargar la factura " + e.message )
       }
     })
    }
@@ -168,6 +177,12 @@ export class VentasComponent implements OnInit {
       });
     }
   }
+
+  volver(){
+    this.router.navigateByUrl('home');
+  }
+
+
 
 
 }

@@ -5,6 +5,7 @@ import { Producto } from 'src/app/models/producto';
 import { TipoProducto } from 'src/app/models/tipo-producto';
 import {ProductoService} from "../../Services/producto.service"
 import {TipoProductoService} from "../../Services/tipo-producto.service"
+import Swal from "sweetalert2"
 
 @Component({
   selector: 'app-alta-producto',
@@ -46,17 +47,17 @@ export class AltaProductoComponent implements OnInit {
 
       this.apiProducto.agregarProducto(this.nuevoProducto).subscribe({
         next: () => {
-          alert("producto agregado")
+          Swal.fire("Producto agregado")
         },
         error: (e) => {
-          alert("error al agregar producto " + e.message)
+          Swal.fire("error al agregar producto " + e.message)
         }
       })
 
 
       console.log(this.nuevoProducto);
     } else{
-      alert("formulario invalido, debe completar los campos")
+      Swal.fire("Formulario invalido, debe completar los campos")
     }
     
     //ahora limpio lo campos del formulario
@@ -75,7 +76,7 @@ export class AltaProductoComponent implements OnInit {
         this.listaTipoProducto = item;
       },
       error: (e) => {
-        alert("error al obtener el tipo " + e.message)
+        Swal.fire("Error al obtener el tipo " + e.message)
       } 
     })
   }

@@ -1,7 +1,7 @@
 
 
 <div class="container">
-    <h2>Buscar de Cliente</h2>
+    <h2 class="text-center">Buscar de Cliente</h2>
 
     <!-- ============ SECCION BUSCAR ============== -->
     <form class="form-control">
@@ -39,7 +39,7 @@
                 <td>{{ item.direccion}}</td>
                 <td>{{ item.email }}</td>
                 <td>
-                  <button type="button" class="btn btn-success" (click)="editarCliente(item)">Editar</button>
+                  <button type="button" class="btn btn-primary me-3" (click)="editarCliente(item)">Editar</button>
                   <button type="button" class="btn btn-danger" (click)="eliminarCliente(item)">Eliminar</button>
                 </td>
             </tr>
@@ -85,7 +85,7 @@
   </div>
 
 <!-- =============SECCION LISTADO COMPLETO ====================== -->
-<div class="container" *ngIf="banderaListadoCompleto">
+<div class="container" *ngIf="banderaListadoCompleto ">
   <br>
   <h2 class="text-center">Listado Completo</h2>
   <table class="table">
@@ -99,7 +99,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of listaClienteCompleta">
+      <tr *ngFor="let item of listaClienteCompleta | paginate: { itemsPerPage: 5,currentPage: p }">
         <td>{{ item.dni }}</td>
         <td>{{ item.nombre_apellido }}</td>
         <td>{{ item.telefono }}</td>
@@ -108,4 +108,7 @@
       </tr>
     </tbody>
   </table>
+
+  <!-- https://www.youtube.com/watch?v=3KIez1oRi2Q&list=LL&index=3 -->
+  <pagination-controls (pageChange)="p = $event" previousLabel="Previa" nextLabel="Siguiente"></pagination-controls>
 </div>

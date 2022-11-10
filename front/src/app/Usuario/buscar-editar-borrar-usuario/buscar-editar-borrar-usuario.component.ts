@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../models/Usuario/usuario';
 import {UsuarioService} from "../../Services/usuario.service"
+import Swal from "sweetalert2"
 
 @Component({
   selector: 'app-buscar-editar-borrar-usuario',
@@ -23,7 +24,7 @@ export class BuscarEditarBorrarUsuarioComponent implements OnInit {
         this.listaUsuarioCompleta = item;
       },
       error: (e) => {
-        alert("error al obtener usuarios " + e.message)
+        Swal.fire("error al obtener usuarios " + e.message)
       }
     })
   }

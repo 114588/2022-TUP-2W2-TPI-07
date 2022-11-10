@@ -31,7 +31,7 @@ const routes: Routes = [
   {path: "buscarUsuario", component:BuscarEditarBorrarUsuarioComponent, canActivate: [AutenticarGuard]},
   {path: "venta", component:VentasComponent, canActivate: [AutenticarGuard]},
   {path: "login", component:LoginComponent},
-  {path:"reporte", component: ReporteVentasComponent},
+  {path:"reporte", component: ReporteVentasComponent, canActivate: [AutenticarGuard, AutorizarGuard]},
   {path: "", redirectTo:"login", pathMatch:"full"}
 ];
 

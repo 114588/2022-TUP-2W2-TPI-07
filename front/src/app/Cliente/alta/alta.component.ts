@@ -3,7 +3,7 @@ import { UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms"
 import { Cliente } from 'src/app/models/cliente';
 import { ClienteService } from 'src/app/Services/cliente.service';
 import {Router} from "@angular/router"
-
+import Swal from "sweetalert2"
 
 
 @Component({
@@ -36,17 +36,17 @@ export class AltaComponentCliente implements OnInit {
       
       this.clienteService.agregarCliente(this.nuevoCliente).subscribe({
         next: () => {
-          alert("cliente agregado")
+          Swal.fire("Cliente agregado")
         },
         error: (e) => {
-          alert("error al agregar cliente " + e.message)
+          Swal.fire("Error al agregar cliente " + e.message)
         }
       })
 
 
       console.log(this.nuevoCliente);
     } else{
-      alert("formulario invalido, debe completar los campos")
+      Swal.fire("Formulario invalido, debe completar los campos")
     }    
   }
 
