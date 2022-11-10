@@ -118,15 +118,20 @@ export class VentasComponent implements OnInit {
     this.nuevaFactura.fecha= this.fecha.toString()
     this.sumarItems();
     this.nuevaFactura.monto_total = this.sumaFactura
-    this.nuevoDetalle.cantidad = 0
+    //this.nuevoDetalle.cantidad = 0
     this.sumarItems();
  
    }
 
    eliminarDetalle(item: Detalle){
    
-    // this.nuevaFactura.items.splice(this.nuevaFactura.items.indexOf()
-    const elegido = this.nuevaFactura.items.find(x => x.id == item.id)
+    //obtengo el indice del objeto que quiero eliminar
+    const indice = this.nuevaFactura.items.findIndex(x => x == item)
+    console.log(indice);
+
+    //con splice le digo que desde el indice obtenido borro 1 elemento
+    this.nuevaFactura.items.splice(indice,1);
+
     
   }
 
