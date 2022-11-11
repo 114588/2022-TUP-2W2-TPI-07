@@ -31,14 +31,14 @@
         </thead>
         <tbody>
             <tr *ngFor="let item of listadoBuscado">
-                <td>{{ item.codigo }}</td>
+                <td>{{ item.codigo_barra }}</td>
                 <td>{{ item.descripcion }}</td>
                 <td>{{ item.tipoProducto.tipo }}</td>
                 <td>{{ item.precio_unitario_venta | number:'1.2-2' }}</td>
                 <td>{{ item.precio_unitario_compra  | number:'1.2-2'}}</td>
                 <td>
                   <button type="button" class="btn btn-success me-3" (click)="editarProducto(item)">Editar</button>
-                  <!-- <button type="button" class="btn btn-danger" (click)="eliminarCliente(item)">Eliminar</button> -->
+                  <button type="button" class="btn btn-danger" (click)="eliminarProducto(item)">Eliminar</button>
                 </td>
             </tr>
         </tbody>
@@ -55,8 +55,8 @@
 
     <div class="row">  
         <div class="col-md-6">
-            <label for="txtCodigo" class="form-label">Codigo</label>
-            <input type="number" class="form-control" id="txtCodigo"  formControlName="codigo" />
+            <label for="txtCodigo" class="form-label">Codigo Barra</label>
+            <input type="number" class="form-control" id="txtCodigo"  formControlName="codigo_barra" />
             
             <span *ngIf="formularioModicacionProducto.get('codigo')?.touched &&
             formularioModicacionProducto.get('codigo')?.hasError('required')">
@@ -77,6 +77,7 @@
     </div>
 
 <br>
+    <div class="row"></div>
       <div class="col-12">
         Seleccionar el tipo producto
         <select class="form-select" name="item" formControlName="tipoProducto">
@@ -125,15 +126,17 @@
         <th scope="col">Codigo</th>
         <th scope="col">Descripcion</th>
         <th scope="col">Tipo Producto</th>
+        <th scope="col">Marca</th>
         <th scope="col">Precio Venta</th>
         <th scope="col">Precio Compra</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of listadoProductosOriginal | paginate: { itemsPerPage: 5,currentPage: p }">
-        <td>{{ item.codigo }}</td>
+        <td>{{ item.codigo_barra }}</td>
         <td>{{ item.descripcion }}</td>
         <td>{{ item.tipoProducto.tipo }}</td>
+        <td>{{ item.marca.nombre }}</td>
         <td>{{ item.precio_unitario_venta  | number:'1.2-2' }}</td>
         <td>{{ item.precio_unitario_compra   | number:'1.2-2'}}</td>
       </tr>

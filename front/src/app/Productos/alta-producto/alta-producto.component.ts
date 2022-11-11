@@ -6,6 +6,8 @@ import { TipoProducto } from 'src/app/models/tipo-producto';
 import {ProductoService} from "../../Services/producto.service"
 import {TipoProductoService} from "../../Services/tipo-producto.service"
 import Swal from "sweetalert2"
+import { Marca } from 'src/app/models/marca';
+import {MarcaService} from "../../Services/marca.service"
 
 @Component({
   selector: 'app-alta-producto',
@@ -15,27 +17,31 @@ import Swal from "sweetalert2"
 export class AltaProductoComponent implements OnInit {
   nuevoProducto : Producto ;
   listaTipoProducto: TipoProducto[] = [];
+  listaMarca: Marca [] = [];
   tipoProductoSeleccionado: TipoProducto = {} as TipoProducto;
 
   formularioAltaProducto = new  UntypedFormGroup({
-    codigo : new UntypedFormControl("",[Validators.required]),
+    codigo_barra : new UntypedFormControl("",[Validators.required]),
     descripcion : new UntypedFormControl ("", [Validators.required]),
     tipoProducto : new UntypedFormControl("",[Validators.required]),
     precio_unitario_venta : new UntypedFormControl("",[Validators.required]),
-    precio_unitario_compra: new UntypedFormControl("",[Validators.required])
+    precio_unitario_compra: new UntypedFormControl("",[Validators.required]),
+    marca: new UntypedFormControl("", Validators.required)
 
   })
-  constructor(private apiProducto: ProductoService, private router: Router, private apiTipoProducto: TipoProductoService) { }
+  constructor(private apiProducto: ProductoService, private router: Router, private apiTipoProducto: TipoProductoService, private apiMarca: MarcaService) { }
 
   ngOnInit(): void {
     this.obtenerTipoProducto();
+    this.obtenerMarca();
   }
 
   guardar(){
 
     //aca lo que hago es: con el id, buscar el objeto completo y ese objeto ponerlo en la propiedad
     this.formularioAltaProducto.patchValue({
-      tipoProducto: this.getTipoProductoById(this.formularioAltaProducto.controls["tipoProducto"].value)
+      tipoProducto: this.getTipoProductoById(this.formularioAltaProducto.controls["tipoProducto"].value),
+      marca: this.getMarcaById(this.formularioAltaProducto.controls['marca'].value)
     });
 
     // console.log(this.formularioAltaProducto.value)
@@ -62,7 +68,7 @@ export class AltaProductoComponent implements OnInit {
     
     //ahora limpio lo campos del formulario
     this.formularioAltaProducto.patchValue({
-      codigo:"",
+      codigo_barra:"",
       descripcion:"",
       precio_unitario_venta:"",
       precio_unitario_compra:"",
@@ -81,6 +87,17 @@ export class AltaProductoComponent implements OnInit {
     })
   }
 
+  obtenerMarca(){
+    this.apiMarca.obtenerTodos().subscribe({
+      next: (item: Marca[]) => {
+        this.listaMarca = item;
+      },
+      error: (e) => {
+        Swal.fire("Error al obtener la marca " + e.message)
+      }  
+    })
+  }
+
 
   volver(){
     this.router.navigateByUrl("home");
@@ -88,6 +105,10 @@ export class AltaProductoComponent implements OnInit {
 
   getTipoProductoById(id: number){
     return this.listaTipoProducto.find(x => x.id == id) ?? {} as TipoProducto;
+  }
+
+  getMarcaById(id: number){
+    return this.listaMarca.find(x => x.id == id) 
   }
 
 }

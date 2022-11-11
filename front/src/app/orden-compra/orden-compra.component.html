@@ -1,45 +1,77 @@
 <div class="container">
-    <h2>Orden de Compra</h2>
+    <form [formGroup]="formularioOrdenCompra" >
+      <h2 class="text-center">Registrar Nueva Orden de Compra</h2>
+      
+        <div class="row">
+            <div class="col-md-12">
+                <label for="item">Seleccione Proveedor</label>
+                <select class="form-select" id="item" name="item" formControlName="proveedor">
+                    <option *ngFor="let item of listaProveedores" [value]="item.id" > {{item.nombre}} </option>
+                </select>  
+                <br>
+            </div>  
+        </div>  
+    <br>
+   </form>
+  </div>
 
-    <!-- ============ SECCION BUSCAR ============== -->
-    <form class="form-control">
+
+
+
+  <div class="container">
+    <form [formGroup]="formularioItemsOrdenCompra" >
+
+        <div class="col-md-12">
+            <label for="item">Seleccione Producto</label>
+            <select class="form-select" id="item" name="item" formControlName="producto">
+                 <option *ngFor="let item of listaProductos" [value]="item.id" > {{item.descripcion}} </option>
+            </select>  
+        </div> 
+
+        <div class="col-md-12">
+            <label for="txtCantidad" class="form-label">Cantidad</label>
+            <input type="number" class="form-control" id="txtCantidad" name="cantidad" formControlName="cantidad" />
     
-        <input  class="form-control"  type="search"  placeholder="Buscar proveedor" aria-label="Search" name="valorBusqueda" [(ngModel)]="valorBusqueda" />      
-        <button type="button" (click)="buscarProveedor()">buscar</button>
+            <span *ngIf="formularioItemsOrdenCompra.get('cantidad')?.touched &&
+            formularioItemsOrdenCompra.get('cantidad')?.hasError('required')">
+            * campo requerido 
+          </span>
+        </div>
+
 
     </form>
+    <br>
+    <button class="btn btn-primary" (click)="agregarItem()" [disabled]="formularioItemsOrdenCompra.invalid" >Agregar Item</button>
+  </div>
 
 
-    <!-- =============SECCION LISTADO ====================== -->
-<div class="container">
+  <div class="container">
+
     <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Nombre</th>
-          <th scope="col">Cuit</th>
-          <th scope="col">Teléfono</th>
-          <th scope="col">Dirección</th>
-          <th scope="col">Código Postal</th>
-          <th scope="col">Email</th>
-          <th scope="col">Acción</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of listaProveedores">
-          <td>{{ item.nombre }}</td>
-          <td>{{ item.cuit }}</td>
-          <td>{{ item.telefono }}</td>
-          <td>{{ item.direccion }}</td>
-          <td>{{ item.codigo_postal }}</td>
-          <td>{{ item.email }}</td>
-          <td>
-             <button type="button" class="btn btn-outline-success" (click)="elegir(item)">Elegir</button>
-   
+        <thead>
+          <tr>
+            <th scope="col">Producto</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Precio Compra</th>
+            <th scope="col">Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listaItems" >
+            <td> {{item.producto.descripcion}} </td>
+            <td> {{item.cantidad}} </td>
+            <td> {{item.producto.precio_unitario_compra | number: '1.2'}} </td>
+            <td> <button  class="btn btn-danger"  (click)="eliminarItemIndividual(item)" >Eliminar</button> </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+
+  </div>
   
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  
- </div>
-</div>
+
+  <div class="container"  >
+    <button type="button" class="btn btn-primary me-3"  (click)="guardar()" >Guardar</button>
+    <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button>
+  </div>

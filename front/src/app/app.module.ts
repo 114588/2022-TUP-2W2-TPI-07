@@ -72,6 +72,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 
 //sweet Alert 2
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { BuscarOrdenCompraComponent } from './orden-compra/buscar-orden-compra/buscar-orden-compra.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     BuscarEditarBorrarUsuarioComponent,
     LoginComponent,
     ReporteVentasComponent,
+    BuscarOrdenCompraComponent,
 
    
   ],

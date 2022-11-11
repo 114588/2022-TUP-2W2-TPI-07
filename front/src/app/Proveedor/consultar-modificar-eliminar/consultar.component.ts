@@ -117,6 +117,7 @@ formularioModificarProveedor = new UntypedFormGroup({
 
 
   borrar(item: Proveedor) {
+    console.log(item)
     this.subscripcion.add(
       this.proveedorService.eliminarProveedor(item.id!).subscribe({
         next: () => {

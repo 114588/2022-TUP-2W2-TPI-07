@@ -106,14 +106,14 @@ export class VentasComponent implements OnInit {
 
     // this.clienteSeleccionado = this.getClienteById(this.clienteSeleccionado.id!)
     this.clienteSeleccionado = this.getClienteById(this.formularioVenta.controls['cliente'].value)
-    console.log(this.clienteSeleccionado)
+    //console.log(this.clienteSeleccionado)
 
-    console.log(this.getProductoById(this.formularioVenta.controls['producto'].value))
+    //console.log(this.getProductoById(this.formularioVenta.controls['producto'].value))
     // console.log(this.getProductoById(this.productoSeleccionado.codigo))
     //console.log("producto: " + JSON.stringify(this.getProductoById(this.formularioVenta.controls['producto'].value)))
     
 
-    console.log(this.formularioVenta.controls['cantidad'].value)
+    //console.log(this.formularioVenta.controls['cantidad'].value)
 
     if(this.nuevaFactura.items == null || this.nuevaFactura.items == undefined){
       this.nuevaFactura.items = new Array<Detalle>();

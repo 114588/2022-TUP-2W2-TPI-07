@@ -1,11 +1,12 @@
+
   <div class="container">
     <form [formGroup]="formularioAltaProducto" >
       <h2 class="text-center">Registrar Nuevo Producto</h2>
       
       <div class="row">
         <div class="col-md-6">
-          <label for="txtCodigo" class="form-label">Codigo</label>
-          <input type="number" class="form-control" id="txtCodigo"  formControlName="codigo" />
+          <label for="txtCodigo" class="form-label">Código Barra</label>
+          <input type="number" class="form-control" id="txtCodigo"  formControlName="codigo_barra" />
           
           <span *ngIf="formularioAltaProducto.get('codigo')?.touched &&
           formularioAltaProducto.get('codigo')?.hasError('required')">
@@ -17,7 +18,7 @@
         <div class="col-md-6">
           <label for="txtDescripcion" class="form-label">Descripcion</label>
           <input type="text" class="form-control" id="txtDescripcion" name="nombre_apellido" formControlName="descripcion" />
-
+          
           <span *ngIf="formularioAltaProducto.get('descripcion')?.touched &&
           formularioAltaProducto.get('descripcion')?.hasError('required')">
             * campo requerido 
@@ -25,15 +26,28 @@
         </div>
       </div>
 
-      <br>
+    <br>
 
-      <div class="mb-3">
+    <div class="row">
+
+      <div class="col-md-6">
         <label for="item">Seleccione Tipo Producto</label>
         <select class="form-select" id="item" name="item" formControlName="tipoProducto">
          <option *ngFor="let item of listaTipoProducto" [value]="item.id" > {{item.tipo}} </option>
         </select>  
       </div>
-    
+
+      <div class="col-md-6">
+        <label for="item">Seleccione Marca</label>
+        <select class="form-select" id="item" name="item" formControlName="marca">
+         <option *ngFor="let item of listaMarca" [value]="item.id" > {{item.nombre}} </option>
+        </select>  
+      </div>
+  
+  
+    </div>
+
+
       <div class="row">
        
         <div class="col-md-6">
@@ -44,7 +58,8 @@
             formularioAltaProducto.get('precio_unitario_venta')?.hasError('required')">
             * campo requerido 
              </span>    
-        </div>         
+        </div>
+         
     
         <div class="col-md-6">
             <label for="txtPrecioCompra" class="form-label">Precio Compra</label>

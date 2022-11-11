@@ -31,7 +31,7 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
   public p: number = 1
 
   formularioModicacionProducto = new FormGroup({
-    codigo: new FormControl("", Validators.required),
+    codigo_barra: new FormControl("", Validators.required),
     descripcion: new FormControl(),
     precio_unitario_venta: new FormControl(),
     precio_unitario_compra: new FormControl(),
@@ -80,7 +80,7 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
     this.productoSeleccionado = item;
 
     this.formularioModicacionProducto.setValue({
-      codigo: this.productoSeleccionado.codigo,
+      codigo_barra: this.productoSeleccionado.codigo_barra,
       descripcion: this.productoSeleccionado.descripcion,
       precio_unitario_venta: this.productoSeleccionado.precio_unitario_venta,
       precio_unitario_compra: this.productoSeleccionado.precio_unitario_compra,
@@ -134,6 +134,19 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
       }
     })
   }
+
+  eliminarProducto(item: Producto){
+    this.apiProducto.eliminarProducto(item.id).subscribe({
+      next: () => {
+        Swal.fire("Se borro el Cliente")
+      },
+      error: (e)  =>{
+        Swal.fire("Error al modificar " + e.message)
+      }
+    })
+
+  }
+
 
   volver(){
     this.router.navigateByUrl('home');
