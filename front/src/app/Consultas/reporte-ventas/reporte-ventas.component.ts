@@ -1,10 +1,15 @@
 import { ThisReceiver } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Factura } from 'src/app/models/Ventas/factura';
 import {ReporteVentasService} from "../../Services/reporte-ventas.service";
 import * as moment from 'moment';
 import {ChartData} from "chart.js";
 import { Chart, registerables } from 'node_modules/chart.js'
+import {ClienteService} from  "../../Services/cliente.service"
+import { Subscription } from 'rxjs';
+import { Cliente } from 'src/app/models/cliente';
+import Swal from 'sweetalert2';
+import { FormControl } from '@angular/forms';
 //https://momentjs.com/
 //https://es.stackoverflow.com/questions/403659/moment-js-problema-al-dar-formato-a-fechas
 
@@ -15,12 +20,15 @@ import { Chart, registerables } from 'node_modules/chart.js'
   templateUrl: './reporte-ventas.component.html',
   styleUrls: ['./reporte-ventas.component.css']
 })
-export class ReporteVentasComponent implements OnInit {
+export class ReporteVentasComponent implements OnInit, OnDestroy {
 
   fecha1: string = "";
   fecha2: string = "";
   fechaConvertida1: string = ""
   fechaConvertida2: string = ""
+  suscripcion= new Subscription()
+  listadoClientes: Cliente [] = []
+  cliente = new FormControl();
 
   banderaMostrarGrafico:boolean = false;
 
@@ -38,7 +46,10 @@ export class ReporteVentasComponent implements OnInit {
 
   // sumaTotal: number = 0;
 
-  constructor(private apiReporte: ReporteVentasService ) {   }
+  constructor(private apiReporte: ReporteVentasService, private apiCliente: ClienteService ) {   }
+  ngOnDestroy(): void {
+    this.suscripcion.unsubscribe();
+  }
 
   chartdata: any;
 
@@ -47,20 +58,22 @@ export class ReporteVentasComponent implements OnInit {
   colordata: any[] = ["yellow", "red", "green", "pink", "brown", "orange", "lightblue", "cian", "violet"];
 
   ngOnInit(): void {
-    
+    this.obtenerClientes();
   }
 
  
   obtenerReporteVenta(){
+
     this.banderaMostrarGrafico = true
-    
+      
     this.fechaConvertida1 =  moment(this.fecha1, "YYYY-MM-DD").format('DDMMYYYY')
     this.fechaConvertida2 =  moment(this.fecha2, "YYYY-MM-DD").format('DDMMYYYY')
     console.log("fecha 1 enviada: " + this.fechaConvertida1)
     console.log("fecha 2 enviada: " + this.fechaConvertida2)
+    console.log(this.cliente ) 
 
 
-    this.apiReporte.obtenerPorFechaMontos(this.fechaConvertida1,this.fechaConvertida2 ).subscribe(result => {
+    this.apiReporte.obtenerPorFechaMontos(this.cliente.value, this.fechaConvertida1,this.fechaConvertida2 ).subscribe(result => {
       this.chartdata = result;
       console.log("array devuelto " + JSON.stringify(result))
       if(this.chartdata!=null){
@@ -70,123 +83,135 @@ export class ReporteVentasComponent implements OnInit {
           this.realdata.push(this.chartdata[i].monto);
           this.colordata.push(this.chartdata[i].colorcode);
         }
-        this.RenderChart(this.labeldata,this.realdata,this.colordata,'bar','barchart');
-        this.RenderChart(this.labeldata,this.realdata,this.colordata,'pie','piechart');
-        // this.RenderChart(this.labeldata,this.realdata,this.colordata,'doughnut','dochart');
-        // this.RenderChart(this.labeldata,this.realdata,this.colordata,'polarArea','pochart');
+      this.RenderChart(this.labeldata,this.realdata,this.colordata,'bar','barchart');
+      this.RenderChart(this.labeldata,this.realdata,this.colordata,'pie','piechart');
+      // this.RenderChart(this.labeldata,this.realdata,this.colordata,'doughnut','dochart');
+      // this.RenderChart(this.labeldata,this.realdata,this.colordata,'polarArea','pochart');
 
-        // this.RenderChart(this.labeldata,this.realdata,this.colordata,'radar','rochart');
-      }
+      // this.RenderChart(this.labeldata,this.realdata,this.colordata,'radar','rochart');
+    }
 
-      this.fecha1=""
-      this.fecha2=""
-      console.log(this.chartdata)
-      this.chartdata = []
-      this.labeldata= [];
-      this.realdata= [];
-      this.colordata= [];
-    });
-    // this.RenderBubblechart();
-    // this.RenderScatterchart();
+    this.fecha1=""
+    this.fecha2=""
+    console.log(this.chartdata)
+    this.chartdata = []
+    this.labeldata= [];
+    this.realdata= [];
+    this.colordata= [];
+  });
+      // this.RenderBubblechart();
+      // this.RenderScatterchart();
+      
+
+
+      // this. apiReporte.obtenerTodos(fechaConvertida1,fechaConvertida2).subscribe({
+      //   next: (item: Factura[]) => {
+      //     item.forEach(element=> {
+      //        this.sumaTotal += element.monto_total
+      //     });
+      //     console.log(this.sumaTotal)
+
+
+      //   },
+      //   error: () => {}
+      // })
     
-
-
-    // this. apiReporte.obtenerTodos(fechaConvertida1,fechaConvertida2).subscribe({
-    //   next: (item: Factura[]) => {
-    //     item.forEach(element=> {
-    //        this.sumaTotal += element.monto_total
-    //     });
-    //     console.log(this.sumaTotal)
-
-
-    //   },
-    //   error: () => {}
-    // })
   }
 
-  RenderChart(labeldata:any,maindata:any,colordata:any,type:any,id:any) {
-    const myChart = new Chart(id, {
-      type: type,
-      data: {
-        labels: labeldata,
-        datasets: [{
-          label: '# of Votes',
-          data: maindata,
-          backgroundColor: colordata,
-          borderColor: [
-            'rgba(255, 99, 132, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
+    RenderChart(labeldata:any,maindata:any,colordata:any,type:any,id:any) {
+      const myChart = new Chart(id, {
+        type: type,
+        data: {
+          labels: labeldata,
+          datasets: [{
+            label: '# of Votes',
+            data: maindata,
+            backgroundColor: colordata,
+            borderColor: [
+              'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
           }
         }
-      }
-    });
- }
+      });
+  }
 
-//  RenderBubblechart(){
-//   const data = {
-//     datasets: [{
-//       label: 'First Dataset',
-//       data: [{
-//         x: 20,
-//         y: 30,
-//         r: 15
-//       }, {
-//         x: 40,
-//         y: 10,
-//         r: 10
-//       }],
-//       backgroundColor: 'rgb(255, 99, 132)'
-//     }]
-//   };
-//   const myChart = new Chart('bubchart', {
-//     type: 'bubble',
-//     data: data,
-//     options: {
-      
-//     }
-//   });
-// }
+  //  RenderBubblechart(){
+  //   const data = {
+  //     datasets: [{
+  //       label: 'First Dataset',
+  //       data: [{
+  //         x: 20,
+  //         y: 30,
+  //         r: 15
+  //       }, {
+  //         x: 40,
+  //         y: 10,
+  //         r: 10
+  //       }],
+  //       backgroundColor: 'rgb(255, 99, 132)'
+  //     }]
+  //   };
+  //   const myChart = new Chart('bubchart', {
+  //     type: 'bubble',
+  //     data: data,
+  //     options: {
+        
+  //     }
+  //   });
+  // }
 
-// RenderScatterchart(){
-//   const data = {
-//     datasets: [{
-//       label: 'Scatter Dataset',
-//       data: [{
-//         x: -10,
-//         y: 0
-//       }, {
-//         x: 0,
-//         y: 10
-//       }, {
-//         x: 10,
-//         y: 5
-//       }, {
-//         x: 0.5,
-//         y: 5.5
-//       }],
-//       backgroundColor: 'rgb(255, 99, 132)'
-//     }],
-//   };
-//   const myChart = new Chart('scchart', {
-//     type: 'scatter',
-//     data: data,
-//     options: {
-//       scales: {
-//         x: {
-//           type: 'linear',
-//           position: 'bottom'
-//         }
-//       }
-//     }
-//   });
-// }
+  // RenderScatterchart(){
+  //   const data = {
+  //     datasets: [{
+  //       label: 'Scatter Dataset',
+  //       data: [{
+  //         x: -10,
+  //         y: 0
+  //       }, {
+  //         x: 0,
+  //         y: 10
+  //       }, {
+  //         x: 10,
+  //         y: 5
+  //       }, {
+  //         x: 0.5,
+  //         y: 5.5
+  //       }],
+  //       backgroundColor: 'rgb(255, 99, 132)'
+  //     }],
+  //   };
+  //   const myChart = new Chart('scchart', {
+  //     type: 'scatter',
+  //     data: data,
+  //     options: {
+  //       scales: {
+  //         x: {
+  //           type: 'linear',
+  //           position: 'bottom'
+  //         }
+  //       }
+  //     }
+  //   });
+  // }
+
+obtenerClientes(){
+  this.apiCliente.obtenerClientes().subscribe({
+    next: (item: Cliente[]) => {
+      this.listadoClientes =  item
+    },
+    error: (e) => {
+      Swal.fire("Error al obtener clientes " + e.message)
+    }
+  })
+}
 
 
 }

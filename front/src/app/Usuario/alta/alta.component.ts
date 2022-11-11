@@ -1,6 +1,6 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Rol } from 'src/app/models/Usuario/rol';
 import { Usuario } from 'src/app/models/Usuario/usuario';
 import {RolService} from "../../Services/rol.service"
@@ -18,9 +18,11 @@ export class AltaComponentUsuario implements OnInit {
   usuario: Usuario = {} as Usuario
 
   formularioUsuario= new FormGroup({
-    legajo: new FormControl(),
-    nombre: new FormControl(),
-    rol: new FormControl()
+    legajo: new FormControl("", Validators.required),
+    nombre: new FormControl("", Validators.required),
+    rol: new FormControl(),
+    password: new FormControl("", Validators.required),
+    repeticionClave: new FormControl("", Validators.required)
   })
 
 
@@ -35,25 +37,34 @@ export class AltaComponentUsuario implements OnInit {
   }
 
   guardar(){
-    this.formularioUsuario.patchValue({
-      rol: this.getRolById(this.formularioUsuario.controls["rol"].value)
-    })
+    if(this.formularioUsuario.controls['password'].value != this.formularioUsuario.controls['repeticionClave'].value){
+      Swal.fire("Las claves deben coincidir")
+
+    } else {
+      this.usuario.legajo = parseInt( this.formularioUsuario.controls['legajo'].value!)
+      this.usuario.nombre = this.formularioUsuario.controls['nombre'].value!
+      this.usuario.password = this.formularioUsuario.controls['password'].value!
+      this.usuario.rol =  this.getRolById(this.formularioUsuario.controls["rol"].value)
+  
+      console.log(this.formularioUsuario.value)
+      this.apiUsuario.agregarUsuario(this.usuario as Usuario).subscribe({
+        next: () => {
+          Swal.fire("Usuario agregado con exito")
+        },
+        error: (e) => {
+          Swal.fire("Error " + e.message)
+        }
+      })
+  
+      this.formularioUsuario.patchValue({
+        legajo: "",
+        nombre: "",
+        password: "",
+        repeticionClave: ""
+      })
+    }
     
-    this.usuario = this.formularioUsuario.value as Usuario
 
-    console.log(this.formularioUsuario.value)
-    this.apiUsuario.agregarUsuario(this.formularioUsuario.value as Usuario).subscribe({
-      next: () => {
-      },
-      error: (e) => {
-        Swal.fire("Error " + e.message)
-      }
-    })
-
-    this.formularioUsuario.patchValue({
-      legajo: "",
-      nombre: ""
-    })
 
   }
 

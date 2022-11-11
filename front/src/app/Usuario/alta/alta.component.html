@@ -2,28 +2,27 @@
   <div class="container">
     <form [formGroup]="formularioUsuario" >
       <h2 class="text-center">Registrar Nuevo Usuario</h2>
-      
-      <div class="mb-3">
-        <label for="txtLegajo" class="form-label">Legajo</label>
-        <input type="number" class="form-control" id="e"  formControlName="legajo" />
-        
-        <span *ngIf="formularioUsuario.get('legajo')?.touched &&
-        formularioUsuario.get('legajo')?.hasError('required')">
-          * campo requerido 
-        </span>
-  
      
-      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label for="txtLegajo" class="form-label">Legajo</label>
+          <input type="number" class="form-control" id="e"  formControlName="legajo" />
+          
+          <span *ngIf="formularioUsuario.get('legajo')?.touched &&
+          formularioUsuario.get('legajo')?.hasError('required')">
+            * campo requerido 
+          </span>     
+        </div>
   
-      <div class="mb-3">
-        <label for="txtNombre" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="txtNombre" name="nombre" formControlName="nombre" />
-        
-        <span *ngIf="formularioUsuario.get('nombre')?.touched &&
-        formularioUsuario.get('nombre')?.hasError('required')">
-          * campo requerido 
-        </span>
-  
+        <div class="col-md-6">
+          <label for="txtNombre" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="txtNombre" name="nombre" formControlName="nombre" />
+          
+          <span *ngIf="formularioUsuario.get('nombre')?.touched &&
+          formularioUsuario.get('nombre')?.hasError('required')">
+            * campo requerido 
+          </span>  
+        </div>
       </div>
   
       <div class="mb-3">
@@ -35,8 +34,32 @@
         </div>  
       </div>
   
+      <div class="row">
+        <div class="col-md-6">
+          <label for="txtClave" class="form-label">Clave</label>
+          <input type="text" class="form-control" id="txtClave"  formControlName="password" />
+          
+          <span *ngIf="formularioUsuario.get('password')?.touched &&
+          formularioUsuario.get('password')?.hasError('required')">
+            * campo requerido 
+          </span>     
+        </div>
   
+        <div class="col-md-6">
+          <label for="txtRepeticionClave" class="form-label">Repita la clave</label>
+          <input type="text" class="form-control" id="txtRepeticionClave" name="repeticionClave" formControlName="repeticionClave" />
+          
+          <span *ngIf="formularioUsuario.get('repeticionClave')?.touched &&
+          formularioUsuario.get('repeticionClave')?.hasError('required')">
+            * campo requerido 
+          </span>  
+        </div>
+      </div>
   
+
+
+
+      <br>
     <div class="container text-end">
       <button  type="button" class="btn btn-primary me-3"  (click)="guardar()" [disabled]="formularioUsuario.invalid" >Guardar</button>
       <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button>

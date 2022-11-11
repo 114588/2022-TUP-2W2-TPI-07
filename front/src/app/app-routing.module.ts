@@ -17,6 +17,7 @@ import { AutenticarGuard } from './guards/autenticar.guard';
 import { AutorizarGuard } from './guards/autorizar.guard';
 import { ReporteVentasComponent } from './Consultas/reporte-ventas/reporte-ventas.component';
 import { BuscarOrdenCompraComponent } from './orden-compra/buscar-orden-compra/buscar-orden-compra.component';
+import { ReporteMasVendidosComponent } from './Consultas/reporte-mas-vendidos/reporte-mas-vendidos.component';
 
 
 
@@ -34,7 +35,8 @@ const routes: Routes = [
   {path: "buscarUsuario", component:BuscarEditarBorrarUsuarioComponent, canActivate: [AutenticarGuard]},
   {path: "venta", component:VentasComponent, canActivate: [AutenticarGuard]},
   {path: "login", component:LoginComponent},
-  {path:"reporte", component: ReporteVentasComponent, canActivate: [AutenticarGuard, AutorizarGuard]},
+  {path:"reporteVemtaPorVendedor", component: ReporteVentasComponent, canActivate: [AutenticarGuard, AutorizarGuard]},
+  {path:"reporteMasVendidos", component: ReporteMasVendidosComponent,canActivate: [AutenticarGuard, AutorizarGuard] },
   {path: "", redirectTo:"login", pathMatch:"full"}
 ];
 

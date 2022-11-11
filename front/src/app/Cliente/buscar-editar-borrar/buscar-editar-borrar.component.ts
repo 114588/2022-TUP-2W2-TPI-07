@@ -120,7 +120,12 @@ modificarDesdeFormulario() {
       next: () => {
         Swal.fire('Cliente modificado')
         this.banderaFormularioEdicion=false;  //oculto formulario edicion
+        
         this.buscarClientePorNombre() //vuelvo a llamar a la api y traigo todo
+        
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate(["buscarCliente"]);
+        });
 
       },
       error: (e) => {

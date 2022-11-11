@@ -15,9 +15,11 @@ import Swal from 'sweetalert2';
 export class BuscarOrdenCompraComponent implements OnInit, OnDestroy {
 
   listaOrdenesCompra: OrdenCompra[] = []
+  listaOrdenesCompraBuscada: OrdenCompra[] = []
   listaProveedores: Proveedor[] = []
   suscripcion =new Subscription()
   public p: number = 1
+  valorBusqueda= new FormControl("");
 
   constructor(private apiProveedor: ProveedorServiceService, private apiOrdenCompra: OrdenCompraService) { }
   ngOnDestroy(): void {
@@ -54,7 +56,21 @@ export class BuscarOrdenCompraComponent implements OnInit, OnDestroy {
         },
       })
     );
+  }
 
 
+  buscarOrdenCompra(){
+    this.suscripcion.add(
+      this.apiOrdenCompra.buscarOrdenCompraPorNombre(this.valorBusqueda.value!).subscribe({
+        next: (item: OrdenCompra[]) => {
+          console.log(item)
+          this.listaOrdenesCompraBuscada = item;
+
+        },
+        error: (e) => {
+          Swal.fire('Error al obtener listado ' + e.message);
+        },
+      })
+    )
   }
 }

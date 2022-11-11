@@ -122,7 +122,8 @@ formularioModificarProveedor = new UntypedFormGroup({
       this.proveedorService.eliminarProveedor(item.id!).subscribe({
         next: () => {
           Swal.fire('Proveedor borrado');
-          this.obtenerListaProveedores();
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {this.router.navigate(["buscarProveedor"]);  });
+
         },
         error: (e) => {
           Swal.fire('Error al borrar proveedor ' + e.message);

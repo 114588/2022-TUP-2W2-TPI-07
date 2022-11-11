@@ -1,3 +1,20 @@
+<!-- ============ SECCION BUSCAR ============== -->
+
+<div class="container">
+  <form class="form-control">
+    <div class="row">
+      <div class="col-md-9">
+        <input  class="form-control"  type="search"  placeholder="Introduzca lo que desea buscar" aria-label="Search" name="valorBusqueda" [formControl]="valorBusqueda" />      
+      </div>
+      
+      <div class="col-md-3 text-end">
+        <button type="button" class="btn btn-primary"(click)="buscarUsuario()">Buscar</button>
+      </div>
+    </div>
+    </form>
+  </div>
+
+
 <!-- =============SECCION LISTADO COMPLETO ====================== -->
 <div class="container">
     <h2 class="text-center">Listado Usuarios</h2>
@@ -7,16 +24,19 @@
           <th scope="col">Legajo</th>
           <th scope="col">Nombre</th>
           <th scope="col">Rol</th>
+          <th scope="col">Accion</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of listaUsuarioCompleta">
+        <tr *ngFor="let item of listaUsuarioCompleta | paginate: { itemsPerPage: 5,currentPage: p }">
           <td>{{ item.legajo }}</td>
           <td>{{ item.nombre }}</td>
           <td>{{ item.rol.rol }}</td>
+          <td><button type="button" class="btn btn-danger" (click)="eliminar(item)" >Eliminar</button></td>
         </tr>
       </tbody>
     </table>
+    <pagination-controls (pageChange)="p = $event" previousLabel="Previa" nextLabel="Siguiente"></pagination-controls>
   
   
   </div>

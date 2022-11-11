@@ -19,7 +19,7 @@ export class UsuarioService {
     return this.http.post<Usuario>("http://localhost:8081/usuarios/alta/",nuevoCliente)
   }
 
-  eliminarUsuario(id:number): Observable<any>{
+  eliminarUsuario(id: number): Observable<any>{
     return this.http.delete("http://localhost:8081/usuarios/eliminar/"+id)
   }
 

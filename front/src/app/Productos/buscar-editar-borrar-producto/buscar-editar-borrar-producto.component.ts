@@ -138,7 +138,7 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
   eliminarProducto(item: Producto){
     this.apiProducto.eliminarProducto(item.id).subscribe({
       next: () => {
-        Swal.fire("Se borro el Cliente")
+        Swal.fire("Se borro el Producto")
       },
       error: (e)  =>{
         Swal.fire("Error al modificar " + e.message)
