@@ -17,5 +17,10 @@ export class ReporteVentasService {
   obtenerPorFechaMontos(id: number, fecha1: string, fecha2: string): Observable<Factura[]>{
     return this.http.get<Factura[]>("http://localhost:8081/facturas/montosPorFecha/" + id + "/" + fecha1 +"/"+ fecha2)
   }
+
+
+  obtenerMasVendidos(fecha1: string, fecha2: string): Observable<Factura[]>{
+    return this.http.get<Factura[]>("http://localhost:8081/ordenes/masVendidos/" + fecha1 +"/"+ fecha2)
+  }
 }
 
