@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ReporteVentasService } from 'src/app/Services/reporte-ventas.service';
@@ -6,6 +6,8 @@ import * as moment from 'moment';
 import {ChartData} from "chart.js";
 import { Chart, registerables } from 'node_modules/chart.js'
 import Swal from 'sweetalert2';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-reporte-mas-vendidos',
@@ -21,6 +23,11 @@ export class ReporteMasVendidosComponent implements OnInit {
   suscripcion= new Subscription()
   
   banderaMostrarGrafico:boolean = false;
+
+      //para el pdf
+  //https://www.youtube.com/watch?v=Eh6StPjcWjE
+  @ViewChild("imprimir") myData!: ElementRef;
+
 
   // datos: ChartData<'bar', number[], string > = {
   //   labels: ['12/04/2022', '12/05-2022', '12/06/2022'],
@@ -46,6 +53,9 @@ export class ReporteMasVendidosComponent implements OnInit {
   labeldata: any[] = [];
   realdata: any[] = [];
   colordata: any[] = ["yellow", "red", "green", "pink", "brown", "orange", "lightblue", "cian", "violet"];
+  listaCompleta: any[] = []
+  public p: number = 1
+
 
   ngOnInit(): void {
 
@@ -64,12 +74,13 @@ export class ReporteMasVendidosComponent implements OnInit {
 
     this.apiReporte.obtenerMasVendidos(this.fechaConvertida1,this.fechaConvertida2 ).subscribe(result => {
       this.chartdata = result;
+      this.listaCompleta = result;
       console.log("array devuelto " + JSON.stringify(result))
       if(this.chartdata!=null){
         for(let i=0; i<this.chartdata.length ;i++){
           //console.log(this.chartdata[i]);
-          this.labeldata.push(this.chartdata[i].fecha);
-          this.realdata.push(this.chartdata[i].monto);
+          this.labeldata.push(this.chartdata[i].descripcion);
+          this.realdata.push(this.chartdata[i].cantidad);
           this.colordata.push(this.chartdata[i].colorcode);
         }
       this.RenderChart(this.labeldata,this.realdata,this.colordata,'bar','barchart');
@@ -113,7 +124,7 @@ export class ReporteMasVendidosComponent implements OnInit {
         data: {
           labels: labeldata,
           datasets: [{
-            label: '# of Votes',
+            label: 'Mas Vendido',
             data: maindata,
             backgroundColor: colordata,
             borderColor: [
@@ -192,4 +203,21 @@ export class ReporteMasVendidosComponent implements OnInit {
   // }
 
 
+  
+  descargarPdf(){
+    var data = document.getElementById('imprimir');
+    if(data !== null) {
+      html2canvas(data).then(canvas => {  
+        // https://www.youtube.com/watch?v=Eh6StPjcWjE 
+        let imgWidth = 208;   
+        let imgHeight = canvas.height * imgWidth / canvas.width;  
+
+        const contentDataURL = canvas.toDataURL('image/png')  
+        let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+        let position = 5;  
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+        pdf.save('reporteDos'); // Generated PDF   
+    });
+  }
+}
 }

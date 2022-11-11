@@ -23,6 +23,7 @@ export class OrdenCompraService {
     return this.http.get("http://localhost:8081/ordenes/buscarId/"+ nombre)
   }
 
+  
 
 }
 

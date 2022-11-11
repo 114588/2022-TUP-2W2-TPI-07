@@ -1,3 +1,4 @@
+<br>
 <div class="container">
     <br>
     <h2 class="text-center">Reporte de Venta por Vendedor</h2>
@@ -25,61 +26,51 @@
     <br>
     <button type="button" class="btn btn-primary me-3"  (click)="obtenerReporteVenta()" >Mostrar Gráfico</button>
 
-</div>
-
-
-<!-- 
-<canvas baseChart type="bar" [data]="datos">
-</canvas> -->
-
-
-<div class="row" *ngIf="banderaMostrarGrafico" >
-
-    <!-- <div class="col-lg-6">
-        <h2>Bubble Chart</h2>
-        <canvas id="bubchart"></canvas>
-    </div> -->
-
-    <!-- <div class="col-lg-6">
-        <h2>Scatter Chart</h2>
-        <canvas id="scchart"></canvas>
     </div>
-     -->
-    <br>
+
+
+<br>
+
 
     
-        <div id="uno" class="container text-center">
-            <div class="col-lg-12">
-                <h2>Evolucion de las Ventas</h2>
-                <canvas id="barchart"></canvas>
+    <div *ngIf="banderaMostrarGrafico" >
+        <div class="container" id="imprimir">  
+            <br>
+            <h2 class="text-center">Productos Vendidos por Vendedor</h2>
+            <br> 
+            <div class="row">
+
+                <div class="col-md-8">
+                    <div id="uno" class="text-center">
+                        <div class="col-lg-12">
+                            <h2>Participacion de Ventas por Día</h2>
+                            <canvas id="piechart"></canvas>
+                        </div>
+                    </div>   
+                </div>
+            
+                <div class="col-md-4">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Cantidad</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of chartdata | paginate: { itemsPerPage: 10,currentPage: p }" >
+                            <td> {{item.fecha}} </td>
+                            <td> {{item.monto}} </td>
+                        </tr>        
+                    </table>
+
+                    <pagination-controls (pageChange)="p = $event" previousLabel="Previa" nextLabel="Siguiente"></pagination-controls>
+                </div>
             </div>
         </div>
-    
-
-    <br>
-
-    <div id="dos" class="container text-center">
-        <div class="col-lg-12">
-            <h2>Participacion de Ventas por Día</h2>
-            <canvas id="piechart"></canvas>
+        <div class="container">
+            <br>
+            <button class="btn btn-primary" (click)="descargarPdf()">Descargar Pdf</button>
         </div>
-        </div>
-    <!-- <div class="col-lg-6">
-        <h2>Doughnut Chart</h2>
-        <canvas id="dochart"></canvas>
-    </div> -->
+    </div>
 
-    <!-- <div class="col-lg-6">
-        <h2>polarArea Chart</h2>
-        <canvas id="pochart"></canvas>
-    </div> -->
-
-    <!-- <div class="col-lg-6">
-        <h2>Radar Chart</h2>
-        <canvas id="rochart"></canvas>
-    </div> -->
-
-    
-
-    
-</div>

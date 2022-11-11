@@ -1,5 +1,5 @@
 import { ThisReceiver } from '@angular/compiler';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Factura } from 'src/app/models/Ventas/factura';
 import {ReporteVentasService} from "../../Services/reporte-ventas.service";
 import * as moment from 'moment';
@@ -10,6 +10,8 @@ import { Subscription } from 'rxjs';
 import { Cliente } from 'src/app/models/cliente';
 import Swal from 'sweetalert2';
 import { FormControl } from '@angular/forms';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 //https://momentjs.com/
 //https://es.stackoverflow.com/questions/403659/moment-js-problema-al-dar-formato-a-fechas
 
@@ -29,8 +31,17 @@ export class ReporteVentasComponent implements OnInit, OnDestroy {
   suscripcion= new Subscription()
   listadoClientes: Cliente [] = []
   cliente = new FormControl();
+  public p: number = 1
+
 
   banderaMostrarGrafico:boolean = false;
+
+
+    //para el pdf
+  //https://www.youtube.com/watch?v=Eh6StPjcWjE
+  @ViewChild("imprimir") myData!: ElementRef;
+
+
 
   // datos: ChartData<'bar', number[], string > = {
   //   labels: ['12/04/2022', '12/05-2022', '12/06/2022'],
@@ -68,14 +79,14 @@ export class ReporteVentasComponent implements OnInit, OnDestroy {
       
     this.fechaConvertida1 =  moment(this.fecha1, "YYYY-MM-DD").format('DDMMYYYY')
     this.fechaConvertida2 =  moment(this.fecha2, "YYYY-MM-DD").format('DDMMYYYY')
-    console.log("fecha 1 enviada: " + this.fechaConvertida1)
-    console.log("fecha 2 enviada: " + this.fechaConvertida2)
-    console.log(this.cliente ) 
+    //console.log("fecha 1 enviada: " + this.fechaConvertida1)
+    //console.log("fecha 2 enviada: " + this.fechaConvertida2)
+    //console.log(this.cliente ) 
 
 
     this.apiReporte.obtenerPorFechaMontos(this.cliente.value, this.fechaConvertida1,this.fechaConvertida2 ).subscribe(result => {
       this.chartdata = result;
-      console.log("array devuelto " + JSON.stringify(result))
+       console.log(this.chartdata)
       if(this.chartdata!=null){
         for(let i=0; i<this.chartdata.length ;i++){
           //console.log(this.chartdata[i]);
@@ -91,13 +102,13 @@ export class ReporteVentasComponent implements OnInit, OnDestroy {
       // this.RenderChart(this.labeldata,this.realdata,this.colordata,'radar','rochart');
     }
 
-    this.fecha1=""
-    this.fecha2=""
-    console.log(this.chartdata)
-    this.chartdata = []
-    this.labeldata= [];
-    this.realdata= [];
-    this.colordata= [];
+   // this.fecha1=""
+   // this.fecha2=""
+    //console.log(this.chartdata)
+    //this.chartdata = []
+    //this.labeldata= [];
+   // this.realdata= [];
+   //this.colordata= [];
   });
       // this.RenderBubblechart();
       // this.RenderScatterchart();
@@ -124,7 +135,7 @@ export class ReporteVentasComponent implements OnInit, OnDestroy {
         data: {
           labels: labeldata,
           datasets: [{
-            label: '# of Votes',
+            //label: '# of Votes',
             data: maindata,
             backgroundColor: colordata,
             borderColor: [
@@ -213,5 +224,23 @@ obtenerClientes(){
   })
 }
 
+
+
+descargarPdf(){
+  var data = document.getElementById('imprimir');
+  if(data !== null) {
+    html2canvas(data).then(canvas => {  
+      // https://www.youtube.com/watch?v=Eh6StPjcWjE 
+      let imgWidth = 208;   
+      let imgHeight = canvas.height * imgWidth / canvas.width;  
+
+      const contentDataURL = canvas.toDataURL('image/png')  
+      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+      let position = 5;  
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+      pdf.save('reporteUno'); // Generated PDF   
+  });
+}
+}
 
 }
