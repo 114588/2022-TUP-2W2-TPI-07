@@ -26,7 +26,7 @@ const routes: Routes = [
   {path: "buscarProducto", component:BuscarEditarBorrarProductoComponent, canActivate: [AutenticarGuard]},
   {path: "registrarProveedor", component:AltaComponentProveedor, canActivate: [AutenticarGuard, AutorizarGuard]},
   {path: "registrarOrdenCompra", component:OrdenCompraComponent, canActivate: [AutenticarGuard, AutorizarGuard]},
-  //{path: "buscarOrdenCompra", component: BuscarOrdenCompraComponent, canActivate: [AutenticarGuard]},
+  {path: "buscarOrdenCompra", component: BuscarOrdenCompraComponent, canActivate: [AutenticarGuard]},
   {path: "buscarProveedor", component:ConsultarComponentProveedor, canActivate: [AutenticarGuard]},
   {path: "registrarCliente", component:AltaComponentCliente, canActivate: [AutenticarGuard, AutorizarGuard]},
   {path: "buscarCliente", component:BuscarEditarBorrarCliente, canActivate: [AutenticarGuard]},

@@ -15,6 +15,9 @@ export class OrdenCompraService {
     return this.http.post("http://localhost:8081/ordenes/alta",  item)
   }
 
+  obtenerOrdenCompra(): Observable<any>{
+    return this.http.get("http://localhost:8081/ordenes/listado")
+  }
 }
 
 

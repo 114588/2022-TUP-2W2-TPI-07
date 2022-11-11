@@ -11,6 +11,7 @@ import {Router} from "@angular/router"
 import { OrdenCompra } from '../models/OrdenCompra/orden-compra';
 import {OrdenCompraService}  from "../Services/orden-compra.service"
 import * as moment from 'moment';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-orden-compra',
@@ -62,9 +63,6 @@ export class OrdenCompraComponent implements OnInit, OnDestroy {
     this.buscarProveedor();
   }
 
-
-
-
   buscarProveedor(){
     this.apiProveedor.obtenerTodos().subscribe({
       next: (item: Proveedor[]) => {
@@ -112,7 +110,7 @@ export class OrdenCompraComponent implements OnInit, OnDestroy {
     this.calcularMontoTotal()
     this.ordenCompra.monto_total = this.monto_total
    
-    console.log(this.ordenCompra)
+    //console.log(this.ordenCompra)
 
     if(this.ordenCompra.items.length > 0){
       this.apiOrdenCompra.agregarOrdenCompra(this.ordenCompra).subscribe({
@@ -127,13 +125,15 @@ export class OrdenCompraComponent implements OnInit, OnDestroy {
       Swal.fire("Debe cargar productos para guardar")
     }
 
+  this.volver();
+
     
 
   }
 
   volver(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(["venta"]);
+      this.router.navigate(["registrarOrdenCompra"]);
     });
   }
 
