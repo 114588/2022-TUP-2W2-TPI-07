@@ -23,4 +23,15 @@ export class UsuarioService {
     return this.http.delete("http://localhost:8081/usuarios/eliminar/"+id)
   }
 
+
+  buscar(item: string): Observable<Usuario[]>{
+    return this.http.get<Usuario[]>("http://localhost:8081/usuarios/listarNombre/" + item)
+  }
+
+  modificarUsuario( id: number, usuarioModificado: Usuario): Observable<any>{
+    return this.http.put("http://localhost:8081/usuario/actualizar/"+ id, usuarioModificado)
+   
+ }
+
+
 }

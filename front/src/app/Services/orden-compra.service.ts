@@ -20,7 +20,7 @@ export class OrdenCompraService {
   }
 
   buscarOrdenCompraPorNombre(nombre: string): Observable<any>{
-    return this.http.get("http://localhost:8081/ordenes/buscarId/"+ nombre)
+    return this.http.get("http://localhost:8081//ordenes/listarNombre/"+ nombre)
   }
 
   

@@ -32,6 +32,7 @@ export class ReporteVentasComponent implements OnInit, OnDestroy {
   listadoClientes: Cliente [] = []
   cliente = new FormControl();
   public p: number = 1
+  clienteSeleccionado : Cliente = {} as Cliente
 
 
   banderaMostrarGrafico:boolean = false;
@@ -75,6 +76,8 @@ export class ReporteVentasComponent implements OnInit, OnDestroy {
  
   obtenerReporteVenta(){
 
+    this.clienteSeleccionado = this.getNombreClienteById(this.cliente.value)!
+    
     this.banderaMostrarGrafico = true
       
     this.fechaConvertida1 =  moment(this.fecha1, "YYYY-MM-DD").format('DDMMYYYY')
@@ -241,6 +244,10 @@ descargarPdf(){
       pdf.save('reporteUno'); // Generated PDF   
   });
 }
+}
+
+getNombreClienteById(id: number){
+  return this.listadoClientes.find( x => x.id == id)
 }
 
 }

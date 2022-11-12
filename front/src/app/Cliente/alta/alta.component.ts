@@ -37,6 +37,11 @@ export class AltaComponentCliente implements OnInit {
       this.clienteService.agregarCliente(this.nuevoCliente).subscribe({
         next: () => {
           Swal.fire("Cliente agregado")
+
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(["buscarCliente"]);
+          });
+          
         },
         error: (e) => {
           Swal.fire("Error al agregar cliente " + e.message)

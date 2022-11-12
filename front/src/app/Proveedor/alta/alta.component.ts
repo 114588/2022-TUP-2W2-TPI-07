@@ -24,8 +24,6 @@ export class AltaComponentProveedor implements OnInit {
     direccion: new UntypedFormControl("",[Validators.required, Validators.pattern(/^[a-zA-Z0-9,áéíóú ]+$/)]), //solo letras y numeros
     codigo_postal: new UntypedFormControl("",[Validators.required, Validators.pattern(/^\d{4}$/)]), //solo numeros y deben ser 4 
     email: new UntypedFormControl("",[Validators.required, Validators.email]),
-    // latitud: new UntypedFormControl("",[Validators.required, Validators.pattern(/^-?\d{2}(\.[0-9]{4,4})$/)]),
-    // longitud: new UntypedFormControl("",[Validators.required, Validators.pattern(/^-?\d{2}(\.[0-9]{4,4})$/)])
   })
 
   
@@ -48,6 +46,11 @@ export class AltaComponentProveedor implements OnInit {
       this.proveedorService.agregarProveedor(this.nuevoProveedor).subscribe({
         next: () => {
           Swal.fire("Proveedor agregado")
+
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(["buscarProveedor"]);
+          });
+
         },
         error: (e) => {
           Swal.fire("Error al agregar proveedor " + e.message )

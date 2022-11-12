@@ -12,7 +12,7 @@
       <input type="text" class="form-control" id="txtNombre"  formControlName="nombre" />
      
       <span *ngIf="formularioAltaProveedor.get('nombre')?.touched 
-         && formularioAltaProveedor.get('nombre')?.hasError('pattern')">
+         && formularioAltaProveedor.get('nombre')?.hasError('pattern', 'required')">
         * campo requerido,  solo puede ingresar letras y/o espacios
       </span>
     </div>

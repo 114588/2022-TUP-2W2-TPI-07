@@ -4,7 +4,8 @@ export interface Cliente {
     nombre_apellido: string ;
     telefono: number ;
     direccion: string ;
-    email: string
+    email: string,
+    //eliminado?: boolean
    // cantidad_puntos? : number; 
 
 }

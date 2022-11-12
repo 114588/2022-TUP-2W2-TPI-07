@@ -8,8 +8,8 @@
         <label for="txtDni" class="form-label">Dni</label>
         <input type="text" class="form-control" id="txtDni"  formControlName="dni" />
         
-        <span *ngIf="formularioAltaCliente.get('nombre')?.touched &&
-         formularioAltaCliente.get('nombre')?.hasError('required')">
+        <span *ngIf="formularioAltaCliente.get('dni')?.touched &&
+         formularioAltaCliente.get('dni')?.hasError('required')">
           * campo requerido 
         </span>
       </div>

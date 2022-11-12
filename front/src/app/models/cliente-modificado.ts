@@ -4,4 +4,5 @@ export interface ClienteModificado {
     telefono: number ;
     direccion: string ;
     email: string;
+    //eliminado?: boolean
 }

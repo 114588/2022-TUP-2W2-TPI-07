@@ -18,6 +18,7 @@ import { AutorizarGuard } from './guards/autorizar.guard';
 import { ReporteVentasComponent } from './Consultas/reporte-ventas/reporte-ventas.component';
 import { BuscarOrdenCompraComponent } from './orden-compra/buscar-orden-compra/buscar-orden-compra.component';
 import { ReporteMasVendidosComponent } from './Consultas/reporte-mas-vendidos/reporte-mas-vendidos.component';
+import { ListadoVentasComponent } from './ventas/listado-ventas/listado-ventas.component';
 
 
 
@@ -34,6 +35,7 @@ const routes: Routes = [
   {path: "registrarUsuario", component:AltaComponentUsuario, canActivate: [AutenticarGuard, AutorizarGuard]},
   {path: "buscarUsuario", component:BuscarEditarBorrarUsuarioComponent, canActivate: [AutenticarGuard]},
   {path: "venta", component:VentasComponent, canActivate: [AutenticarGuard]},
+  {path: "listadoVenta", component: ListadoVentasComponent,canActivate: [AutenticarGuard, AutorizarGuard] },
   {path: "login", component:LoginComponent},
   {path:"reporteVemtaPorVendedor", component: ReporteVentasComponent, canActivate: [AutenticarGuard, AutorizarGuard]},
   {path:"reporteMasVendidos", component: ReporteMasVendidosComponent,canActivate: [AutenticarGuard, AutorizarGuard] },

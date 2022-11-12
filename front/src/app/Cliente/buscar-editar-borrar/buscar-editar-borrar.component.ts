@@ -90,7 +90,7 @@ export class BuscarEditarBorrarCliente implements OnInit, OnDestroy {
       Swal.fire('Cliente eliminado')
       
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this.router.navigate(["registrarCliente"]);
+        this.router.navigate(["buscarCliente"]);
       }); 
 
     },
@@ -120,12 +120,11 @@ modificarDesdeFormulario() {
       next: () => {
         Swal.fire('Cliente modificado')
         this.banderaFormularioEdicion=false;  //oculto formulario edicion
-        
         this.buscarClientePorNombre() //vuelvo a llamar a la api y traigo todo
         
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this.router.navigate(["buscarCliente"]);
-        });
+        // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        // this.router.navigate(["buscarCliente"]);
+        // });
 
       },
       error: (e) => {
@@ -140,7 +139,7 @@ buscarTodosClientes(){
   this.subscripcion.add(
     this.apiCliente.obtenerClientes().subscribe({
       next: (item: Cliente[]) => {
-
+        console.log(item)
         this.listaClienteCompleta = item;
               
       },

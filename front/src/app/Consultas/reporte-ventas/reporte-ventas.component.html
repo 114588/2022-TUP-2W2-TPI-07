@@ -1,7 +1,7 @@
 <br>
 <div class="container">
     <br>
-    <h2 class="text-center">Reporte de Venta por Vendedor</h2>
+    <h2 class="text-center">Reporte de Venta por Cliente</h2>
     <br>
     <div class="row">
         <div class="col-md-3">
@@ -36,14 +36,13 @@
     <div *ngIf="banderaMostrarGrafico" >
         <div class="container" id="imprimir">  
             <br>
-            <h2 class="text-center">Productos Vendidos por Vendedor</h2>
+            <h2 class="text-center">Ventas efectuadas al Cliente: {{clienteSeleccionado.nombre_apellido}}</h2>
             <br> 
             <div class="row">
 
                 <div class="col-md-8">
                     <div id="uno" class="text-center">
                         <div class="col-lg-12">
-                            <h2>Participacion de Ventas por Día</h2>
                             <canvas id="piechart"></canvas>
                         </div>
                     </div>   

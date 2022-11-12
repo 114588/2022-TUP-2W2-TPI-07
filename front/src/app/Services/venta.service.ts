@@ -29,4 +29,10 @@ export class VentaService {
   guardarFactura(factura: Factura): Observable<any>{
     return  this.http.post<Factura>("http://localhost:8081/facturas/alta/", factura)
   }
+
+  obtenerListadoVentas(): Observable<Cliente[]>{
+    return this.http.get<Cliente[]>("http://localhost:8081/facturas/listado/")
+  }
+
+
 }

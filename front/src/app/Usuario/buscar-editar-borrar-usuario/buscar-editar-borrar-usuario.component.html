@@ -16,27 +16,106 @@
 
 
 <!-- =============SECCION LISTADO COMPLETO ====================== -->
-<div class="container">
-    <h2 class="text-center">Listado Usuarios</h2>
-      <table class="table" >
-      <thead>
-        <tr>
-          <th scope="col">Legajo</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Rol</th>
-          <th scope="col">Accion</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of listaUsuarioCompleta | paginate: { itemsPerPage: 5,currentPage: p }">
-          <td>{{ item.legajo }}</td>
-          <td>{{ item.nombre }}</td>
-          <td>{{ item.rol.rol }}</td>
-          <td><button type="button" class="btn btn-danger" (click)="eliminar(item)" >Eliminar</button></td>
-        </tr>
-      </tbody>
-    </table>
-    <pagination-controls (pageChange)="p = $event" previousLabel="Previa" nextLabel="Siguiente"></pagination-controls>
-  
-  
+  <div class="container" *ngIf="banderaListadoCompleto">
+      <h2 class="text-center">Listado Usuarios</h2>
+        <table class="table" >
+        <thead>
+          <tr>
+            <th scope="col">Legajo</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Rol</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listaUsuarioCompleta | paginate: { itemsPerPage: 5,currentPage: p }">
+            <td>{{ item.legajo }}</td>
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.rol.rol }}</td>
+            <!-- <td><button type="button" class="btn btn-danger" (click)="eliminar(item)" >Eliminar</button></td> -->
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls (pageChange)="p = $event" previousLabel="Previa" nextLabel="Siguiente"></pagination-controls>
   </div>
+
+
+
+
+<!-- =============SECCION LISTADO  BUSQUEDA ====================== -->
+<div class="container" *ngIf="banderaListadoBusqueda">
+  <h2 class="text-center">Listado Usuarios</h2>
+    <table class="table" >
+    <thead>
+      <tr>
+        <th scope="col">Legajo</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Rol</th>
+        <th scope="col">Accion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listaBusqueda | paginate: { itemsPerPage: 5,currentPage: p }">
+        <td>{{ item.legajo }}</td>
+        <td>{{ item.nombre }}</td>
+        <td>{{ item.rol.rol }}</td>
+        <td>
+          <button type="button" class="btn btn-success me-3" (click)="editar(item)" >Editar</button>
+          <button type="button" class="btn btn-danger" (click)="eliminar(item)" >Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="p = $event" previousLabel="Previa" nextLabel="Siguiente"></pagination-controls>
+</div>
+
+
+<!-- =============SECCION EDITAR ====================== -->
+<div class="container"  *ngIf="banderaEditar"  >
+  <form [formGroup]="formularioEdicion" >
+    <h2 class="text-center">Registrar Nuevo Usuario</h2>
+   
+    <div class="row">
+      <div class="col-md-6">
+        <label for="txtLegajo" class="form-label">Legajo</label>
+        <input type="number" class="form-control" id="e"  formControlName="legajo" />
+        
+        <span *ngIf="formularioEdicion.get('legajo')?.touched &&
+        formularioEdicion.get('legajo')?.hasError('required')">
+          * campo requerido 
+        </span>     
+      </div>
+
+      <div class="col-md-6">
+        <label for="txtNombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="txtNombre" name="nombre" formControlName="nombre" />
+        
+        <span *ngIf="formularioEdicion.get('nombre')?.touched &&
+        formularioEdicion.get('nombre')?.hasError('required')">
+          * campo requerido 
+        </span>  
+      </div>
+    </div>
+
+  <div class="row">
+      <div class="col-md-6">
+        Seleccionar Rol
+        <select class="form-select" name="rol" formControlName="rol">
+          <option *ngFor="let item of listaRol" [value]="item.id" > {{item.rol}} </option>
+        </select>  
+      </div>  
+    
+      <div class="col-md-6">
+        <label for="txtClave" class="form-label">Clave</label>
+        <input type="text" class="form-control" id="txtClave"  formControlName="password" />
+        
+        <span *ngIf="formularioEdicion.get('password')?.touched &&
+        formularioEdicion.get('password')?.hasError('required')">
+          * campo requerido 
+        </span>     
+    </div>
+
+
+    </div>
+    <br>
+    <button type="button" class="btn btn-primary me-3" (click)="guardar()" >Guardar</button>
+    <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button>

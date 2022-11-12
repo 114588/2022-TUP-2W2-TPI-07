@@ -74,6 +74,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { BuscarOrdenCompraComponent } from './orden-compra/buscar-orden-compra/buscar-orden-compra.component';
 import { ReporteMasVendidosComponent } from './Consultas/reporte-mas-vendidos/reporte-mas-vendidos.component';
+import { ListadoVentasComponent } from './ventas/listado-ventas/listado-ventas.component';
+
 
 @NgModule({
   declarations: [
@@ -95,6 +97,8 @@ import { ReporteMasVendidosComponent } from './Consultas/reporte-mas-vendidos/re
     ReporteVentasComponent,
     BuscarOrdenCompraComponent,
     ReporteMasVendidosComponent,
+    ListadoVentasComponent,
+
 
    
   ],

@@ -1,5 +1,5 @@
 <div class="container">
-  <h2 class="text-center">Búsqueda de Proveedor</h2>
+  <h2 class="text-center">Búsqueda de Orden de Compra</h2>
 
 
     <!-- ============ SECCION BUSCAR ============== -->
@@ -17,21 +17,54 @@
       </form>
 </div>
 
-<div class="container">
-    <table class="table">
+
+<!-- ====================== SECCION LISTADO COMPLETO ================== -->
+<div class="container" *ngIf="banderaListadoCompleto" >
+    <div id="imprimir">
+      <h2 class="text-center">Listado de Compras</h2>
+      <table class="table" >
         <thead>
           <tr>
             <th scope="col">Proveedor</th>
             <th scope="col">Fecha Emision</th>
+            <th scope="col">Fecha Vencimiento</th>
             <th scope="col">Monto Total</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of listaOrdenesCompra | paginate: { itemsPerPage: 5,currentPage: p }" >
+          <tr *ngFor="let item of listaOrdenesCompra | paginate: { itemsPerPage: 10,currentPage: p }" >
             <td> {{item.proveedor.nombre}} </td>
             <td> {{item.fecha_emision}} </td>
+            <td> {{item.fecha_fin}} </td>
             <td> {{item.monto_total}}</td> 
           </tr>
       </table>
+    </div>
       <pagination-controls (pageChange)="p = $event" previousLabel="Previa" nextLabel="Siguiente"></pagination-controls>
+      <button class="btn btn-primary" (click)="exportarPdf()">Exportar a PDF</button>
+
+</div>
+
+
+
+<!-- ==================== SECCION LISTADO BUSCADO =============== -->
+<div class="container" *ngIf="banderaListadoBusqueda" >
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Proveedor</th>
+          <th scope="col">Fecha Emision</th>
+          <th scope="col">Fecha Vencimiento</th>
+          <th scope="col">Monto Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listaOrdenesCompraBuscada | paginate: { itemsPerPage: 5,currentPage: p }" >
+          <td> {{item.proveedor.nombre}} </td>
+          <td> {{item.fecha_emision}} </td>
+          <td> {{item.fecha_fin}} </td>
+          <td> {{item.monto_total}}</td> 
+        </tr>
+    </table>
+    <pagination-controls (pageChange)="p = $event" previousLabel="Previa" nextLabel="Siguiente"></pagination-controls>
 </div>

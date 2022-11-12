@@ -1,0 +1,31 @@
+
+<div class="container">>
+  <div id="imprimir">
+    <br>
+    <h2 class="text-center">Listado de Ventas</h2>
+    <br>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Cliente</th>
+          <th scope="col">Direccion</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Monto Venta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listadoVenta | paginate: { itemsPerPage: 10 ,currentPage: p }">
+          <td> {{item.cliente.nombre_apellido}} </td>
+          <td> {{item.cliente.direccion}} </td>
+          <td> {{item.fecha}} </td>
+          <td> {{item.monto_total | number: '1.2'}} </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <pagination-controls (pageChange)="p = $event" previousLabel="Previa" nextLabel="Siguiente"></pagination-controls>
+  <button class="btn btn-primary" (click)="exportarPdf()">Exportar a PDF</button>
+</div>
+
+

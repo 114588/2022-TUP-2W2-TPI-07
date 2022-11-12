@@ -9,6 +9,9 @@ import { FromTo } from 'moment';
 import { Subscription } from 'rxjs';
 import { ThemeService } from 'ng2-charts';
 import Swal from "sweetalert2"
+import { Marca } from 'src/app/models/marca';
+import {MarcaService} from "../../Services/marca.service"
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-buscar-editar-borrar-producto',
@@ -27,6 +30,7 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
   valorBuscado : string = ""
   productoSeleccionado: Producto = {} as Producto; 
   suscripcion = new Subscription();
+  listaMarca: Marca [] = [];
   
   public p: number = 1
 
@@ -35,17 +39,19 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
     descripcion: new FormControl(),
     precio_unitario_venta: new FormControl(),
     precio_unitario_compra: new FormControl(),
-    tipoProducto: new FormControl()
+    tipoProducto: new FormControl(),
+    marca: new  FormControl()
   })
 
-  constructor(private apiProducto: ProductoService, private apiTipoProducto: TipoProductoService, private router: Router) { }
+  constructor(private apiProducto: ProductoService, private apiTipoProducto: TipoProductoService, private router: Router, private apiMarca: MarcaService) { }
   ngOnDestroy(): void {
     this.suscripcion.unsubscribe();
   }
 
   ngOnInit(): void {
     this.obtenerProductos()
-    this.obtenerTipoProducto()  
+    this.obtenerTipoProducto()
+    this.obtenerMarca()  
   }
   
   // <!-- ============ SECCION BUSCAR ============== -->  
@@ -84,7 +90,8 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
       descripcion: this.productoSeleccionado.descripcion,
       precio_unitario_venta: this.productoSeleccionado.precio_unitario_venta,
       precio_unitario_compra: this.productoSeleccionado.precio_unitario_compra,
-      tipoProducto: this.productoSeleccionado.tipoProducto.id
+      tipoProducto: this.productoSeleccionado.tipoProducto.id,
+      marca: this.productoSeleccionado.marca.id
     })
   }
 
@@ -119,7 +126,8 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
   // <!-- ================ FORMULARIO MODIFICAR ================ -->
   modificarDesdeFormulario(){
     this.formularioModicacionProducto.patchValue({
-      tipoProducto:this.getTipoProductoById(this.formularioModicacionProducto.controls["tipoProducto"].value)
+      tipoProducto:this.getTipoProductoById(this.formularioModicacionProducto.controls["tipoProducto"].value),
+      marca: this.getMarcaById(this.formularioModicacionProducto.controls["marca"].value)
     })
     // console.log(this.formularioModicacionProducto.value as Producto)
 
@@ -139,6 +147,11 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
     this.apiProducto.eliminarProducto(item.id).subscribe({
       next: () => {
         Swal.fire("Se borro el Producto")
+
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(["buscarProducto"]);
+        }); 
+
       },
       error: (e)  =>{
         Swal.fire("Error al modificar " + e.message)
@@ -149,10 +162,27 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
 
 
   volver(){
-    this.router.navigateByUrl('home');
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(["buscarProducto"]);
+    }); 
   }
 
   getTipoProductoById(id: number){
     return this.listaTipoProducto.find(x => x.id == id) ?? {} as TipoProducto;
+  }
+
+  getMarcaById(id: number){
+    return this.listaMarca.find(x => x.id == id)
+  }
+
+  obtenerMarca(){
+    this.apiMarca.obtenerTodos().subscribe({
+      next: (item: Marca[]) => {
+        this.listaMarca = item;
+      },
+      error: (e) => {
+        Swal.fire("Error al obtener la marca " + e.message)
+      }  
+    })
   }
 }

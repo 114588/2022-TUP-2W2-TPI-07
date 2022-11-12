@@ -8,9 +8,9 @@
           <label for="txtCodigo" class="form-label">Código Barra</label>
           <input type="number" class="form-control" id="txtCodigo"  formControlName="codigo_barra" />
           
-          <span *ngIf="formularioAltaProducto.get('codigo')?.touched &&
-          formularioAltaProducto.get('codigo')?.hasError('required')">
-            * campo requerido 
+          <span *ngIf="formularioAltaProducto.get('codigo_barra')?.touched &&
+          formularioAltaProducto.get('codigo_barra')?.hasError('pattern')">
+            * campo requerido y solo de 4 dígitos
           </span>     
         </div>
     

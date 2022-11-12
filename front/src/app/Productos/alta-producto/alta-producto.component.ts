@@ -21,7 +21,7 @@ export class AltaProductoComponent implements OnInit {
   tipoProductoSeleccionado: TipoProducto = {} as TipoProducto;
 
   formularioAltaProducto = new  UntypedFormGroup({
-    codigo_barra : new UntypedFormControl("",[Validators.required]),
+    codigo_barra : new UntypedFormControl("", [Validators.required, Validators.pattern(/^\d{4}$/)] ), //solo numeros y deben ser 4
     descripcion : new UntypedFormControl ("", [Validators.required]),
     tipoProducto : new UntypedFormControl("",[Validators.required]),
     precio_unitario_venta : new UntypedFormControl("",[Validators.required]),
@@ -54,6 +54,11 @@ export class AltaProductoComponent implements OnInit {
       this.apiProducto.agregarProducto(this.nuevoProducto).subscribe({
         next: () => {
           Swal.fire("Producto agregado")
+
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(["buscarProducto"]);
+          });
+
         },
         error: (e) => {
           Swal.fire("error al agregar producto " + e.message)

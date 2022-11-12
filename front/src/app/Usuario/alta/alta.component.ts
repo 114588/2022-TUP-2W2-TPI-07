@@ -6,6 +6,7 @@ import { Usuario } from 'src/app/models/Usuario/usuario';
 import {RolService} from "../../Services/rol.service"
 import {UsuarioService} from "../../Services/usuario.service"
 import Swal from "sweetalert2"
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-alta',
@@ -26,7 +27,7 @@ export class AltaComponentUsuario implements OnInit {
   })
 
 
-  constructor(private apiRol: RolService, private apiUsuario: UsuarioService) { }
+  constructor(private apiRol: RolService, private apiUsuario: UsuarioService, private router: Router) { }
 
   ngOnInit(): void {
     this.obtenerRol()
@@ -50,6 +51,11 @@ export class AltaComponentUsuario implements OnInit {
       this.apiUsuario.agregarUsuario(this.usuario as Usuario).subscribe({
         next: () => {
           Swal.fire("Usuario agregado con exito")
+
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(["buscarUsuario"]);
+          }); 
+
         },
         error: (e) => {
           Swal.fire("Error " + e.message)

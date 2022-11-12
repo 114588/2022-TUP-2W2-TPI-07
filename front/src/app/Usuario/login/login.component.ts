@@ -33,14 +33,17 @@ export class LoginComponent implements OnInit {
     this.nuevoLogin = this.formularioLogin.value
     this.apiLogin.login(this.formularioLogin.controls["nombre"].value, this.formularioLogin.controls["pass"].value).subscribe({
       next: (item: any) => {
-        console.log(item)
-        localStorage.setItem("legajo", item.legajo)
-        localStorage.setItem("nombre", item.nombre)
-        localStorage.setItem("rol", item.rol.rol)
-        localStorage.setItem("usuarioCompleto", JSON.stringify(item))
+        if(item == null){
+          Swal.fire("Usuario/Password incorrectos")
+        } else {
+          //console.log(item)
+          localStorage.setItem("legajo", item.legajo)
+          localStorage.setItem("nombre", item.nombre)
+          localStorage.setItem("rol", item.rol.rol)
+          localStorage.setItem("usuarioCompleto", JSON.stringify(item))
 
-        this.router.navigateByUrl("venta");
-
+          this.router.navigateByUrl("venta");
+        }
       },
       error: (e) => {
         Swal.fire("error " + e.message)
