@@ -16,7 +16,7 @@
   
       <div class="mb-3">
         <label for="txtPass" class="form-label">Password</label>
-        <input type="text" class="form-control" id="txtPass" name="pass" formControlName="pass" />
+        <input type="password" class="form-control" id="txtPass" name="pass" formControlName="pass" />
         
         <span *ngIf="formularioLogin.get('pass')?.touched &&
         formularioLogin.get('pass')?.hasError('required')">

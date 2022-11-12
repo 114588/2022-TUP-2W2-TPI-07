@@ -237,10 +237,11 @@ descargarPdf(){
       let imgWidth = 208;   
       let imgHeight = canvas.height * imgWidth / canvas.width;  
 
+      var margin = 10;
       const contentDataURL = canvas.toDataURL('image/png')  
       let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
       let position = 5;  
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+      pdf.addImage(contentDataURL, 'PNG', margin, position, imgWidth, imgHeight)  
       pdf.save('reporteUno'); // Generated PDF   
   });
 }

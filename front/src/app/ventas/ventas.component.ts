@@ -190,13 +190,14 @@ export class VentasComponent implements OnInit {
     if(data !== null) {
       html2canvas(data).then(canvas => {  
         // https://www.youtube.com/watch?v=Eh6StPjcWjE 
-        let imgWidth = 208;   
+        let imgWidth = 180;   
         let imgHeight = canvas.height * imgWidth / canvas.width;  
   
         const contentDataURL = canvas.toDataURL('image/png')  
         let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+        var margin = 5;
         let position = 5;  
-        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+        pdf.addImage(contentDataURL, 'PNG', margin, position, imgWidth, imgHeight)  
         pdf.save('facturapdf'); // Generated PDF   
       });
     }

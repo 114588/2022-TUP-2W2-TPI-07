@@ -146,7 +146,7 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
   eliminarProducto(item: Producto){
     this.apiProducto.eliminarProducto(item.id).subscribe({
       next: () => {
-        Swal.fire("Se borro el Producto")
+        Swal.fire("Se borró el Producto")
 
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate(["buscarProducto"]);

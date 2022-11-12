@@ -144,6 +144,8 @@ export class BuscarEditarBorrarUsuarioComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate(["buscarUsuario"]);
         }); 
+
+        this.banderaEditar= false
       },
       error: (e) => {
         Swal.fire("Error al modificar usuario " + e.message)

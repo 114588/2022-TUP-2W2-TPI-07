@@ -50,7 +50,7 @@ export class AltaComponentUsuario implements OnInit {
       console.log(this.formularioUsuario.value)
       this.apiUsuario.agregarUsuario(this.usuario as Usuario).subscribe({
         next: () => {
-          Swal.fire("Usuario agregado con exito")
+          Swal.fire("Usuario agregado con éxito")
 
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
             this.router.navigate(["buscarUsuario"]);

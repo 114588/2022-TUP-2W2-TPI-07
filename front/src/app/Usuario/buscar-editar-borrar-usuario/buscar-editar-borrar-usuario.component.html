@@ -50,7 +50,7 @@
         <th scope="col">Legajo</th>
         <th scope="col">Nombre</th>
         <th scope="col">Rol</th>
-        <th scope="col">Accion</th>
+        <th scope="col">Acción</th>
       </tr>
     </thead>
     <tbody>
@@ -72,7 +72,7 @@
 <!-- =============SECCION EDITAR ====================== -->
 <div class="container"  *ngIf="banderaEditar"  >
   <form [formGroup]="formularioEdicion" >
-    <h2 class="text-center">Registrar Nuevo Usuario</h2>
+    <h2 class="text-center">Editar Usuario</h2>
    
     <div class="row">
       <div class="col-md-6">
@@ -106,7 +106,7 @@
     
       <div class="col-md-6">
         <label for="txtClave" class="form-label">Clave</label>
-        <input type="text" class="form-control" id="txtClave"  formControlName="password" />
+        <input type="password" class="form-control" id="txtClave"  formControlName="password" />
         
         <span *ngIf="formularioEdicion.get('password')?.touched &&
         formularioEdicion.get('password')?.hasError('required')">

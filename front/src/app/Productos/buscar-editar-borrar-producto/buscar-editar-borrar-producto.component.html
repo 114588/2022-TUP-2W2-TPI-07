@@ -21,12 +21,12 @@
         <table class="table">
         <thead>
             <tr>
-                <th scope="col">Codigo</th>
-                <th scope="col">Descripcion</th>
+                <th scope="col">Código</th>
+                <th scope="col">Descripción</th>
                 <th scope="col">Tipo Producto</th>
                 <th scope="col">Precio Venta</th>
                 <th scope="col">Precio Compra</th>
-                <th>Acccion </th>
+                <th>Accción </th>
             </tr>
         </thead>
         <tbody>
@@ -55,7 +55,7 @@
 
     <div class="row">  
         <div class="col-md-6">
-            <label for="txtCodigo" class="form-label">Codigo Barra</label>
+            <label for="txtCodigo" class="form-label">Código Barra</label>
             <input type="number" class="form-control" id="txtCodigo"  formControlName="codigo_barra" />
             
             <span *ngIf="formularioModicacionProducto.get('codigo')?.touched &&
@@ -66,7 +66,7 @@
     
 
         <div class="col-md-6">
-            <label for="txtDescripcion" class="form-label">Descripcion</label>
+            <label for="txtDescripcion" class="form-label">Descripción</label>
             <input type="text" class="form-control" id="txtDescripcion" name="nombre_apellido" formControlName="descripcion" />
             
             <span *ngIf="formularioModicacionProducto.get('descripcion')?.touched &&
@@ -79,14 +79,14 @@
 <br>
     <div class="row">
       <div class="col-md-6">
-        Seleccionar el tipo producto
+        Tipo Producto
         <select class="form-select" name="item" formControlName="tipoProducto">
           <option *ngFor="let item of listaTipoProducto" [value]="item.id" > {{item.tipo}} </option>
         </select>  
       </div>
 
       <div class="col-md-6">
-        <label for="item">Seleccione Marca</label>
+        <label for="item">Marca</label>
         <select class="form-select" id="item" name="item" formControlName="marca">
           <option *ngFor="let item of listaMarca" [value]="item.id" > {{item.nombre}} </option>
         </select>  
@@ -130,8 +130,8 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">Codigo</th>
-        <th scope="col">Descripcion</th>
+        <th scope="col">Código</th>
+        <th scope="col">Descripción</th>
         <th scope="col">Tipo Producto</th>
         <th scope="col">Marca</th>
         <th scope="col">Precio Venta</th>

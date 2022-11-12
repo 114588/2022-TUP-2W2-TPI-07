@@ -115,7 +115,7 @@ export class OrdenCompraComponent implements OnInit, OnDestroy {
     if(this.ordenCompra.items.length > 0){
       this.apiOrdenCompra.agregarOrdenCompra(this.ordenCompra).subscribe({
         next: () => {
-          Swal.fire("Orden de Compra cargada con Exito")
+          Swal.fire("Orden de Compra cargada con Éxito")
         },
         error: (e) => {
           Swal.fire("Error al grabar Orden de Compra " + e.message)

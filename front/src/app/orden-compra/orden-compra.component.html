@@ -4,7 +4,7 @@
       
         <div class="row">
             <div class="col-md-12">
-                <label for="item">Seleccione Proveedor</label>
+                <label for="item">Proveedor</label>
                 <select class="form-select" id="item" name="item" formControlName="proveedor">
                     <option *ngFor="let item of listaProveedores" [value]="item.id" > {{item.nombre}} </option>
                 </select>  
@@ -22,7 +22,7 @@
     <form [formGroup]="formularioItemsOrdenCompra" >
 
         <div class="col-md-12">
-            <label for="item">Seleccione Producto</label>
+            <label for="item">Producto</label>
             <select class="form-select" id="item" name="item" formControlName="producto">
                  <option *ngFor="let item of listaProductos" [value]="item.id" > {{item.descripcion}} </option>
             </select>  
@@ -41,7 +41,7 @@
 
     </form>
     <br>
-    <button class="btn btn-primary" (click)="agregarItem()" [disabled]="formularioItemsOrdenCompra.invalid" >Agregar Item</button>
+    <button class="btn btn-primary" (click)="agregarItem()" [disabled]="formularioItemsOrdenCompra.invalid" >Agregar Ítem</button>
   </div>
 
 
@@ -52,7 +52,7 @@
             <th scope="col">Producto</th>
             <th scope="col">Cantidad</th>
             <th scope="col">Precio Compra</th>
-            <th scope="col">Accion</th>
+            <th scope="col">Acción</th>
           </tr>
         </thead>
         <tbody>

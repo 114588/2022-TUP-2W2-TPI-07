@@ -16,7 +16,7 @@
     
 
         <div class="col-md-6">
-          <label for="txtDescripcion" class="form-label">Descripcion</label>
+          <label for="txtDescripcion" class="form-label">Descripción</label>
           <input type="text" class="form-control" id="txtDescripcion" name="nombre_apellido" formControlName="descripcion" />
           
           <span *ngIf="formularioAltaProducto.get('descripcion')?.touched &&
@@ -31,14 +31,14 @@
     <div class="row">
 
       <div class="col-md-6">
-        <label for="item">Seleccione Tipo Producto</label>
+        <label for="item">Tipo Producto</label>
         <select class="form-select" id="item" name="item" formControlName="tipoProducto">
          <option *ngFor="let item of listaTipoProducto" [value]="item.id" > {{item.tipo}} </option>
         </select>  
       </div>
 
       <div class="col-md-6">
-        <label for="item">Seleccione Marca</label>
+        <label for="item">Marca</label>
         <select class="form-select" id="item" name="item" formControlName="marca">
          <option *ngFor="let item of listaMarca" [value]="item.id" > {{item.nombre}} </option>
         </select>  

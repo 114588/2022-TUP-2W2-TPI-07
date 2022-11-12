@@ -20,8 +20,8 @@
             <ul class="list-unstyled">
               <li class="text-muted">Cliente: <span style="color:#030303 ;">
                   {{clienteSeleccionado.nombre_apellido}}</span></li>
-              <li class="text-muted"> Direccion: {{clienteSeleccionado.direccion}} </li>
-              <li class="text-muted"> Condicion Fiscal: Consumidor Final </li>
+              <li class="text-muted"> Dirección: {{clienteSeleccionado.direccion}} </li>
+              <li class="text-muted"> Condición Fiscal: Consumidor Final </li>
               <li class="text-muted"> Argentina</li>
             </ul>
           </div>
@@ -30,7 +30,7 @@
             <ul class="list-unstyled">
               <li class="text-muted"><i class="fas fa-circle" style="color:#93f3ee ;"></i> <span
                   class="fw-bold">CUIT:</span> 30-1111111111-3 </li>
-                  <li class="text-muted"> Condicion Fiscal: Responsable Inscripto </li>
+                  <li class="text-muted"> Condición Fiscal: Responsable Inscripto </li>
               <li class="text-muted"><i class="fas fa-circle" style="color:#93f3ee;"></i> <span
                   class="fw-bold">Fecha: </span> {{fecha | date : "dd/MM/yyyy" }} </li>
              </ul>
@@ -96,7 +96,7 @@
 Cliente    
 <!-- <select class="form-select" name="item" [(ngModel)]="clienteSeleccionado.id"> -->
 <select class="form-select" name="item" formControlName="cliente" >
-      <option >Open this select menu</option>
+      <!-- <option >Open this select menu</option> -->
       <option *ngFor="let item of listadoCliente" [value]="item.id" > {{item.nombre_apellido}} </option>
     </select>
 <hr>
@@ -107,7 +107,7 @@ Producto
 <!-- <select class="form-select" name="item" [(ngModel)]="productoSeleccionado.codigo" > -->
 <select class="form-select" name="item" formControlName="producto" >
                                                      
-      <option >Open this select menu</option>
+      <!-- <option >Open this select menu</option> -->
       <option *ngFor="let item of listadoProductos" [value]="item.codigo" > {{item.descripcion}} </option>  
                                   <!-- listadoProductos: id, nombre, tipo  -->
     </select>
@@ -124,7 +124,7 @@ Producto
 
 
 <br>
-    <button type="button" class="btn btn-primary" (click)="agregarDetalles()" [disabled]="formularioVenta.invalid" >Agregar Item</button>
+    <button type="button" class="btn btn-primary" (click)="agregarDetalles()" [disabled]="formularioVenta.invalid" >Agregar Ítem</button>
   </form>
 </div>
 
@@ -134,7 +134,7 @@ Producto
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">Id Producto</th>
+        <th scope="col">Código Producto</th>
         <th scope="col">Cantidad</th>
         <th scope="col">Importe</th>
         <th scope="col">Subtotal</th>

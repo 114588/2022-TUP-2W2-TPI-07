@@ -15,7 +15,7 @@
         </div>
 
         <div class="col-md-3">
-            <label for="item">Seleccione Cliente</label>
+            <label for="item">Cliente</label>
              <select class="form-select" id="item" name="item" [formControl]="cliente">
                 <option *ngFor="let item of listadoClientes" [value]="item.id" > {{item.nombre_apellido}} </option>
             </select>  
@@ -37,7 +37,6 @@
         <div class="container" id="imprimir">  
             <br>
             <h2 class="text-center">Ventas efectuadas al Cliente: {{clienteSeleccionado.nombre_apellido}}</h2>
-            <br> 
             <div class="row">
 
                 <div class="col-md-8">

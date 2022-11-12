@@ -37,7 +37,7 @@
       <div class="row">
         <div class="col-md-6">
           <label for="txtClave" class="form-label">Clave</label>
-          <input type="text" class="form-control" id="txtClave"  formControlName="password" />
+          <input type="password" class="form-control" id="txtClave"  formControlName="password" />
           
           <span *ngIf="formularioUsuario.get('password')?.touched &&
           formularioUsuario.get('password')?.hasError('required')">
@@ -47,7 +47,7 @@
   
         <div class="col-md-6">
           <label for="txtRepeticionClave" class="form-label">Repita la clave</label>
-          <input type="text" class="form-control" id="txtRepeticionClave" name="repeticionClave" formControlName="repeticionClave" />
+          <input type="password" class="form-control" id="txtRepeticionClave" name="repeticionClave" formControlName="repeticionClave" />
           
           <span *ngIf="formularioUsuario.get('repeticionClave')?.touched &&
           formularioUsuario.get('repeticionClave')?.hasError('required')">
