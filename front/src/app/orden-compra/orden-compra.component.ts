@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Proveedor } from '../models/proveedor';
@@ -11,7 +11,8 @@ import {Router} from "@angular/router"
 import { OrdenCompra } from '../models/OrdenCompra/orden-compra';
 import {OrdenCompraService}  from "../Services/orden-compra.service"
 import * as moment from 'moment';
-import { ThisReceiver } from '@angular/compiler';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-orden-compra',
@@ -30,6 +31,9 @@ export class OrdenCompraComponent implements OnInit, OnDestroy {
   proveedorIndividual: Proveedor = {} as Proveedor
   ordenCompra: OrdenCompra = {} as OrdenCompra
   monto_total: number = 0;
+  banderaComprobante: boolean = false;
+  banderaFormularioCarga: boolean = true;
+  sumaFactura : number = 0;
 
 
   fechaOriginal = moment()
@@ -51,6 +55,10 @@ export class OrdenCompraComponent implements OnInit, OnDestroy {
     cantidad: new FormControl("", Validators.required)
   })
 
+
+  //para el pdf
+  //https://www.youtube.com/watch?v=Eh6StPjcWjE
+  @ViewChild("imprimir") myData!: ElementRef;
 
   constructor(private apiProveedor: ProveedorServiceService, private apiProducto: ProductoService, private router: Router, private apiOrdenCompra:OrdenCompraService ) { }
   
@@ -93,43 +101,64 @@ export class OrdenCompraComponent implements OnInit, OnDestroy {
    // this.itemIndivual.cantidad = this.formularioItemsOrdenCompra.controls['cantidad'].value
 
     this.listaItems.push({producto: this.getProductoById(this.formularioItemsOrdenCompra.controls['producto'].value)!, cantidad: this.formularioItemsOrdenCompra.controls['cantidad'].value }) 
-  }
 
-
-  eliminarItemIndividual(item: ItemsOrdenCompra){
-    const index = this.listaItems.findIndex(x => x == item);
-    this.listaItems.splice(index, 1)
-  }
-
-
-  guardar(){
     this.ordenCompra.proveedor =  this.getProveedorById(this.formularioOrdenCompra.controls['proveedor'].value)!;
     this.ordenCompra.items = this.listaItems;
     this.ordenCompra.fecha_emision = this.fechaEmision
     this.ordenCompra.fecha_fin  = this.fechaFin
     this.calcularMontoTotal()
     this.ordenCompra.monto_total = this.monto_total
-   
-    //console.log(this.ordenCompra)
+    this.calcularMontoTotal()
+  }
 
-    if(this.ordenCompra.items.length > 0){
-      this.apiOrdenCompra.agregarOrdenCompra(this.ordenCompra).subscribe({
-        next: () => {
-          Swal.fire("Orden de Compra cargada con Éxito")
-        },
-        error: (e) => {
-          Swal.fire("Error al grabar Orden de Compra " + e.message)
-        }
-      })
-    } else {
+
+  eliminarItemIndividual(item: ItemsOrdenCompra){
+    const index = this.listaItems.findIndex(x => x == item);
+    this.listaItems.splice(index, 1)
+    this.calcularMontoTotal()
+  }
+
+
+  guardar(){
+   
+    if(this.ordenCompra.items.length<1){
       Swal.fire("Debe cargar productos para guardar")
+    } else {
+      this.suscripcion.add(
+        this.apiOrdenCompra.agregarOrdenCompra(this.ordenCompra).subscribe({
+          next: () => {          
+            this.banderaComprobante= true;
+            this.banderaFormularioCarga= false;
+            Swal.fire("Orden de Compra cargada con Éxito")
+            
+          },
+          error: (e) => {
+            Swal.fire("Error al grabar Orden de Compra " + e.message)
+          }
+        }))
     }
 
-  this.volver();
-
-    
-
+    // if(this.ordenCompra.items.length > 0){
+    //   this.suscripcion.add(
+    //   this.apiOrdenCompra.agregarOrdenCompra(this.ordenCompra).subscribe({
+    //     next: () => {          
+    //       this.banderaComprobante= true;
+    //       alert("esperar")
+    //       this.banderaFormularioCarga= false;
+    //       Swal.fire("Orden de Compra cargada con Éxito")
+          
+    //     },
+    //     error: (e) => {
+    //       Swal.fire("Error al grabar Orden de Compra " + e.message)
+    //     }
+    //   }))
+    // } else {
+    //   Swal.fire("Debe cargar productos para guardar")
+    // }
+    //this.volver();
   }
+
+
 
   volver(){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
@@ -154,6 +183,24 @@ export class OrdenCompraComponent implements OnInit, OnDestroy {
   }
 
 
+
+  descargarPdf(){
+    var data = document.getElementById('imprimir');
+  if(data !== null) {
+    html2canvas(data).then(canvas => {  
+      // https://www.youtube.com/watch?v=Eh6StPjcWjE 
+      let imgWidth = 180;   
+      let imgHeight = canvas.height * imgWidth / canvas.width;  
+
+      const contentDataURL = canvas.toDataURL('image/png')  
+      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+      var margin = 5;
+      let position = 5;  
+      pdf.addImage(contentDataURL, 'PNG', margin, position, imgWidth, imgHeight)  
+      pdf.save('ordenComprapdf'); // Generated PDF   
+    });
+  }
+}
 
 
 }
