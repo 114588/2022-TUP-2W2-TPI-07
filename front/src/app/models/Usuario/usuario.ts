@@ -1,7 +1,7 @@
 import { Rol } from "./rol";
 
 export interface Usuario {
-    legajo: number,
+    legajo?: number,
     nombre: string,
     rol: Rol,
     password: string,

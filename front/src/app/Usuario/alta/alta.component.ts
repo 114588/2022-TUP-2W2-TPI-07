@@ -1,12 +1,13 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Rol } from 'src/app/models/Usuario/rol';
 import { Usuario } from 'src/app/models/Usuario/usuario';
 import {RolService} from "../../Services/rol.service"
 import {UsuarioService} from "../../Services/usuario.service"
 import Swal from "sweetalert2"
 import {Router} from "@angular/router"
+import { nombreValidador } from './validador-alta-usuario';
 
 @Component({
   selector: 'app-alta',
@@ -18,16 +19,16 @@ export class AltaComponentUsuario implements OnInit {
   listaRol: Rol[] = [{id:1, rol:"Administrador"}, {id:2, rol:"Caja"}, {id:3, rol:"Compras"}]
   usuario: Usuario = {} as Usuario
 
-  formularioUsuario= new FormGroup({
-    legajo: new FormControl("", Validators.required),
-    nombre: new FormControl("", Validators.required),
-    rol: new FormControl(),
-    password: new FormControl("", Validators.required),
-    repeticionClave: new FormControl("", Validators.required)
+  formularioUsuario= this.fb.group({
+    legajo: [""],
+    nombre: ["", {validators: [Validators.required], asyncValidators: [nombreValidador(this.apiUsuario)], updateOn: 'blur'}],
+    rol: ["", Validators.required],
+    password: ["", Validators.required],
+    repeticionClave: ["", Validators.required]
   })
 
 
-  constructor(private apiRol: RolService, private apiUsuario: UsuarioService, private router: Router) { }
+  constructor(private apiRol: RolService, private apiUsuario: UsuarioService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.obtenerRol()
@@ -43,10 +44,10 @@ export class AltaComponentUsuario implements OnInit {
 
     } else {
       this.usuario.legajo = parseInt( this.formularioUsuario.controls['legajo'].value!)
-      this.usuario.nombre = this.formularioUsuario.controls['nombre'].value!
+      this.usuario.nombre = this.formularioUsuario.controls['nombre'].value!.toString()
       this.usuario.password = this.formularioUsuario.controls['password'].value!
-      this.usuario.rol =  this.getRolById(this.formularioUsuario.controls["rol"].value)
-  
+      this.usuario.rol =  this.getRolById(parseInt(this.formularioUsuario.controls["rol"].value!))
+   
       console.log(this.formularioUsuario.value)
       this.apiUsuario.agregarUsuario(this.usuario as Usuario).subscribe({
         next: () => {
@@ -69,9 +70,6 @@ export class AltaComponentUsuario implements OnInit {
         repeticionClave: ""
       })
     }
-    
-
-
   }
 
 
@@ -79,8 +77,14 @@ export class AltaComponentUsuario implements OnInit {
     return this.listaRol.find(x => x.id == id) ?? {} as Rol 
   }
 
+  get getNombre(){
+    return this.formularioUsuario.controls["nombre"]
+  }
+
   volver(){
-    
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(["buscarUsuario"]);
+    }); 
   }
 
  }

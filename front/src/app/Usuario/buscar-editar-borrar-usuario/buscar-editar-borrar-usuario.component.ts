@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Usuario } from '../../models/Usuario/usuario';
 import {UsuarioService} from "../../Services/usuario.service"
 import Swal from "sweetalert2"
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import {Router} from "@angular/router"
 import {RolService} from "../../Services/rol.service"
@@ -29,7 +29,7 @@ export class BuscarEditarBorrarUsuarioComponent implements OnInit, OnDestroy {
   usuario: Usuario = {} as Usuario
 
 
-  formularioEdicion= new FormGroup({
+  formularioEdicion= this.fb.group({
     legajo: new FormControl(),
     nombre: new FormControl(),
     rol: new FormControl(),
@@ -37,7 +37,7 @@ export class BuscarEditarBorrarUsuarioComponent implements OnInit, OnDestroy {
    
   })
 
-  constructor(private apiUsuario: UsuarioService, private router: Router, private apiRol: RolService) { }
+  constructor(private apiUsuario: UsuarioService, private router: Router, private apiRol: RolService, private fb: FormBuilder) { }
 
 
   ngOnDestroy(): void {
@@ -87,7 +87,7 @@ export class BuscarEditarBorrarUsuarioComponent implements OnInit, OnDestroy {
 
   eliminar(item: Usuario){
     this.suscripcion.add(
-      this.apiUsuario.eliminarUsuario(item.legajo).subscribe({
+      this.apiUsuario.eliminarUsuario(item.legajo!).subscribe({
         next: () => {
           Swal.fire("Usuario elimando");
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
@@ -109,12 +109,11 @@ export class BuscarEditarBorrarUsuarioComponent implements OnInit, OnDestroy {
       legajo: item.legajo,
       nombre: item.nombre,
       rol: item.rol.id,
-      password: item.password,
-
+      password: item.password
     }) 
-  
-    console.log(item)
+    // console.log(item)
   }
+
 
   getRolById(id: number){
     return this.listaRol.find(x => x.id == id)
@@ -141,11 +140,12 @@ export class BuscarEditarBorrarUsuarioComponent implements OnInit, OnDestroy {
       next: () => {
         Swal.fire("Usuario modificado")
 
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-          this.router.navigate(["buscarUsuario"]);
-        }); 
-
         this.banderaEditar= false
+        this.banderaListadoCompleto=false
+        this.buscarUsuario()
+        this.banderaListadoBusqueda=true
+    
+        
       },
       error: (e) => {
         Swal.fire("Error al modificar usuario " + e.message)

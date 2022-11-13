@@ -4,7 +4,7 @@
       <h2 class="text-center">Registrar Nuevo Usuario</h2>
      
       <div class="row">
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
           <label for="txtLegajo" class="form-label">Legajo</label>
           <input type="number" class="form-control" id="e"  formControlName="legajo" />
           
@@ -12,28 +12,28 @@
           formularioUsuario.get('legajo')?.hasError('required')">
             * campo requerido 
           </span>     
-        </div>
+        </div> -->
   
         <div class="col-md-6">
           <label for="txtNombre" class="form-label">Nombre</label>
           <input type="text" class="form-control" id="txtNombre" name="nombre" formControlName="nombre" />
           
+          <span *ngIf="getNombre.errors?.['nombreExists']" >nombre ya usado, intente con otro</span>
+
           <span *ngIf="formularioUsuario.get('nombre')?.touched &&
           formularioUsuario.get('nombre')?.hasError('required')">
             * campo requerido 
           </span>  
         </div>
-      </div>
-  
-      <div class="mb-3">
-        <div class="col-12">
-          Seleccionar Rol
+      
+        <div class="col-md-6">
+          <label for="rol"  id="rol"  class="form-label">Rol</label>
           <select class="form-select" name="rol" formControlName="rol">
             <option *ngFor="let item of listaRol" [value]="item.id" > {{item.rol}} </option>
           </select>  
         </div>  
       </div>
-  
+  <br>
       <div class="row">
         <div class="col-md-6">
           <label for="txtClave" class="form-label">Clave</label>
