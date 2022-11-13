@@ -36,10 +36,7 @@ export class ConsultarComponentProveedor implements OnInit, OnDestroy {
 formularioModificarProveedor = new UntypedFormGroup({
   //http://estilow3b.com/ejemplos-comunes-de-expresiones-regulares-javascript/
   nombre: new UntypedFormControl('', [Validators.pattern(/^[a-zA-Z áéíóú]+$/)]),
-  cuit: new UntypedFormControl('', [
-    Validators.required,
-    Validators.pattern(/^\d{11}$/),
-  ]),
+  cuit: new UntypedFormControl(''),
   telefono: new UntypedFormControl('', [
     Validators.required,
     Validators.pattern(/^\d{10}$/),

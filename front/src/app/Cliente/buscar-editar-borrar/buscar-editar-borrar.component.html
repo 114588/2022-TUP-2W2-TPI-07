@@ -11,7 +11,7 @@
         </div>
         
         <div class="col-md-3 text-end">
-          <button type="button" class="btn btn-primary" (click)="buscarClientePorNombre()">Buscar</button>
+          <button type="button" class="btn btn-primary m-1 p-1" (click)="buscarClientePorNombre()">Buscar</button>
         </div>
       </div>
       </form>
@@ -39,8 +39,8 @@
                 <td>{{ item.direccion}}</td>
                 <td>{{ item.email }}</td>
                 <td>
-                  <button type="button" class="btn btn-primary me-3" (click)="editarCliente(item)">Editar</button>
-                  <button type="button" class="btn btn-danger" (click)="eliminarCliente(item)">Eliminar</button>
+                  <button type="button" class="btn btn-primary m-1 p-1" (click)="editarCliente(item)">Editar</button>
+                  <button type="button" class="btn btn-danger  m-1 p-1" (click)="eliminarCliente(item)">Eliminar</button>
                 </td>
             </tr>
         </tbody>
@@ -62,7 +62,7 @@
       </div>
   
       <div class="col-md-6">
-        <label for="txtTelefono" class="form-label">Telefono</label>
+        <label for="txtTelefono" class="form-label">Teléfono</label>
         <input type="text" class="form-control" id="txtTelefono" name="telefono" [(ngModel)]="clienteSeleccionado.telefono">
       </div>
     </div>
@@ -70,7 +70,7 @@
       <!-- ===========SEGUNDOS DOS =============== -->
     <div class="row">
       <div class="col-md-6">
-        <label for="txtDireccion" class="form-label">Direccion</label>
+        <label for="txtDireccion" class="form-label">Dirección</label>
         <input type="text" class="form-control" id="txtPrecio" name="direccion" [(ngModel)]="clienteSeleccionado.direccion">
       </div>
   
@@ -80,7 +80,7 @@
       </div>
     </div>
     <br>
-    <button type="button" class="btn btn-primary" (click)="modificarDesdeFormulario()" >Modificar</button>
+    <button type="button" class="btn btn-primary m-1 p-1" (click)="modificarDesdeFormulario()" >Modificar</button>
     </form>
   </div>
 
@@ -94,7 +94,7 @@
         <th scope="col">Dni</th>
         <th scope="col">Nombre</th>
         <th scope="col">Teléfono</th>
-        <th scope="col">Direccion</th>
+        <th scope="col">Dirección</th>
         <th scope="col">Email</th>
       </tr>
     </thead>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Producto } from 'src/app/models/producto';
 import { TipoProducto } from 'src/app/models/tipo-producto';
@@ -8,6 +8,8 @@ import {TipoProductoService} from "../../Services/tipo-producto.service"
 import Swal from "sweetalert2"
 import { Marca } from 'src/app/models/marca';
 import {MarcaService} from "../../Services/marca.service"
+import { codigoBarraValidador } from './validator-alta-producto-codigoBarra';
+import {descripcionValidador} from "../../Productos/alta-producto/validador-alta-producto-descripcion"
 
 @Component({
   selector: 'app-alta-producto',
@@ -20,16 +22,16 @@ export class AltaProductoComponent implements OnInit {
   listaMarca: Marca [] = [];
   tipoProductoSeleccionado: TipoProducto = {} as TipoProducto;
 
-  formularioAltaProducto = new  UntypedFormGroup({
-    codigo_barra : new UntypedFormControl("", [Validators.required, Validators.pattern(/^\d{4}$/)] ), //solo numeros y deben ser 4
-    descripcion : new UntypedFormControl ("", [Validators.required]),
-    tipoProducto : new UntypedFormControl("",[Validators.required]),
-    precio_unitario_venta : new UntypedFormControl("",[Validators.required]),
-    precio_unitario_compra: new UntypedFormControl("",[Validators.required]),
-    marca: new UntypedFormControl("", Validators.required)
+  formularioAltaProducto =this.fb.group({
+    codigo_barra : ["", {validators: [Validators.required, Validators.pattern(/^\d{4}$/)], asyncValidators:[codigoBarraValidador(this.apiProducto)], updateOn: 'blur'} ], //solo numeros y deben ser 4
+    descripcion: ["", {validators: [Validators.required], asyncValidators:[descripcionValidador(this.apiProducto)], updateOn: 'blur'} ],
+    tipoProducto : [[Validators.required]],
+    precio_unitario_venta : ["", [Validators.required]],
+    precio_unitario_compra:["", [Validators.required]],
+    marca: [[Validators.required]]
 
   })
-  constructor(private apiProducto: ProductoService, private router: Router, private apiTipoProducto: TipoProductoService, private apiMarca: MarcaService) { }
+  constructor(private apiProducto: ProductoService, private router: Router, private apiTipoProducto: TipoProductoService, private apiMarca: MarcaService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.obtenerTipoProducto();
@@ -40,14 +42,15 @@ export class AltaProductoComponent implements OnInit {
 
     //aca lo que hago es: con el id, buscar el objeto completo y ese objeto ponerlo en la propiedad
     this.formularioAltaProducto.patchValue({
-      tipoProducto: this.getTipoProductoById(this.formularioAltaProducto.controls["tipoProducto"].value),
-      marca: this.getMarcaById(this.formularioAltaProducto.controls['marca'].value)
-    });
+      tipoProducto: this.getTipoProductoById(parseInt(this.formularioAltaProducto.controls["tipoProducto"].value!)) as any,
+      marca: this.getMarcaById(parseInt(this.formularioAltaProducto.controls['marca'].value!)) as any
+
+     });
 
     // console.log(this.formularioAltaProducto.value)
 
     if(this.formularioAltaProducto.valid){
-      this.nuevoProducto = this.formularioAltaProducto.value
+      this.nuevoProducto = this.formularioAltaProducto.value as any
       
       console.log(this.nuevoProducto)
 
@@ -116,4 +119,12 @@ export class AltaProductoComponent implements OnInit {
     return this.listaMarca.find(x => x.id == id) 
   }
 
+
+  get getCodigoBarra(){
+    return this.formularioAltaProducto.controls["codigo_barra"]
+  }
+
+  get getDescripcion(){
+    return this.formularioAltaProducto.controls["descripcion"]
+  }
 }

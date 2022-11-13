@@ -9,7 +9,7 @@
       </div>
       
       <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-primary" (click)="buscarProductoPorNombre()">Buscar</button>
+        <button type="button" class="btn btn-primary m-1 p-1" (click)="buscarProductoPorNombre()">Buscar</button>
       </div>
     </div>
     </form>
@@ -37,8 +37,8 @@
                 <td>{{ item.precio_unitario_venta | number:'1.2-2' }}</td>
                 <td>{{ item.precio_unitario_compra  | number:'1.2-2'}}</td>
                 <td>
-                  <button type="button" class="btn btn-success me-3" (click)="editarProducto(item)">Editar</button>
-                  <button type="button" class="btn btn-danger" (click)="eliminarProducto(item)">Eliminar</button>
+                  <button type="button" class="btn btn-success m-1 p-1" (click)="editarProducto(item)">Editar</button>
+                  <button type="button" class="btn btn-danger m-1 p-1" (click)="eliminarProducto(item)">Eliminar</button>
                 </td>
             </tr>
         </tbody>
@@ -54,24 +54,28 @@
   <form [formGroup]="formularioModicacionProducto" >
 
     <div class="row">  
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
             <label for="txtCodigo" class="form-label">Código Barra</label>
-            <input type="number" class="form-control" id="txtCodigo"  formControlName="codigo_barra" />
+            <input type="number" class="form-control" id="txtCodigo"  formControlName="codigo_barra"  readonly/>
             
+            <span *ngIf="getCodigoBarra.errors?.['nombreExists']" >Código barra ya usado, intente con otro</span>
+
             <span *ngIf="formularioModicacionProducto.get('codigo')?.touched &&
             formularioModicacionProducto.get('codigo')?.hasError('required')">
-            * campo requerido 
+            * Campo requerido 
             </span>     
-        </div>
+        </div> -->
     
 
-        <div class="col-md-6">
+        <div class="col-md-12">
             <label for="txtDescripcion" class="form-label">Descripción</label>
-            <input type="text" class="form-control" id="txtDescripcion" name="nombre_apellido" formControlName="descripcion" />
+            <input type="text" class="form-control" id="txtDescripcion" name="descripcion" formControlName="descripcion" disable />
             
+            <span *ngIf="getDescripcion.errors?.['nombreExists']" >Descripción ya usada, intente con otra</span>
+
             <span *ngIf="formularioModicacionProducto.get('descripcion')?.touched &&
             formularioModicacionProducto.get('descripcion')?.hasError('required')">
-            * campo requerido 
+            * Campo requerido 
             </span>  
         </div>
     </div>
@@ -101,7 +105,7 @@
         
                 <span *ngIf="formularioModicacionProducto.get('precio_unitario_venta')?.touched &&
                 formularioModicacionProducto.get('precio_unitario_venta')?.hasError('required')">
-                * campo requerido 
+                * Campo requerido 
                 </span>        
         </div>    
             
@@ -112,14 +116,14 @@
         
                 <span *ngIf="formularioModicacionProducto.get('precio_unitario_compra')?.touched &&
                 formularioModicacionProducto.get('precio_unitario_compra')?.hasError('required')">
-                * campo requerido 
+                * Campo requerido 
                 </span>
             </div>
         </div>
   <br>
       
-      <button type="button" class="btn btn-primary me-3"  (click)="modificarDesdeFormulario()" [disabled]="formularioModicacionProducto.invalid" >Guardar</button>
-      <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button>
+      <button type="button" class="btn btn-primary m-1 p-1"  (click)="modificarDesdeFormulario()" [disabled]="formularioModicacionProducto.invalid" >Guardar</button>
+      <button type="button" class="btn btn-warning m-1 p-1" (click)="volver()" >Volver</button>
     </form>
   </div>
 

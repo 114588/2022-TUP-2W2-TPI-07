@@ -73,8 +73,8 @@
   </div>
 
   <div class="container">
-    <button class="btn btn-primary me-3"  (click)="descargarPdf()"  >Descargar PDF</button>
-    <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button>
+    <button class="btn btn-primary m-1 p-1"  (click)="descargarPdf()"  >Descargar PDF</button>
+    <button type="button" class="btn btn-warning m-1 p-1" (click)="volver()" >Volver</button>
   </div>
 </div>
 
@@ -124,7 +124,7 @@ Producto
 
 
 <br>
-    <button type="button" class="btn btn-primary" (click)="agregarDetalles()" [disabled]="formularioVenta.invalid" >Agregar Ítem</button>
+    <button type="button" class="btn btn-primary m-1 p-1" (click)="agregarDetalles()" [disabled]="formularioVenta.invalid" >Agregar Ítem</button>
   </form>
 </div>
 
@@ -147,7 +147,7 @@ Producto
         <td> {{item.cantidad}} </td>
         <td> {{item.producto.precio_unitario_venta  | number:'1.2-2'}} </td>
         <td> {{item.producto.precio_unitario_venta! * item.cantidad | number:'1.2-2'}} </td>
-        <td> <button type="button" class="btn btn-danger" (click)="eliminarDetalle(item)" >Eliminar</button> </td>
+        <td> <button type="button" class="btn btn-danger m-1 p-1" (click)="eliminarDetalle(item)" >Eliminar</button> </td>
       </tr>
     </tbody>
   </table>
@@ -171,6 +171,6 @@ Producto
  
 <br>
 
-<button class="btn btn-primary" (click)="guardarVenta()">Guardar</button>
+<button class="btn btn-primary m-1 p-1" (click)="guardarVenta()">Guardar</button>
 
 </div>

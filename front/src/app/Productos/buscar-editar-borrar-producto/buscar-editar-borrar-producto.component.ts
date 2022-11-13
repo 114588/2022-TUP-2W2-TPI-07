@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Producto } from 'src/app/models/producto';
 import { TipoProducto } from 'src/app/models/tipo-producto';
 import {ProductoService} from "../../Services/producto.service"
@@ -11,7 +11,8 @@ import { ThemeService } from 'ng2-charts';
 import Swal from "sweetalert2"
 import { Marca } from 'src/app/models/marca';
 import {MarcaService} from "../../Services/marca.service"
-import { ThisReceiver } from '@angular/compiler';
+import {descripcionValidador}  from "../alta-producto/validador-alta-producto-descripcion";
+import {codigoBarraValidador} from "../alta-producto/validator-alta-producto-codigoBarra"
 
 @Component({
   selector: 'app-buscar-editar-borrar-producto',
@@ -34,16 +35,18 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
   
   public p: number = 1
 
-  formularioModicacionProducto = new FormGroup({
-    codigo_barra: new FormControl("", Validators.required),
-    descripcion: new FormControl(),
-    precio_unitario_venta: new FormControl(),
-    precio_unitario_compra: new FormControl(),
-    tipoProducto: new FormControl(),
-    marca: new  FormControl()
+  formularioModicacionProducto =this.fb.group({
+    // codigo_barra : ["", {validators: [Validators.required, Validators.pattern(/^\d{4}$/)], asyncValidators:[codigoBarraValidador(this.apiProducto)], updateOn: 'blur'} ], //solo numeros y deben ser 4
+    codigo_barra: [""],
+    // descripcion: ["", {validators: [Validators.required], asyncValidators:[descripcionValidador(this.apiProducto)], updateOn: 'blur'} ],
+    descripcion: ["", Validators.required],
+    precio_unitario_venta: ["", Validators.required],
+    precio_unitario_compra: ["", Validators.required],
+    tipoProducto: [, Validators.required],
+    marca: [, Validators.required]
   })
 
-  constructor(private apiProducto: ProductoService, private apiTipoProducto: TipoProductoService, private router: Router, private apiMarca: MarcaService) { }
+  constructor(private apiProducto: ProductoService, private apiTipoProducto: TipoProductoService, private router: Router, private apiMarca: MarcaService, private fb: FormBuilder) { }
   ngOnDestroy(): void {
     this.suscripcion.unsubscribe();
   }
@@ -86,12 +89,12 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
     this.productoSeleccionado = item;
 
     this.formularioModicacionProducto.setValue({
-      codigo_barra: this.productoSeleccionado.codigo_barra,
+      codigo_barra: this.productoSeleccionado.codigo_barra as any,
       descripcion: this.productoSeleccionado.descripcion,
-      precio_unitario_venta: this.productoSeleccionado.precio_unitario_venta,
-      precio_unitario_compra: this.productoSeleccionado.precio_unitario_compra,
-      tipoProducto: this.productoSeleccionado.tipoProducto.id,
-      marca: this.productoSeleccionado.marca.id
+      precio_unitario_venta: this.productoSeleccionado.precio_unitario_venta as any,
+      precio_unitario_compra: this.productoSeleccionado.precio_unitario_compra as any,
+      tipoProducto: this.productoSeleccionado.tipoProducto.id as any,
+      marca: this.productoSeleccionado.marca.id as any
     })
   }
 
@@ -126,12 +129,12 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
   // <!-- ================ FORMULARIO MODIFICAR ================ -->
   modificarDesdeFormulario(){
     this.formularioModicacionProducto.patchValue({
-      tipoProducto:this.getTipoProductoById(this.formularioModicacionProducto.controls["tipoProducto"].value),
-      marca: this.getMarcaById(this.formularioModicacionProducto.controls["marca"].value)
+      tipoProducto:this.getTipoProductoById(this.formularioModicacionProducto.controls["tipoProducto"].value!) as any,
+      marca: this.getMarcaById(this.formularioModicacionProducto.controls["marca"].value!) as any
     })
     // console.log(this.formularioModicacionProducto.value as Producto)
 
-    this.apiProducto.modificarProducto(this.productoSeleccionado.id, this.formularioModicacionProducto.value as Producto).subscribe({
+    this.apiProducto.modificarProducto(this.productoSeleccionado.id as any, this.formularioModicacionProducto.value as any).subscribe({
       next: () => {
         Swal.fire("Producto modificado")
         this.banderaFormularioEdicion=false;  //oculto formulario edicion
@@ -144,7 +147,7 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
   }
 
   eliminarProducto(item: Producto){
-    this.apiProducto.eliminarProducto(item.id).subscribe({
+    this.apiProducto.eliminarProducto(item.id as any).subscribe({
       next: () => {
         Swal.fire("Se borró el Producto")
 
@@ -184,5 +187,14 @@ export class BuscarEditarBorrarProductoComponent implements OnInit, OnDestroy {
         Swal.fire("Error al obtener la marca " + e.message)
       }  
     })
+  }
+
+
+  get getCodigoBarra(){
+    return this.formularioModicacionProducto.controls["codigo_barra"]
+  }
+
+  get getDescripcion(){
+    return this.formularioModicacionProducto.controls["descripcion"]
   }
 }

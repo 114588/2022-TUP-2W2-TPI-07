@@ -8,7 +8,7 @@
       </div>
       
       <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-primary"(click)="buscarUsuario()">Buscar</button>
+        <button type="button" class="btn btn-primary m-1 p-1"(click)="buscarUsuario()">Buscar</button>
       </div>
     </div>
     </form>
@@ -59,8 +59,8 @@
         <td>{{ item.nombre }}</td>
         <td>{{ item.rol.rol }}</td>
         <td>
-          <button type="button" class="btn btn-success me-3" (click)="editar(item)" >Editar</button>
-          <button type="button" class="btn btn-danger" (click)="eliminar(item)" >Eliminar</button>
+          <button type="button" class="btn btn-success m-1 p-1" (click)="editar(item)" >Editar</button>
+          <button type="button" class="btn btn-danger m-1 p-1" (click)="eliminar(item)" >Eliminar</button>
         </td>
       </tr>
     </tbody>
@@ -118,5 +118,5 @@
 
  
     <br>
-    <button type="button" class="btn btn-primary me-3" (click)="guardar()" >Guardar</button>
-    <button type="button" class="btn btn-warning" (click)="volver()" >Volver</button>
+    <button type="button" class="btn btn-primary m-1 p-1" (click)="guardar()" >Guardar</button>
+    <button type="button" class="btn btn-warning m-1 p-1" (click)="volver()" >Volver</button>

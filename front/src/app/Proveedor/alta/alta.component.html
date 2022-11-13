@@ -13,29 +13,31 @@
      
       <span *ngIf="formularioAltaProveedor.get('nombre')?.touched 
          && formularioAltaProveedor.get('nombre')?.hasError('pattern', 'required')">
-        * campo requerido,  solo puede ingresar letras y/o espacios
+        * Campo requerido,  solo puede ingresar letras y/o espacios
       </span>
     </div>
 
     <div class="col-md-6">
       <label for="txtCuit" class="form-label">Cuit</label>
-      <input type="text" class="form-control" id="txtCuit" name="cuit" formControlName="cuit" />
+      <input type="number" class="form-control" id="txtCuit" name="cuit" formControlName="cuit" />
       
-      <span *ngIf="formularioAltaProveedor.get('cuit')?.touched 
+      <span *ngIf="getNombre.errors?.['nombreExists']" >Cuit ya usado, intente con otro</span>
+
+      <!-- <span *ngIf="formularioAltaProveedor.get('cuit')?.touched 
         && formularioAltaProveedor.get('cuit')?.hasError('pattern')">
         * campo requerido y solo numerico de 11 digitos
-      </span>
+      </span> -->
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-6">
       <label for="txtTelefono" class="form-label">Teléfono</label>
-      <input type="text" class="form-control" id="txtTelefono" name="telefono" formControlName="telefono"  />
+      <input type="number" class="form-control" id="txtTelefono" name="telefono" formControlName="telefono"  />
 
       <span *ngIf="formularioAltaProveedor.get('telefono')?.touched 
         && formularioAltaProveedor.get('telefono')?.hasError('pattern')">
-        * campo requerido  y solo numérico de 7 digitos
+        * Campo requerido  y solo numérico de 7 digitos
       </span>
     </div>
 
@@ -46,7 +48,7 @@
 
         <span *ngIf="formularioAltaProveedor.get('direccion')?.touched &&
         formularioAltaProveedor.get('direccion')?.hasError('pattern')">
-         * campo requerido digitos y letras solamente
+         * Campo requerido dígitos y letras solamente
        </span>
       </div>
     </div>
@@ -54,21 +56,21 @@
     <div class="row">
       <div class="col-md-6">
         <label for="txtCodigoPostal" class="form-label">Código Postal</label>
-        <input type="text" class="form-control" id="txtCodigoPostal" name="codigo_postal" formControlName="codigo_postal" />
+        <input type="number" class="form-control" id="txtCodigoPostal" name="codigo_postal" formControlName="codigo_postal" />
 
         <span *ngIf="formularioAltaProveedor.get('codigo_postal')?.touched 
         && formularioAltaProveedor.get('codigo_postal')?.hasError('pattern')">
-         * campo requerido solo 4 dígitos
+         * Campo requerido solo 4 dígitos
        </span>
       </div>
 
       <div class="col-md-6">
         <label for="txtCorreo" class="form-label">Correo electrónico  </label>
-        <input type="text" class="form-control" id="txtCorreo" name="email" formControlName="email" />
+        <input type="email" class="form-control" id="txtCorreo" name="email" formControlName="email" />
 
         <span *ngIf="formularioAltaProveedor.get('email')?.touched &&
         formularioAltaProveedor.get('email')?.hasError('email')">
-         * campo requerido formato email
+         * Campo requerido formato email
        </span>
       </div>
     </div>

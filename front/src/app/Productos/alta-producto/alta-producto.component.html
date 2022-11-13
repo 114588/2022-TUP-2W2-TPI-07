@@ -8,10 +8,11 @@
           <label for="txtCodigo" class="form-label">Código Barra</label>
           <input type="number" class="form-control" id="txtCodigo"  formControlName="codigo_barra" />
           
-          <span *ngIf="formularioAltaProducto.get('codigo_barra')?.touched &&
+          <span *ngIf="getCodigoBarra.errors?.['nombreExists']" >* Código barra ya usado, intente con otro</span>
+          <!-- <span *ngIf="formularioAltaProducto.get('codigo_barra')?.touched &&
           formularioAltaProducto.get('codigo_barra')?.hasError('pattern')">
             * campo requerido y solo de 4 dígitos
-          </span>     
+          </span>      -->
         </div>
     
 
@@ -19,10 +20,12 @@
           <label for="txtDescripcion" class="form-label">Descripción</label>
           <input type="text" class="form-control" id="txtDescripcion" name="nombre_apellido" formControlName="descripcion" />
           
-          <span *ngIf="formularioAltaProducto.get('descripcion')?.touched &&
+          <span *ngIf="getDescripcion.errors?.['nombreExists']" >* Descripción ya usada, intente con otra</span>
+
+          <!-- <span *ngIf="formularioAltaProducto.get('descripcion')?.touched &&
           formularioAltaProducto.get('descripcion')?.hasError('required')">
             * campo requerido 
-          </span>  
+          </span>   -->
         </div>
       </div>
 
@@ -56,7 +59,7 @@
     
             <span *ngIf="formularioAltaProducto.get('precio_unitario_venta')?.touched &&
             formularioAltaProducto.get('precio_unitario_venta')?.hasError('required')">
-            * campo requerido 
+            * Campo requerido 
              </span>    
         </div>
          
@@ -67,7 +70,7 @@
     
             <span *ngIf="formularioAltaProducto.get('precio_unitario_compra')?.touched &&
             formularioAltaProducto.get('precio_unitario_compra')?.hasError('required')">
-            * campo requerido 
+            * Campo requerido 
           </span>
         </div>
      </div>

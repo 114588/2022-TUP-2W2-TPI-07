@@ -12,7 +12,7 @@
       </div>
       
       <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-primary"(click)="buscarProveedorPorNombre()">Buscar</button>
+        <button type="button" class="btn btn-primary m-1 p-1"(click)="buscarProveedorPorNombre()">Buscar</button>
       </div>
     </div>
     </form>
@@ -43,8 +43,8 @@
         <td>{{ item.email }}</td>
         <td>
          
-          <button type="button" class="btn btn-success  me-3" (click)="editar(item)">Editar</button>
-          <button type="button" class="btn btn-danger" (click)="borrar(item)" >Eliminar</button> 
+          <button type="button" class="btn btn-success m-1 p-1" (click)="editar(item)">Editar</button>
+          <button type="button" class="btn btn-danger  m-1 p-1" (click)="borrar(item)" >Eliminar</button> 
 
         </td>
       </tr>
@@ -62,25 +62,25 @@
         
           <!-- ========== PRIMEROS DOS ============ -->
         <div class="row">
-            <div class="col-md-6"> 
+            <div class="col-md-12"> 
               <label for="txtNombre" class="form-label">Nombre</label>
               <input type="text" class="form-control" id="txtNombre" formControlName="nombre" name="nombre" [(ngModel)]="proveedor.nombre"/>
             
               <span *ngIf="formularioModificarProveedor.get('nombre')?.touched 
                 && formularioModificarProveedor.get('nombre')?.hasError('pattern')">
-                * campo requerido,  solo puede ingresar letras y/o espacios
+                * Campo requerido,  solo puede ingresar letras y/o espacios
               </span>
             </div>
 
-            <div class="col-md-6"> 
+            <!-- <div class="col-md-6"> 
               <label for="txtCuit" class="form-label">Cuit</label>
-              <input type="text" class="form-control" id="txtCuit"  formControlName="cuit" name="cuit" [(ngModel)]="proveedor.cuit"/>
+              <input type="text" class="form-control" id="txtCuit"  formControlName="cuit" name="cuit" [(ngModel)]="proveedor.cuit" readonly/>
               
               <span *ngIf="formularioModificarProveedor.get('cuit')?.touched 
                 && formularioModificarProveedor.get('cuit')?.hasError('pattern')">
-                * campo requerido y solo numerico de 11 digitos
+                * Campo requerido y solo numerico de 11 digitos
               </span>
-            </div>
+            </div> -->
         </div>
 
         <!-- ============ SEGUNDOS DOS ============= -->
@@ -91,7 +91,7 @@
 
             <span *ngIf="formularioModificarProveedor.get('telefono')?.touched 
               && formularioModificarProveedor.get('telefono')?.hasError('pattern')">
-              * campo requerido  y solo numérico de 7 digitos
+              * Campo requerido  y solo numérico de 7 digitos
             </span>
           </div>
 
@@ -101,7 +101,7 @@
 
               <span *ngIf="formularioModificarProveedor.get('direccion')?.touched &&
               formularioModificarProveedor.get('direccion')?.hasError('pattern')">
-              * campo requerido digitos y letras solamente
+              * Campo requerido digitos y letras solamente
               </span>
             </div>
         </div>    
@@ -114,7 +114,7 @@
 
             <span *ngIf="formularioModificarProveedor.get('codigo_postal')?.touched 
             && formularioModificarProveedor.get('codigo_postal')?.hasError('pattern')">
-            * campo requerido solo 4 dígitos
+            * Campo requerido solo 4 dígitos
             </span>
           </div>
 
@@ -124,14 +124,14 @@
 
             <span *ngIf="formularioModificarProveedor.get('email')?.touched &&
             formularioModificarProveedor.get('email')?.hasError('email')">
-            * campo requerido formato email
+            * Campo requerido formato email
             </span>
           </div>
         </div>
 
         <br>
-        <button type="button" class="btn btn-primary me-3"  (click)="modificar()" [disabled]="formularioModificarProveedor.invalid" >Guardar</button>
-        <button type="button" class="btn btn-warning" (click)="cancelar()">Volver</button>
+        <button type="button" class="btn btn-primary m-1 p-1"  (click)="modificar()" [disabled]="formularioModificarProveedor.invalid" >Guardar</button>
+        <button type="button" class="btn btn-warning m-1 p-1" (click)="cancelar()">Volver</button>
         </form>
       </div>
 

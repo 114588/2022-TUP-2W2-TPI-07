@@ -6,11 +6,13 @@
     <div class="row">
       <div class="col-md-6">
         <label for="txtDni" class="form-label">Dni</label>
-        <input type="text" class="form-control" id="txtDni"  formControlName="dni" />
+        <input type="number" class="form-control" id="txtDni"  formControlName="dni" />
         
+        <span *ngIf="getNombre.errors?.['nombreExists']" >Dni ya usado, intente con otro</span>
+
         <span *ngIf="formularioAltaCliente.get('dni')?.touched &&
          formularioAltaCliente.get('dni')?.hasError('required')">
-          * campo requerido 
+          * Campo requerido 
         </span>
       </div>
   
@@ -20,7 +22,7 @@
         
         <span *ngIf="formularioAltaCliente.get('nombre_apellido')?.touched &&
         formularioAltaCliente.get('nombre_apellido')?.hasError('required')">
-          * campo requerido 
+          * Campo requerido 
         </span>
         </div>
       </div>
@@ -28,11 +30,11 @@
       <div class="row">
         <div class="col-md-6">
           <label for="txtTelefono" class="form-label">Teléfono</label>
-          <input type="text" class="form-control" id="txtTelefono" name="telefono" formControlName="telefono"  />
+          <input type="number" class="form-control" id="txtTelefono" name="telefono" formControlName="telefono"  />
     
           <span *ngIf="formularioAltaCliente.get('telefono')?.touched &&
           formularioAltaCliente.get('telefono')?.hasError('required')">
-            * campo requerido 
+            * Campo requerido 
           </span>
         </div>
   
@@ -44,7 +46,7 @@
     
             <span *ngIf="formularioAltaCliente.get('direccion')?.touched &&
             formularioAltaCliente.get('direccion')?.hasError('required')">
-            * campo requerido 
+            * Campo requerido 
           </span>
         </div>
       </div>
@@ -57,7 +59,7 @@
   
           <span *ngIf="formularioAltaCliente.get('email')?.touched &&
           formularioAltaCliente.get('email')?.hasError('required')">
-           * campo requerido 
+           * Campo requerido 
          </span>
       </div>
     </div>

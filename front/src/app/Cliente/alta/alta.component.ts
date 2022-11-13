@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms"
+import { FormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms"
 import { Cliente } from 'src/app/models/cliente';
 import { ClienteService } from 'src/app/Services/cliente.service';
 import {Router} from "@angular/router"
-import Swal from "sweetalert2"
-
+import Swal from "sweetalert2";
+import {nombreValidador} from "../../Cliente/alta/validador-alta-cliente-dni"
 
 @Component({
   selector: 'app-alta',
@@ -15,26 +15,26 @@ export class AltaComponentCliente implements OnInit {
 
   nuevoCliente : Cliente ;
 
-  formularioAltaCliente = new  UntypedFormGroup({
-    dni : new UntypedFormControl("",[Validators.required]),
-    nombre_apellido : new UntypedFormControl ("", [Validators.required]),
-    telefono : new UntypedFormControl("",[Validators.required]),
-    direccion : new UntypedFormControl("",[Validators.required]),
-    email: new UntypedFormControl("",[Validators.required])
+  formularioAltaCliente = this.fb.group({
+    dni : ["", {validators: [Validators.required], asyncValidators: [nombreValidador(this.apiCliente)], updateOn: 'blur'}],
+    nombre_apellido : ["", [Validators.required]],
+    telefono : ["",[Validators.required]],
+    direccion : ["",[Validators.required]],
+    email: ["",[Validators.required]]
     // cantidad_puntos: new UntypedFormControl("",[Validators.required]),
 
   })
-  constructor(private clienteService: ClienteService, private router: Router) { }
+  constructor(private apiCliente: ClienteService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
 
   guardar(){
     if(this.formularioAltaCliente.valid){
-      this.nuevoCliente = this.formularioAltaCliente.value
+      this.nuevoCliente = this.formularioAltaCliente.value as any
   
       
-      this.clienteService.agregarCliente(this.nuevoCliente).subscribe({
+      this.apiCliente.agregarCliente(this.nuevoCliente).subscribe({
         next: () => {
           Swal.fire("Cliente agregado")
 
@@ -58,5 +58,8 @@ export class AltaComponentCliente implements OnInit {
   volver(){
     this.router.navigateByUrl("home");
   }
-
+  
+  get getNombre(){
+    return this.formularioAltaCliente.controls["dni"]
+  }
 }
