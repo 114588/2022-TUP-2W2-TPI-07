@@ -45,13 +45,13 @@
                 </thead>
                 <tbody>
                   <!-- <tr *ngFor="let item of listaCompleta | paginate: { itemsPerPage: 10,currentPage: p }" > -->
-                  <tr *ngFor="let item of listaCompleta" >
+                  <tr *ngFor="let item of listaCompleta | paginate: { itemsPerPage: 10,currentPage: p }" >
                     <td> {{item.descripcion}} </td>
                     <td> {{item.cantidad}} </td>
                   </tr>        
               </table>
               
-            <!-- <pagination-controls (pageChange)="p = $event" previousLabel="Previa" nextLabel="Siguiente"></pagination-controls> -->
+            <pagination-controls (pageChange)="p = $event" previousLabel="Previa" nextLabel="Siguiente"></pagination-controls>
         </div>
     </div>
     <br>

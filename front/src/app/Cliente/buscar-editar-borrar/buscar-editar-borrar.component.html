@@ -32,7 +32,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of listaClienteBusqueda">
+            <tr *ngFor="let item of listaClienteBusqueda | paginate: { itemsPerPage: 10,currentPage: p }">
                 <td>{{ item.dni }}</td>
                 <td>{{ item.nombre_apellido }}</td>
                 <td>{{ item.telefono }}</td>
@@ -99,7 +99,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of listaClienteCompleta | paginate: { itemsPerPage: 5,currentPage: p }">
+      <tr *ngFor="let item of listaClienteCompleta | paginate: { itemsPerPage: 10,currentPage: p }">
         <td>{{ item.dni }}</td>
         <td>{{ item.nombre_apellido }}</td>
         <td>{{ item.telefono }}</td>

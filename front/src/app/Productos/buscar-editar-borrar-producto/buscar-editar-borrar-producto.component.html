@@ -30,7 +30,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of listadoBuscado">
+            <tr *ngFor="let item of listadoBuscado | paginate: { itemsPerPage: 10,currentPage: p }">
                 <td>{{ item.codigo_barra }}</td>
                 <td>{{ item.descripcion }}</td>
                 <td>{{ item.tipoProducto.tipo }}</td>
@@ -42,7 +42,9 @@
                 </td>
             </tr>
         </tbody>
-        </table>    
+        </table>
+          <!-- https://www.youtube.com/watch?v=3KIez1oRi2Q&list=LL&index=3 -->
+  <pagination-controls (pageChange)="p = $event" previousLabel="Previa" nextLabel="Siguiente"></pagination-controls>    
     </div>
 
 
@@ -143,7 +145,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of listadoProductosOriginal | paginate: { itemsPerPage: 5,currentPage: p }">
+      <tr *ngFor="let item of listadoProductosOriginal | paginate: { itemsPerPage: 10,currentPage: p }">
         <td>{{ item.codigo_barra }}</td>
         <td>{{ item.descripcion }}</td>
         <td>{{ item.tipoProducto.tipo }}</td>
