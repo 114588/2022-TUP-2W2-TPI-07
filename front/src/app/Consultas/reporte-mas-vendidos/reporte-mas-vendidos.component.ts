@@ -138,35 +138,37 @@ export class ReporteMasVendidosComponent implements OnInit {
 
 
 
-
+  // https://www.youtube.com/watch?v=R7FWzJ8bgnQ
   obtenerReporteVenta(){
     if( this.fecha1 == "" || this.fecha2 ==""){
       Swal.fire("Debe seleccionar todos los campos")
     } else {
 
-      this.banderaMostrarGrafico = true
+      
         
       this.fechaConvertida1 =  moment(this.fecha1, "YYYY-MM-DD").format('DDMMYYYY')
       this.fechaConvertida2 =  moment(this.fecha2, "YYYY-MM-DD").format('DDMMYYYY')
-      console.log("fecha 1 enviada: " + this.fechaConvertida1)
-      console.log("fecha 2 enviada: " + this.fechaConvertida2)
+      // console.log("fecha 1 enviada: " + this.fechaConvertida1)
+      // console.log("fecha 2 enviada: " + this.fechaConvertida2)
 
       this.apiReporte.obtenerMasVendidos(this.fechaConvertida1, this.fechaConvertida2).subscribe({
         next: (item : RespuestaApiModel[]) => {
           if(item.length <1){
             Swal.fire("No existen datos")
-            this.banderaMostrarGrafico = false
           } else {
-           this.listaCantidad!= item.map(x => x.cantidad)
-           this.listaDescripcion! = item.map( x => x.descripcion)
+           
+           this.listaCantidad= item.map(x => x.cantidad)
+           this.listaDescripcion = item.map( x => x.descripcion)
            this.listaCompleta = item
+           this.banderaMostrarGrafico = true
+          //  console.log(item)
+
         }},
         error: () => {}
       })  
     };
-
-    setTimeout(() => 
-    {    this.cambiar()   }, 500);
+    setTimeout(() => {this.cambiar();}, 500)
+    
 
   }
 

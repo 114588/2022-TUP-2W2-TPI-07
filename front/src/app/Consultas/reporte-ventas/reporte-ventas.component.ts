@@ -237,15 +237,13 @@ export class ReporteVentasComponent implements OnInit, OnDestroy {
   //   });
   // }
 
-
+  // https://www.youtube.com/watch?v=R7FWzJ8bgnQ
   obtenerReporteVenta(){
     this.clienteSeleccionado = this.getNombreClienteById(this.cliente.value)!
 
     if( this.fecha1 == "" || this.fecha2 =="" || this.cliente.value == null){
       Swal.fire("Debe seleccionar todos los campos")
     } else {
-
-      this.banderaMostrarGrafico = true
         
       this.fechaConvertida1 =  moment(this.fecha1, "YYYY-MM-DD").format('DDMMYYYY')
       this.fechaConvertida2 =  moment(this.fecha2, "YYYY-MM-DD").format('DDMMYYYY')
@@ -256,11 +254,12 @@ export class ReporteVentasComponent implements OnInit, OnDestroy {
         next: (item : RespuestaApiModelCliente[]) => {
           if(item.length <1 ){
             Swal.fire("No existen datos")
-            this.banderaMostrarGrafico = false
+
           } else {
            this.listaMonto= item.map(x => x.monto)
            this.listaFecha = item.map( x => x.fecha)
            this.listaCompleta = item
+           this.banderaMostrarGrafico = true
         }},
         error: () => {}
       })  
