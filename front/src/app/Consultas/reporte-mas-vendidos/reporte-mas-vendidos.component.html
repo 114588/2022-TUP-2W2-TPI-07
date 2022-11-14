@@ -4,24 +4,25 @@
     <br>
     <div class="row">
 
-        <div class="col-md-3">
-            <label for="fecha1">Fecha desde:</label>
-            <input type="date" placeholder="Datepicker" min="2022-08-01" name="fecha1" id="fecha1" [(ngModel)]="fecha1">
+        <div class="col-md-6">
+            <label for="fecha1" class="form-label">Fecha desde:</label>
+            <input type="date" class="form-control" placeholder="Datepicker" min="2022-08-01" name="fecha1" id="fecha1" [(ngModel)]="fecha1">
         </div>
        
-        <div class="col-md-3">
-            <label for="fecha2">Fecha hasta:  </label>
-            <input type="date" placeholder="Datepicker" name="fecha2" id="fecha2" [(ngModel)]="fecha2">
+
+        <div class="col-md-6">
+            <label for="fecha2" class="form-label">Fecha hasta:  </label>
+            <input type="date" class="form-control" placeholder="Datepicker" name="fecha2" id="fecha2" [(ngModel)]="fecha2">
         </div>
         
       </div>
     <br>
     <button type="button" class="btn btn-primary me-3"  (click)="obtenerReporteVenta()" >Mostrar Gráfico</button>
-
-
+</div>
 
 <!-- ================ GRAFICO =============== -->
-<div class="row" *ngIf="banderaMostrarGrafico" >
+<div class="container" *ngIf="banderaMostrarGrafico">
+<div class="row"  >
 
     <div class="row" id="imprimir">
         <br>
@@ -30,7 +31,8 @@
         <div class="col-md-8">
             <div id="uno" class="container text-center">
                 <div class="col-lg-12">
-                    <canvas id="barchart"></canvas>
+                    <!-- <canvas id="barchart"></canvas> -->
+                    <canvas baseChart type="bar" [data]="datos"></canvas>
                 </div>
             </div>
         </div>
@@ -56,7 +58,7 @@
     </div>
     <br>
     <div class="container">
-        <button class="btn btn-primary" (click)="descargarPdf()">Descargar Pdf</button>
+        <button class="btn btn-primary m-1 p-1" (click)="descargarPdf()">Descargar Pdf</button>
     </div>
 </div>
 

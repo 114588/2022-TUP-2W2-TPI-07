@@ -4,19 +4,19 @@
     <h2 class="text-center">Reporte de Venta por Cliente</h2>
     <br>
     <div class="row">
-        <div class="col-md-3">
-            <label for="fecha1">Fecha desde:</label>
-            <input type="date" placeholder="Datepicker" min="2022-08-01" name="fecha1" id="fecha1" [(ngModel)]="fecha1">
- 
-        </div>
-       
-        <div class="col-md-3">
-            <label for="fecha2">Fecha hasta:  </label>
-            <input type="date" placeholder="Datepicker" name="fecha2" id="fecha2" [(ngModel)]="fecha2">
+        <div class="col-md-4">
+            <label for="fecha1" class="form-label">Fecha desde:</label>
+            <!-- <input type="date" placeholder="Datepicker" min="2022-08-01" name="fecha1" id="fecha1" [(ngModel)]="fecha1"> -->
+            <input type="date" class="form-control" min="2022-08-01" name="fecha1" id="fecha1" [(ngModel)]="fecha1"  aria-describedby="emailHelp">
+         </div>
+
+          <div class="col-md-4">
+            <label for="fecha2" class="form-label">Fecha hasta:  </label>
+            <input type="date"  class="form-control" placeholder="Datepicker" name="fecha2" id="fecha2" [(ngModel)]="fecha2">
         </div>
 
-        <div class="col-md-3">
-            <label for="item">Cliente</label>
+        <div class="col-md-4">
+            <label for="item" class="form-label">Cliente</label>
              <select class="form-select" id="item" name="item" [formControl]="cliente">
                 <option *ngFor="let item of listadoClientes" [value]="item.id" > {{item.nombre_apellido}} </option>
             </select>  
@@ -43,7 +43,8 @@
                 <div class="col-md-8">
                     <div id="uno" class="text-center">
                         <div class="col-lg-12">
-                            <canvas id="piechart"></canvas>
+                            <!-- <canvas id="piechart"></canvas> -->
+                            <canvas baseChart type="pie" [data]="datos"></canvas>
                         </div>
                     </div>   
                 </div>
@@ -57,7 +58,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let item of chartdata | paginate: { itemsPerPage: 10,currentPage: p }" >
+                        <tr *ngFor="let item of listaCompleta | paginate: { itemsPerPage: 10,currentPage: p }" >
                             <td> {{item.fecha}} </td>
                             <td> {{item.monto}} </td>
                         </tr>        

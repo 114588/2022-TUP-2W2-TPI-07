@@ -1,4 +1,3 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Factura } from 'src/app/models/Ventas/factura';
 import {ReporteVentasService} from "../../Services/reporte-ventas.service";
@@ -12,6 +11,7 @@ import Swal from 'sweetalert2';
 import { FormControl } from '@angular/forms';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import {RespuestaApiModelCliente} from "../reporte-ventas/respuesta-api-model"
 //https://momentjs.com/
 //https://es.stackoverflow.com/questions/403659/moment-js-problema-al-dar-formato-a-fechas
 
@@ -36,6 +36,24 @@ export class ReporteVentasComponent implements OnInit, OnDestroy {
 
 
   banderaMostrarGrafico:boolean = false;
+
+  listaMonto: number [] =  [];
+  listaFecha: string [] = []
+  listaCompleta: RespuestaApiModelCliente[] = []
+  
+  datos : ChartData<'pie'> ={
+    labels: [],
+    datasets: [
+      {
+        data: [],
+        label:""
+        
+      } 
+     ],
+
+    }
+
+
 
 
     //para el pdf
@@ -74,88 +92,91 @@ export class ReporteVentasComponent implements OnInit, OnDestroy {
   }
 
  
-  obtenerReporteVenta(){
+  // obtenerReporteVenta(){
+  //   if(this.fecha1 == "" || this.fecha2 =="" || this.cliente.value == null){
+  //     Swal.fire("Debe seleccionar todos los campos")
+  //   } else{
 
-    this.clienteSeleccionado = this.getNombreClienteById(this.cliente.value)!
-    
-    this.banderaMostrarGrafico = true
+  //     this.clienteSeleccionado = this.getNombreClienteById(this.cliente.value)!
       
-    this.fechaConvertida1 =  moment(this.fecha1, "YYYY-MM-DD").format('DDMMYYYY')
-    this.fechaConvertida2 =  moment(this.fecha2, "YYYY-MM-DD").format('DDMMYYYY')
-    //console.log("fecha 1 enviada: " + this.fechaConvertida1)
-    //console.log("fecha 2 enviada: " + this.fechaConvertida2)
-    //console.log(this.cliente ) 
+  //     this.banderaMostrarGrafico = true
+        
+  //     this.fechaConvertida1 =  moment(this.fecha1, "YYYY-MM-DD").format('DDMMYYYY')
+  //     this.fechaConvertida2 =  moment(this.fecha2, "YYYY-MM-DD").format('DDMMYYYY')
+  //     //console.log("fecha 1 enviada: " + this.fechaConvertida1)
+  //     //console.log("fecha 2 enviada: " + this.fechaConvertida2)
+  //     //console.log(this.cliente ) 
 
 
-    this.apiReporte.obtenerPorFechaMontos(this.cliente.value, this.fechaConvertida1,this.fechaConvertida2 ).subscribe(result => {
-      this.chartdata = result;
-       console.log(this.chartdata)
-      if(this.chartdata!=null){
-        for(let i=0; i<this.chartdata.length ;i++){
-          //console.log(this.chartdata[i]);
-          this.labeldata.push(this.chartdata[i].fecha);
-          this.realdata.push(this.chartdata[i].monto);
-          this.colordata.push(this.chartdata[i].colorcode);
-        }
-      this.RenderChart(this.labeldata,this.realdata,this.colordata,'bar','barchart');
-      this.RenderChart(this.labeldata,this.realdata,this.colordata,'pie','piechart');
-      // this.RenderChart(this.labeldata,this.realdata,this.colordata,'doughnut','dochart');
-      // this.RenderChart(this.labeldata,this.realdata,this.colordata,'polarArea','pochart');
+  //     this.apiReporte.obtenerPorFechaMontos(this.cliente.value, this.fechaConvertida1,this.fechaConvertida2 ).subscribe(result => {
+  //       this.chartdata = result;
+  //       console.log(this.chartdata)
+  //       if(this.chartdata!=null){
+  //         for(let i=0; i<this.chartdata.length ;i++){
+  //           //console.log(this.chartdata[i]);
+  //           this.labeldata.push(this.chartdata[i].fecha);
+  //           this.realdata.push(this.chartdata[i].monto);
+  //           this.colordata.push(this.chartdata[i].colorcode);
+  //         }
+  //       //this.RenderChart(this.labeldata,this.realdata,this.colordata,'bar','barchart');
+  //       this.RenderChart(this.labeldata,this.realdata,this.colordata,'pie','piechart');
+  //       // this.RenderChart(this.labeldata,this.realdata,this.colordata,'doughnut','dochart');
+  //       // this.RenderChart(this.labeldata,this.realdata,this.colordata,'polarArea','pochart');
 
-      // this.RenderChart(this.labeldata,this.realdata,this.colordata,'radar','rochart');
-    }
+  //       // this.RenderChart(this.labeldata,this.realdata,this.colordata,'radar','rochart');
+  //     }
 
-   // this.fecha1=""
-   // this.fecha2=""
-    //console.log(this.chartdata)
-    //this.chartdata = []
-    //this.labeldata= [];
-   // this.realdata= [];
-   //this.colordata= [];
-  });
-      // this.RenderBubblechart();
-      // this.RenderScatterchart();
-      
-
-
-      // this. apiReporte.obtenerTodos(fechaConvertida1,fechaConvertida2).subscribe({
-      //   next: (item: Factura[]) => {
-      //     item.forEach(element=> {
-      //        this.sumaTotal += element.monto_total
-      //     });
-      //     console.log(this.sumaTotal)
+  //   // this.fecha1=""
+  //   // this.fecha2=""
+  //     //console.log(this.chartdata)
+  //     //this.chartdata = []
+  //     //this.labeldata= [];
+  //   // this.realdata= [];
+  //   //this.colordata= [];
+  //   });
+  //       // this.RenderBubblechart();
+  //       // this.RenderScatterchart();
+        
 
 
-      //   },
-      //   error: () => {}
-      // })
-    
-  }
+  //       // this. apiReporte.obtenerTodos(fechaConvertida1,fechaConvertida2).subscribe({
+  //       //   next: (item: Factura[]) => {
+  //       //     item.forEach(element=> {
+  //       //        this.sumaTotal += element.monto_total
+  //       //     });
+  //       //     console.log(this.sumaTotal)
 
-    RenderChart(labeldata:any,maindata:any,colordata:any,type:any,id:any) {
-      const myChart = new Chart(id, {
-        type: type,
-        data: {
-          labels: labeldata,
-          datasets: [{
-            //label: '# of Votes',
-            data: maindata,
-            backgroundColor: colordata,
-            borderColor: [
-              'rgba(255, 99, 132, 1)'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      });
-  }
+
+  //       //   },
+  //       //   error: () => {}
+  //       // })
+  //     }  
+  // }
+
+  //   RenderChart(labeldata:any,maindata:any,colordata:any,type:any,id:any) {
+  //     const myChart = new Chart(id, {
+  //       type: type,
+  //       data: {
+  //         labels: labeldata,
+  //         datasets: [{
+  //           //label: '# of Votes',
+  //           data: maindata,
+  //           backgroundColor: colordata,
+  //           borderColor: [
+  //             'rgba(255, 99, 132, 1)'
+  //           ],
+  //           borderWidth: 1
+  //         }]
+  //       },
+  //       options: {
+  //         scales: {
+  //           y: {
+  //             beginAtZero: true
+  //           }
+  //         }
+  //       }
+  //     });
+  // }
 
   //  RenderBubblechart(){
   //   const data = {
@@ -216,13 +237,62 @@ export class ReporteVentasComponent implements OnInit, OnDestroy {
   //   });
   // }
 
+
+  obtenerReporteVenta(){
+    this.clienteSeleccionado = this.getNombreClienteById(this.cliente.value)!
+
+    if( this.fecha1 == "" || this.fecha2 =="" || this.cliente.value == null){
+      Swal.fire("Debe seleccionar todos los campos")
+    } else {
+
+      this.banderaMostrarGrafico = true
+        
+      this.fechaConvertida1 =  moment(this.fecha1, "YYYY-MM-DD").format('DDMMYYYY')
+      this.fechaConvertida2 =  moment(this.fecha2, "YYYY-MM-DD").format('DDMMYYYY')
+      // console.log("fecha 1 enviada: " + this.fechaConvertida1)
+      // console.log("fecha 2 enviada: " + this.fechaConvertida2)
+
+      this.apiReporte.obtenerPorFechaMontos(this.cliente.value, this.fechaConvertida1,this.fechaConvertida2 ).subscribe({
+        next: (item : RespuestaApiModelCliente[]) => {
+          if(item.length <1 ){
+            Swal.fire("No existen datos")
+            this.banderaMostrarGrafico = false
+          } else {
+           this.listaMonto= item.map(x => x.monto)
+           this.listaFecha = item.map( x => x.fecha)
+           this.listaCompleta = item
+        }},
+        error: () => {}
+      })  
+    };
+
+    setTimeout(() => 
+    {    this.cambiar()   }, 500);
+
+  }
+
+
+  cambiar(){
+    this.datos  ={
+      labels: this.listaFecha,
+      datasets: [
+        {
+          data: this.listaMonto,
+          label: "cantidades"          
+        } 
+       ]}
+  }
+
+
+
+
 obtenerClientes(){
   this.apiCliente.obtenerClientes().subscribe({
     next: (item: Cliente[]) => {
       this.listadoClientes =  item
     },
     error: (e) => {
-      Swal.fire("Error al obtener clientes " + e.message)
+      Swal.fire("Error al obtener datos " + e.message)
     }
   })
 }
