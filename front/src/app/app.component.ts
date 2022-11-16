@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.apiAuth.checkAdministrador().subscribe({
       next: (item: any) => {
-        console.log(item)
+        console.log("es administrador del onChanges " + item)
       },
       error: () => {}
     })
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.apiAuth.checkAdministrador().subscribe({
       next: (item: any) => {
-        console.log(item)
+        console.log("es administrador del onInit " + item)
       },
       error: () => {}
     })

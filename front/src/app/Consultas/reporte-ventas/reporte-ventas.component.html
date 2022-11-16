@@ -44,7 +44,12 @@
                     <div id="uno" class="text-center">
                         <div class="col-lg-12">
                             <!-- <canvas id="piechart"></canvas> -->
-                            <canvas baseChart type="pie" [data]="datos"></canvas>
+                            <canvas 
+                                baseChart type="pie" 
+                                [data]="datos">
+                                [options]="pieChartOptions"
+                                [legend]="pieChartLegend"
+                            </canvas>
                         </div>
                     </div>   
                 </div>
@@ -60,7 +65,7 @@
                         <tbody>
                         <tr *ngFor="let item of listaCompleta | paginate: { itemsPerPage: 10,currentPage: p }" >
                             <td> {{item.fecha}} </td>
-                            <td> {{item.monto}} </td>
+                            <td> {{item.monto | number:'1.2-2' }} </td>
                         </tr>        
                     </table>
 

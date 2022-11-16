@@ -36,7 +36,7 @@
             <td> {{item.proveedor.nombre}} </td>
             <td> {{item.fecha_emision}} </td>
             <td> {{item.fecha_fin}} </td>
-            <td> {{item.monto_total}}</td> 
+            <td> {{item.monto_total | number:'1.2-2' }}</td> 
           </tr>
       </table>
     </div>
@@ -63,7 +63,7 @@
           <td> {{item.proveedor.nombre}} </td>
           <td> {{item.fecha_emision}} </td>
           <td> {{item.fecha_fin}} </td>
-          <td> {{item.monto_total}}</td> 
+          <td> {{item.monto_total | number:'1.2-2'}}</td> 
         </tr>
     </table>
     <pagination-controls (pageChange)="p = $event" previousLabel="Previa" nextLabel="Siguiente"></pagination-controls>
