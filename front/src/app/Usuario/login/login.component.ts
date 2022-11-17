@@ -45,13 +45,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("rol", item.rol.rol);
           localStorage.setItem("usuarioCompleto", JSON.stringify(item));
           
-          this.apiAuth.checkAdministrador().subscribe({
-            next: (item: boolean) => {
-              console.log("es administrador?? desde el login " + item)
-            },
-            error: () => {}
-          })
-                    
+                              
           this.router.navigateByUrl("venta");
         }
       },

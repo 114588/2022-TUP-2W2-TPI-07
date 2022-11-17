@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ReporteVentasService } from 'src/app/Services/reporte-ventas.service';
@@ -10,6 +10,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { Router } from '@angular/router';
 import { RespuestaApiModel } from './respuesta-api-model';
+import { SafeSubscriber } from 'rxjs/internal/Subscriber';
 
 
 
@@ -18,7 +19,7 @@ import { RespuestaApiModel } from './respuesta-api-model';
   templateUrl: './reporte-mas-vendidos.component.html',
   styleUrls: ['./reporte-mas-vendidos.component.css']
 })
-export class ReporteMasVendidosComponent implements OnInit {
+export class ReporteMasVendidosComponent implements OnInit, OnDestroy {
 
   fecha1: string = "";
   fecha2: string = "";
@@ -69,116 +70,43 @@ export class ReporteMasVendidosComponent implements OnInit {
 
   }
 
-  // obtenerReporteVenta(){
-  //   if( this.fecha1 == "" || this.fecha2 ==""){
-  //     Swal.fire("Debe seleccionar todos los campos")
-  //   } else {
-
-  //     this.banderaMostrarGrafico = true
-        
-  //     this.fechaConvertida1 =  moment(this.fecha1, "YYYY-MM-DD").format('DDMMYYYY')
-  //     this.fechaConvertida2 =  moment(this.fecha2, "YYYY-MM-DD").format('DDMMYYYY')
-  //     console.log("fecha 1 enviada: " + this.fechaConvertida1)
-  //     console.log("fecha 2 enviada: " + this.fechaConvertida2)
-
-  //     this.apiReporte.obtenerMasVendidos(this.fechaConvertida1,this.fechaConvertida2 ).subscribe(result => {
-  //       this.chartdata = result;
-  //       this.listaCompleta = result;
-  //       console.log("array devuelto " + JSON.stringify(result))
-  //       if(this.chartdata!=null){
-  //         for(let i=0; i<this.chartdata.length ;i++){
-  //           //console.log(this.chartdata[i]);
-  //           this.labeldata.push(this.chartdata[i].descripcion);
-  //           this.realdata.push(this.chartdata[i].cantidad);
-  //           this.colordata.push(this.chartdata[i].colorcode);
-  //         }
-  //       this.RenderChart(this.labeldata,this.realdata,this.colordata,'bar','barchart');
-  //     }
-
-  //     this.banderaMostrarFecha= false;
-
-  //     this.fecha1=""
-  //     this.fecha2=""
-  //     console.log(this.chartdata)
-  //     this.chartdata = []
-  //     this.labeldata= [];
-  //     this.realdata= [];
-  //     this.colordata= [];
-  //   });
-  //   }
-
-  // }
-  
-
-  //   RenderChart(labeldata:any,maindata:any,colordata:any,type:any,id:any) {
-    
-  //   const myChart = new Chart(id, {
-  //       type: type,
-  //       data: {
-  //         labels: labeldata,
-  //         datasets: [{
-  //           label: 'Mas Vendido',
-  //           data: maindata,
-  //           backgroundColor: colordata,
-  //           borderColor: [
-  //             'rgba(255, 99, 132, 0.3)'
-  //           ],
-  //           borderWidth: 1
-  //         }]
-  //       },
-  //       options: {
-  //         scales: {
-  //           y: {
-  //             beginAtZero: true
-  //           }
-  //         }
-  //       }
-  //     });
-  // }
-
-
 
   // https://www.youtube.com/watch?v=R7FWzJ8bgnQ
   obtenerReporteVenta(){
     if( this.fecha1 == "" || this.fecha2 ==""){
       Swal.fire("Debe seleccionar todos los campos")
     } else {
-
-      
-        
       this.fechaConvertida1 =  moment(this.fecha1, "YYYY-MM-DD").format('DDMMYYYY')
       this.fechaConvertida2 =  moment(this.fecha2, "YYYY-MM-DD").format('DDMMYYYY')
-      // console.log("fecha 1 enviada: " + this.fechaConvertida1)
-      // console.log("fecha 2 enviada: " + this.fechaConvertida2)
 
-      this.apiReporte.obtenerMasVendidos(this.fechaConvertida1, this.fechaConvertida2).subscribe({
-        next: (item : RespuestaApiModel[]) => {
-          if(item.length <1){
-            Swal.fire("No existen datos")
-          } else {
-           
-           this.listaCantidad= item.map(x => x.cantidad)
-           this.listaDescripcion = item.map( x => x.descripcion)
-           this.listaCompleta = item
-           this.banderaMostrarGrafico = true
-          //  console.log(item)
+      this.suscripcion.add(
+        this.apiReporte.obtenerMasVendidos(this.fechaConvertida1, this.fechaConvertida2).subscribe({
+          next: (item : RespuestaApiModel[]) => {
+            if(item.length <1){
+              Swal.fire("No existen datos")
+            } else {
+            
+            this.listaCantidad= item.map(x => x.cantidad)
+            this.listaDescripcion = item.map( x => x.descripcion)
+            this.listaCompleta = item
+            this.banderaMostrarGrafico = true
+            this.cambiar(this.listaDescripcion,this.listaCantidad )
 
-        }},
-        error: () => {}
-      })  
-    };
-    setTimeout(() => {this.cambiar();}, 500)
-    
-
+          }},
+          error: (e) => {
+            Swal.fire("Error al obtener listado " + e.message)
+          }
+        })  
+      )};
   }
 
 
-  cambiar(){
+  cambiar(parametroLabel: string [], parametroData: number []){
     this.datos  ={
-      labels: this.listaDescripcion,
+      labels: parametroLabel,
       datasets: [
         {
-          data: this.listaCantidad,
+          data: parametroData,
           label: "cantidades"          
         } 
        ]}

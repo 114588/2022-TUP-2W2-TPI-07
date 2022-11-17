@@ -85,50 +85,59 @@ export class ReporteVentasComponent implements OnInit, OnDestroy {
   }
 
   // https://www.youtube.com/watch?v=R7FWzJ8bgnQ
-  obtenerReporteVenta(){
+
+
+
+  //aca lo estuvimos viendo con Juan.. para sacar el setTimeOut... Js es asincronico
+  //por lo tanto siempre es conveniente a cada funcion asignarle  a una variable
+  //y usar esta variable... con esto nos aseguramos que cuando se use la variable
+  //va a tener datos cargados... porque puede darse el caso en que al grafico 
+  //se le pase una funcion y si esta funcion demora (por ej llamada a la api)
+  // el programa va a seguir su ejecucion y sin haber cargado el resultado de la api
+  
+  obtenerReporteVenta() {
     this.clienteSeleccionado = this.getNombreClienteById(this.cliente.value)!
 
-    if( this.fecha1 == "" || this.fecha2 =="" || this.cliente.value == null){
+    if (this.fecha1 == "" || this.fecha2 == "" || this.cliente.value == null) {
       Swal.fire("Debe seleccionar todos los campos")
     } else {
-        
-      this.fechaConvertida1 =  moment(this.fecha1, "YYYY-MM-DD").format('DDMMYYYY')
-      this.fechaConvertida2 =  moment(this.fecha2, "YYYY-MM-DD").format('DDMMYYYY')
+
+      this.fechaConvertida1 = moment(this.fecha1, "YYYY-MM-DD").format('DDMMYYYY')
+      this.fechaConvertida2 = moment(this.fecha2, "YYYY-MM-DD").format('DDMMYYYY')
       // console.log("fecha 1 enviada: " + this.fechaConvertida1)
       // console.log("fecha 2 enviada: " + this.fechaConvertida2)
 
-      this.apiReporte.obtenerPorFechaMontos(this.cliente.value, this.fechaConvertida1,this.fechaConvertida2 ).subscribe({
-        next: (item : RespuestaApiModelCliente[]) => {
-          if(item.length <1 ){
+      this.apiReporte.obtenerPorFechaMontos(this.cliente.value, this.fechaConvertida1, this.fechaConvertida2).subscribe({
+        next: (item: RespuestaApiModelCliente[]) => {
+          if (item.length < 1) {
             Swal.fire("No existen datos")
 
           } else {
-           this.listaMonto= item.map(x => x.monto)
-           this.listaFecha = item.map( x => x.fecha)
-           this.listaCompleta = item
-           this.banderaMostrarGrafico = true
-        }},
-        error: () => {}
-      })  
+            this.listaMonto = item.map(x => x.monto)
+            this.listaFecha = item.map(x => x.fecha)
+            this.listaCompleta = item
+            this.banderaMostrarGrafico = true
+            this.cambiar(this.listaFecha, this.listaMonto);
+          }
+        },
+        error: () => { }
+      })
     };
-
-    setTimeout(() => 
-    {    this.cambiar()   }, 500);
-
   }
 
 
-  cambiar(){
-    this.datos  ={
-      labels: this.listaFecha,
+
+  cambiar(labels: string[], montos: number[]) {
+    this.datos = {
+      labels: labels,
       datasets: [
         {
-          data: this.listaMonto,
-          label: "cantidades"          
-        } 
-       ]}
+          data: montos,
+          label: "cantidades"
+        }
+      ]
+    }
   }
-
 
 
 
