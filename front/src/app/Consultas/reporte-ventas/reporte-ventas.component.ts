@@ -41,6 +41,8 @@ export class ReporteVentasComponent implements OnInit, OnDestroy {
   listaFecha: string [] = []
   listaCompleta: RespuestaApiModelCliente[] = []
   
+  
+  //inicializo el objeto a graficar
   datos : ChartData<'pie'> ={
     labels: [],
     datasets: [
@@ -52,18 +54,7 @@ export class ReporteVentasComponent implements OnInit, OnDestroy {
      ],
     }
 
-    pieChartLegend=true
-    pieChartOptions: ChartOptions = {
-      responsive: true,
-
-      plugins: {},
-
-     };
-
-
-
-
-    //para el pdf
+   //para el pdf
   //https://www.youtube.com/watch?v=Eh6StPjcWjE
   @ViewChild("imprimir") myData!: ElementRef;
 
@@ -126,7 +117,7 @@ export class ReporteVentasComponent implements OnInit, OnDestroy {
   }
 
 
-
+//creo una funcion para cambiar el objeto inicializado con lo que viene de la api
   cambiar(labels: string[], montos: number[]) {
     this.datos = {
       labels: labels,
